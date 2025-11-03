@@ -13,8 +13,9 @@ import {
 import { useState } from "react";
 import Link from "next/link";
 
-const SignInBlock = () => {
+const SignUpBlock = () => {
   const [formData, setFormData] = useState({
+    nama: "",
     email: "",
     password: "",
     rememberMe: false,
@@ -92,6 +93,24 @@ const SignInBlock = () => {
             </div>
           )}
 
+          {/* nama */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="email">Nama</Label>
+            <Input
+              id="nama"
+              type="text"
+              placeholder="Otong Surotong"
+              value={formData.nama}
+              onChange={(e) => handleInputChange("email", e.target.value)}
+              disabled={isLoading}
+              className="rounded-sm"
+            />
+            {errors.email && (
+              <p className="text-sm text-red-600">{errors.email}</p>
+            )}
+          </div>
+
+          {/* email */}
           <div className="flex flex-col gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -108,12 +127,10 @@ const SignInBlock = () => {
             )}
           </div>
 
+          {/* password */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
-              <Link href="#" className="text-sm text-primary hover:underline">
-                Lupa password?
-              </Link>
             </div>
             <Input
               id="password"
@@ -136,17 +153,17 @@ const SignInBlock = () => {
             className="w-full rounded-sm cursor-pointer"
             disabled={isLoading}
           >
-            {isLoading ? "Tunggu Sebentar!" : "Masuk"}
+            {isLoading ? "Tunggu Sebentar!" : "Daftar"}
           </Button>
 
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              Belum punya akun?{" "}
+              Sudah punya akun?{" "}
               <Link
-                href="/daftar"
+                href="/"
                 className="text-foreground decoration-0 no-underline font-normal"
               >
-                Daftar!
+                Masuk!
               </Link>
             </p>
           </div>
@@ -156,4 +173,4 @@ const SignInBlock = () => {
   );
 };
 
-export default SignInBlock;
+export default SignUpBlock;
