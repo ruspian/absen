@@ -12,16 +12,21 @@ import {
 } from "@/components/ui/card";
 import { useState } from "react";
 import Link from "next/link";
+import { useToaster } from "@/providers/ToasterProvider";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const SignInBlock = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    rememberMe: false,
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const toaster = useToaster();
+  const router = useRouter();
 
   const validateForm = () => {
     const newErrors = {};
@@ -54,26 +59,51 @@ const SignInBlock = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) return;
 
     setIsLoading(true);
-    setErrors({});
+    // setErrors({});
 
-    // 🔹 Simulate a fake request
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
+    try {
+      const result = await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
 
-      if (formData.rememberMe) {
-        localStorage.setItem("rememberMe", "true");
+      if (result?.error) {
+        toaster.current.show({
+          title: "Error",
+          message: "Email atau password salah",
+          type: "error",
+          position: "top-center",
+          duration: 5000,
+        });
       }
 
-      alert("Signed in successfully (demo only)");
+      if (result?.ok) {
+        toaster.current.show({
+          title: "Sukses",
+          message: "Login berhasil!",
+          type: "success",
+          position: "top-center",
+          duration: 5000,
+        });
 
-      setIsLoading(false);
-    }, 1000);
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      toaster.current?.show({
+        title: "Error",
+        message: String(error) || "Terjadi kesalahan, silahkan coba lagi!",
+        variant: "error",
+        duration: 5000,
+        position: "top-center",
+      });
+    }
   };
 
   return (
