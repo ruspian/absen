@@ -12,41 +12,57 @@ import {
 } from "@/components/ui/card";
 import { useState } from "react";
 import Link from "next/link";
+import { useToaster } from "@/providers/ToasterProvider";
+import { useRouter } from "next/navigation";
 
 const SignUpBlock = () => {
   const [formData, setFormData] = useState({
     nama: "",
     email: "",
     password: "",
-    rememberMe: false,
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+  const toaster = useToaster();
+  const router = useRouter();
+
   const validateForm = () => {
     const newErrors = {};
 
+    // validasi nama
+    // gunakan trim untuk menghilangkan spasi di awal dan akhir
+    if (!formData.nama.trim() || !formData.nama) {
+      newErrors.nama = "Nama harus diisi!";
+    }
+
+    // validasi email
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = "Email harus diisi!";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+      newErrors.email = "Email tidak valid, isi email dengan benar!";
     }
 
+    // validasi password
     if (!formData.password) {
-      newErrors.password = "Password is required";
+      newErrors.password = "Password harus diisi!";
     }
 
+    // set error
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  // fungsi saat input berubah
   const handleInputChange = (field, value) => {
+    // setformdata
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
 
+    // jika ada error
     if (errors[field]) {
       setErrors((prev) => ({
         ...prev,
@@ -55,26 +71,68 @@ const SignUpBlock = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  // fungsi handle submit
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // jika fungsi validate form tidak terpenuhi
     if (!validateForm()) return;
 
     setIsLoading(true);
-    setErrors({});
+    // setErrors({});
 
-    // 🔹 Simulate a fake request
-    setTimeout(() => {
-      console.log("Form submitted:", formData);
+    const payload = {
+      name: formData.nama,
+      email: formData.email,
+      password: formData.password,
+    };
 
-      if (formData.rememberMe) {
-        localStorage.setItem("rememberMe", "true");
+    // req ke api
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/daftar`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (!response.ok) {
+        const errMessage = await response.json();
+
+        return toaster.current.show({
+          title: "Error",
+          message: errMessage.message,
+          variant: "error",
+          position: "top-center",
+          duration: 5000,
+        });
       }
 
-      alert("Signed in successfully (demo only)");
+      // jika berhasil
+      toaster.current.show({
+        title: "Success",
+        message: "Akun berhasil dibuat",
+        variant: "success",
+        position: "top-center",
+        duration: 5000,
+      });
 
+      router.push("/");
+    } catch (error) {
+      return toaster.current.show({
+        title: "Error",
+        message: error.message,
+        variant: "error",
+        position: "top-center",
+        duration: 5000,
+      });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -86,7 +144,7 @@ const SignUpBlock = () => {
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        <CardContent className="flex flex-col gap-4">
+        <CardContent className="flex flex-col gap-2">
           {errors.general && (
             <div className="p-3 text-sm text-red-600 bg-red-50 border border-red-200 rounded-md">
               {errors.general}
@@ -95,18 +153,18 @@ const SignUpBlock = () => {
 
           {/* nama */}
           <div className="flex flex-col gap-2">
-            <Label htmlFor="email">Nama</Label>
+            <Label htmlFor="nama">Nama</Label>
             <Input
               id="nama"
               type="text"
               placeholder="Otong Surotong"
               value={formData.nama}
-              onChange={(e) => handleInputChange("email", e.target.value)}
+              onChange={(e) => handleInputChange("nama", e.target.value)}
               disabled={isLoading}
               className="rounded-sm"
             />
-            {errors.email && (
-              <p className="text-sm text-red-600">{errors.email}</p>
+            {errors.nama && (
+              <p className="text-xs text-red-600">{errors.nama}</p>
             )}
           </div>
 
@@ -123,7 +181,7 @@ const SignUpBlock = () => {
               className="rounded-sm"
             />
             {errors.email && (
-              <p className="text-sm text-red-600">{errors.email}</p>
+              <p className="text-xs text-red-600">{errors.email}</p>
             )}
           </div>
 
@@ -142,7 +200,7 @@ const SignUpBlock = () => {
               className="rounded-sm"
             />
             {errors.password && (
-              <p className="text-sm text-red-600">{errors.password}</p>
+              <p className="text-xs text-red-600">{errors.password}</p>
             )}
           </div>
         </CardContent>
