@@ -10,7 +10,7 @@ export const POST = async (req) => {
     const { email, password, name } = body;
 
     // pastikan semua form diisi
-    if ((!password, !email, !name)) {
+    if (!password || !email || !name) {
       return NextResponse.json({ message: "Isi semua form!" }, { status: 400 });
     }
 

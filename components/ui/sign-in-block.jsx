@@ -82,6 +82,7 @@ const SignInBlock = () => {
           position: "top-center",
           duration: 5000,
         });
+        return;
       }
 
       if (result?.ok) {
