@@ -9,6 +9,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import Link from "next/link";
+import { Button } from "../ui/button";
+import { BiEdit } from "react-icons/bi";
+import { MdDeleteOutline } from "react-icons/md";
 
 export default function TabelDataSiswa({ filteredData }) {
   return (
@@ -48,9 +51,25 @@ export default function TabelDataSiswa({ filteredData }) {
                   </TableCell>
                   <TableCell className="py-2.5">{item.nisn}</TableCell>
                   <TableCell className="py-2.5">{item.kelas}</TableCell>
-                  <TableCell className="py-2.5">
+                  <TableCell className="py-2.5 flex gap-2">
+                    <Link href={`/master/siswa/edit?id=${item.id}`}>
+                      <Button
+                        variant="default"
+                        size="sm"
+                        className="cursor-pointer"
+                      >
+                        <BiEdit className="size-5" />
+                      </Button>
+                    </Link>
+
                     <Link href={`/dashboard/siswa/${item.id}`}>
-                      <button className="btn btn-primary">Detail</button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        className="cursor-pointer"
+                      >
+                        <MdDeleteOutline className="size-5 text-white" />
+                      </Button>
                     </Link>
                   </TableCell>
                 </TableRow>

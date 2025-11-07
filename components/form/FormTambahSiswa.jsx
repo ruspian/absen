@@ -68,7 +68,7 @@ const FormTambahSiswa = ({ kelas }) => {
       }));
     }
   };
-  const handelSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // jika fungsi validate form tidak terpenuhi
@@ -120,18 +120,27 @@ const FormTambahSiswa = ({ kelas }) => {
 
       // arahkan ke halaman siswa
       router.push("/master/siswa");
+
+      //   refresh router
+      router.refresh();
     } catch (error) {
+      console.error("Fetch Error", error);
+      toaster.current.show({
+        title: "Koneksi Error",
+        message: "Gagal terhubung ke server. Coba lagi nanti.",
+        type: "error",
+        position: "top-center",
+        duration: 5000,
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
-  console.log("formData", formData);
-
   return (
     <div>
       <form
-        onSubmit={handelSubmit}
+        onSubmit={handleSubmit}
         className="flex flex-col gap-4 bg-background p-4 rounded-md"
       >
         {/* kode */}
@@ -141,7 +150,7 @@ const FormTambahSiswa = ({ kelas }) => {
           </Label>
           <Input
             id="kode"
-            type="kode"
+            type="text"
             placeholder="Kode"
             value={formData.kode}
             onChange={(e) => handleInputChange("kode", e.target.value)}
@@ -158,7 +167,7 @@ const FormTambahSiswa = ({ kelas }) => {
           </Label>
           <Input
             id="nama"
-            type="nama"
+            type="text"
             placeholder="Nama Siswa"
             value={formData.nama}
             onChange={(e) => handleInputChange("nama", e.target.value)}
@@ -175,20 +184,19 @@ const FormTambahSiswa = ({ kelas }) => {
           </Label>
           <Input
             id="nisn"
-            type="nisn"
+            type="text"
             placeholder="NISN"
             value={formData.nisn}
             onChange={(e) => handleInputChange("nisn", e.target.value)}
             disabled={isLoading}
             className="rounded-sm"
           />
-          {errors.nisn && <p className="text-sm text-red-600">{errors.nisn}</p>}
         </div>
 
         {/* Gender */}
         <div className="flex flex-col gap-2">
           <Label htmlFor="gender" className="text-xs">
-            gender
+            Jenis Kelamin
           </Label>
           <select
             name="gender"
@@ -210,7 +218,7 @@ const FormTambahSiswa = ({ kelas }) => {
         {/* Gender */}
         <div className="flex flex-col gap-2">
           <Label htmlFor="kelasId" className="text-xs">
-            gender
+            Kelas
           </Label>
           <select
             name="kelasId"
