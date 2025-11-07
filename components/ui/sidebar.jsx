@@ -287,7 +287,7 @@ export const SidebarLink = ({ className, ...props }) => {
         {/* === Render Menu Dinamis === */}
         <div className="flex flex-col space-y-1">
           {menuItems.map((item) => {
-            // Jika item adalah GRUP (punya subLinks)
+            // Jika item adalah GRUP
             if (item.subLinks) {
               return (
                 <div key={item.label}>

@@ -32,13 +32,13 @@ const SignInBlock = () => {
     const newErrors = {};
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
+      newErrors.email = "Email tidak boleh kosong!";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
+      newErrors.email = "Format email tidak valid, isi email dengan benar!";
     }
 
     if (!formData.password) {
-      newErrors.password = "Password is required";
+      newErrors.password = "Password tidak boleh kosong!";
     }
 
     setErrors(newErrors);

@@ -17,10 +17,10 @@ const DashboardPage = () => {
 
       <div className="flex items-center justify-end gap-2 ">
         <h1 className=" border rounded-sm px-4 py-2 text-xs ml-2">
-          {session.data.user.role === "ADMIN"
+          {session.data?.user?.role === "ADMIN"
             ? "ADMIN"
-            : session.data.user.role === "GURU" &&
-              session.data.user.isPiket === false
+            : session.data?.user?.role === "GURU" &&
+              session.data?.user?.isPiket === false
             ? "GURU MAPEL"
             : "GURU PIKET"}
         </h1>
