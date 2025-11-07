@@ -5,10 +5,17 @@ import { auth } from "@/lib/auth";
 export const POST = async (req) => {
   const session = await auth();
 
-  if (!session) {
+  if (!session || !session.user) {
     return NextResponse.json(
       { message: "Akses ditolak, harap login terlebih dahulu!" },
-      { status: 401 }
+      { status: 401 } // 401 Unauthorized
+    );
+  }
+
+  if (session.user.role !== "ADMIN" && session.user.role !== "GURU") {
+    return NextResponse.json(
+      { message: "Akses ditolak. Anda bukan Admin." },
+      { status: 403 } // 403 Forbidden
     );
   }
 

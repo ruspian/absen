@@ -12,8 +12,55 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { BiEdit } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
+import { useToaster } from "@/providers/ToasterProvider";
+import { useRouter } from "next/navigation";
 
 export default function TabelDataSiswa({ filteredData }) {
+  const toaster = useToaster();
+  const router = useRouter();
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/siswa/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toaster.current.show({
+          title: "Error",
+          message: data.message,
+          type: "error",
+          position: "top-center",
+          duration: 5000,
+        });
+        return;
+      }
+
+      toaster.current.show({
+        title: "Success",
+        message: data.message,
+        type: "success",
+        position: "top-center",
+        duration: 5000,
+      });
+
+      router.refresh();
+    } catch (error) {
+      toaster.current.show({
+        title: "Error",
+        message: error.message,
+        type: "error",
+        position: "top-center",
+        duration: 5000,
+      });
+    }
+  };
+
   return (
     <>
       <div className="bg-background rounded-sm">
@@ -62,15 +109,14 @@ export default function TabelDataSiswa({ filteredData }) {
                       </Button>
                     </Link>
 
-                    <Link href={`/dashboard/siswa/${item.id}`}>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        className="cursor-pointer"
-                      >
-                        <MdDeleteOutline className="size-5 text-white" />
-                      </Button>
-                    </Link>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      className="cursor-pointer"
+                      onClick={() => handleDelete(item.id)}
+                    >
+                      <MdDeleteOutline className="size-5 text-white" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))
