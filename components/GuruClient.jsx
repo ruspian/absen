@@ -1,16 +1,17 @@
 "use client";
 
-import { Button } from "./ui/button";
-import { Separator } from "@radix-ui/react-separator";
-import { Plus } from "lucide-react";
-import TabelDataSiswa from "./tabel/TabelDataSiswa";
-import { Input } from "./ui/input";
 import Link from "next/link";
-import { useDebouncedCallback } from "use-debounce";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React from "react";
+import { Button } from "./ui/button";
+import { Plus } from "lucide-react";
+import { Input } from "./ui/input";
+import { Separator } from "@radix-ui/react-separator";
+import TabelDataGuru from "./tabel/TabelDataGuru";
 import Pagination from "./Pagination";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
-const SiswaClient = ({ data, totalPage, totalCount, currentPage }) => {
+const GuruClient = ({ data, totalPage, totalCount, currentPage }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -55,36 +56,38 @@ const SiswaClient = ({ data, totalPage, totalCount, currentPage }) => {
   };
 
   return (
-    <>
-      <div className="flex items-center justify-between">
-        <Link href="/master/siswa/tambah">
-          <Button className="cursor-pointer">
-            <Plus className="mr-2 h-4 w-4 " />
-            Tambah Siswa
-          </Button>
-        </Link>
+    <div>
+      <>
+        <div className="flex items-center justify-between">
+          <Link href="/master/guru/tambah">
+            <Button className="cursor-pointer">
+              <Plus className="mr-2 h-4 w-4 " />
+              Tambah Guru
+            </Button>
+          </Link>
 
-        {/* Input  Search  */}
-        <div className="flex items-center py-4">
-          <Input
-            placeholder={`Cari siswa`}
-            defaultValue={searchParams.get("search") || ""}
-            onChange={(e) => handleSearch(e.target.value)}
-            className="max-w-sm"
-          />
+          {/* Input  Search  */}
+          <div className="flex items-center py-4">
+            <Input
+              placeholder={`Cari Guru`}
+              defaultValue={searchParams.get("search") || ""}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="max-w-sm"
+            />
+          </div>
         </div>
-      </div>
-      <Separator />
+        <Separator />
 
-      <TabelDataSiswa filteredData={data} />
+        <TabelDataGuru filteredData={data} />
 
-      <Pagination
-        totalPage={totalPage}
-        currentPage={currentPage}
-        handlePagination={handlePagination}
-      />
-    </>
+        <Pagination
+          totalPage={totalPage}
+          currentPage={currentPage}
+          handlePagination={handlePagination}
+        />
+      </>
+    </div>
   );
 };
 
-export default SiswaClient;
+export default GuruClient;

@@ -1,5 +1,4 @@
-"use client";
-
+import React from "react";
 import {
   Table,
   TableBody,
@@ -7,59 +6,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "../ui/table";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { BiEdit } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
-import { useToaster } from "@/providers/ToasterProvider";
-import { useRouter } from "next/navigation";
 
-export default function TabelDataSiswa({ filteredData }) {
-  const toaster = useToaster();
-  const router = useRouter();
-
-  const handleDelete = async (id) => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/siswa/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        toaster.current.show({
-          title: "Error",
-          message: data.message,
-          type: "error",
-          position: "top-center",
-          duration: 5000,
-        });
-        return;
-      }
-
-      toaster.current.show({
-        title: "Success",
-        message: data.message,
-        type: "success",
-        position: "top-center",
-        duration: 5000,
-      });
-
-      router.refresh();
-    } catch (error) {
-      toaster.current.show({
-        title: "Error",
-        message: error.message,
-        type: "error",
-        position: "top-center",
-        duration: 5000,
-      });
-    }
-  };
+const TabelDataGuru = ({ filteredData }) => {
+  console.log("filteredData", filteredData);
 
   return (
     <div className="bg-background rounded-sm">
@@ -68,10 +22,10 @@ export default function TabelDataSiswa({ filteredData }) {
           <TableRow className="hover:bg-transparent">
             <TableHead>No</TableHead>
             <TableHead>Kode</TableHead>
-            <TableHead>Nama Siswa</TableHead>
+            <TableHead>Nama Guru</TableHead>
             <TableHead>Jenis Kelamin</TableHead>
-            <TableHead>NISN</TableHead>
-            <TableHead>Kelas</TableHead>
+            <TableHead>NIP</TableHead>
+            <TableHead>NUPTK</TableHead>
             <TableHead>Aksi</TableHead>
           </TableRow>
         </TableHeader>
@@ -95,8 +49,8 @@ export default function TabelDataSiswa({ filteredData }) {
                 <TableCell className="py-2.5 font-medium">
                   {item.gender}
                 </TableCell>
-                <TableCell className="py-2.5">{item.nisn}</TableCell>
-                <TableCell className="py-2.5">{item.kelas}</TableCell>
+                <TableCell className="py-2.5">{item.nip || "-"}</TableCell>
+                <TableCell className="py-2.5">{item.nuptk || "-"}</TableCell>
                 <TableCell className="py-2.5 flex gap-2">
                   <Link href={`/master/siswa/edit?id=${item.id}`}>
                     <Button
@@ -131,4 +85,6 @@ export default function TabelDataSiswa({ filteredData }) {
       </Table>
     </div>
   );
-}
+};
+
+export default TabelDataGuru;
