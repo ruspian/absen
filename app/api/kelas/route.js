@@ -2,19 +2,19 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
-export const GET = async (req) => {
+export const POST = async (req) => {
   try {
-    // Cek apakah user sudah login
     const session = await auth();
 
     if (!session || !session.user) {
       return NextResponse.json(
-        { message: "Anda harus login terlebih dahulu" },
-        { status: 401 } // 401 Unauthorized
+        {
+          message: "Akses ditolak, harap login terlebih dahulu!",
+        },
+        { status: 401 }
       );
     }
 
-    // Pastikan hanya Admin atau Guru yang bisa lihat data ini
     if (session.user.role !== "ADMIN" && session.user.role !== "GURU") {
       return NextResponse.json(
         { message: "Akses ditolak" },
@@ -22,18 +22,29 @@ export const GET = async (req) => {
       );
     }
 
-    const kelas = await prisma.kelas.findMany();
+    const body = await req.json();
+    const { nama, waliKelasId } = body;
 
-    if (!kelas) {
+    if (!waliKelasId || !nama) {
       return NextResponse.json(
-        { message: "Kelas tidak ditemukan" },
-        { status: 404 } // 404 Not Found
+        { message: "Semua field harus diisi!" },
+        { status: 400 }
       );
     }
 
-    return NextResponse.json(kelas, { status: 200 });
+    const createKelas = await prisma.kelas.create({
+      data: {
+        nama,
+        waliKelasId,
+      },
+    });
+
+    return NextResponse.json(
+      { createKelas, message: "Kelas berhasil dibuat!" },
+      { status: 201 }
+    );
   } catch (error) {
-    console.log("gagal mengambil data kelas :", error);
+    console.log("gagal menambahkan data kelas", error);
 
     return NextResponse.json(
       { message: "Kesalahan Pada Server, Silahkan Coba Lagi!" },

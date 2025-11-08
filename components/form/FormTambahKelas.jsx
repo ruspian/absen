@@ -1,37 +1,22 @@
 "use client";
 
 import { Label } from "@radix-ui/react-label";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useToaster } from "@/providers/ToasterProvider";
 import { useRouter } from "next/navigation";
 
-const FormEditGuru = ({ initialData: guru }) => {
+const FormTambahKelas = ({ dataGuru }) => {
   const [formData, setFormData] = useState({
     nama: "",
-    kode: "",
-    gender: "",
-    nip: "",
-    nuptk: "",
+    waliKelasId: "",
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
   const toaster = useToaster();
   const router = useRouter();
-
-  useEffect(() => {
-    if (guru) {
-      setFormData({
-        nama: guru.nama,
-        kode: guru.kode,
-        gender: guru.gender,
-        nip: guru.nip,
-        nuptk: guru.nuptk,
-      });
-    }
-  }, [guru]);
 
   //   fungsi validasi form
   const validateForm = () => {
@@ -42,24 +27,9 @@ const FormEditGuru = ({ initialData: guru }) => {
       newErrors.nama = "Nama harus diisi!";
     }
 
-    //   jika kode kosong
-    if (!formData.kode.trim() || !formData.kode) {
-      newErrors.kode = "Kode harus diisi!";
-    }
-
-    //   jika gender belum dipilih
-    if (!formData.gender) {
-      newErrors.gender = "Pilih jenis kelamin siswa!";
-    }
-
-    //   jika nip kosong
-    if (!formData.nip) {
-      newErrors.nip = "NIP harus diisi!";
-    }
-
-    // jika nuptk kosong
-    if (!formData.nuptk) {
-      newErrors.nuptk = "NUPTK harus diisi!";
+    //   jika wali kelas kosong
+    if (!formData.waliKelasId.trim() || !formData.waliKelasId) {
+      newErrors.waliKelasId = "Wali Kelas harus diisi!";
     }
 
     //   set error ke state
@@ -96,16 +66,13 @@ const FormEditGuru = ({ initialData: guru }) => {
 
       const payload = {
         nama: formData.nama,
-        kode: formData.kode,
-        gender: formData.gender,
-        nip: formData.nip,
-        nuptk: formData.nuptk,
+        waliKelasId: formData.waliKelasId,
       };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/guru/${guru.id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/kelas`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
@@ -118,7 +85,7 @@ const FormEditGuru = ({ initialData: guru }) => {
         // tampilkan toast gagal
         toaster.current.show({
           title: "Error",
-          message: "Gagal edit data guru",
+          message: "Gagal menambahkan kelas",
           type: "error",
           position: "top-center",
           duration: 5000,
@@ -129,14 +96,14 @@ const FormEditGuru = ({ initialData: guru }) => {
       // jika berhasil tampilkan toast sukses
       toaster.current.show({
         title: "Sukses",
-        message: "Guru berhasil diedit",
+        message: "Kelas berhasil ditambahkan",
         type: "success",
         position: "top-center",
         duration: 5000,
       });
 
       // arahkan ke halaman siswa
-      router.push("/master/guru");
+      router.push("/master/kelas");
 
       //   refresh router
       router.refresh();
@@ -160,33 +127,16 @@ const FormEditGuru = ({ initialData: guru }) => {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 bg-background p-4 rounded-md"
       >
-        {/* kode */}
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="kode" className="text-xs">
-            Kode
-          </Label>
-          <Input
-            id="kode"
-            type="text"
-            placeholder="Kode"
-            value={formData.kode || ""}
-            onChange={(e) => handleInputChange("kode", e.target.value)}
-            disabled={isLoading}
-            className="rounded-sm"
-          />
-          {errors.kode && <p className="text-sm text-red-600">{errors.kode}</p>}
-        </div>
-
         {/* nama */}
         <div className="flex flex-col gap-2">
           <Label htmlFor="nama" className="text-xs">
-            Nama Guru
+            Nama Kelas
           </Label>
           <Input
             id="nama"
             type="text"
-            placeholder="Nama Siswa"
-            value={formData.nama || ""}
+            placeholder="Nama Kelas"
+            value={formData.nama}
             onChange={(e) => handleInputChange("nama", e.target.value)}
             disabled={isLoading}
             className="rounded-sm"
@@ -194,54 +144,25 @@ const FormEditGuru = ({ initialData: guru }) => {
           {errors.nama && <p className="text-sm text-red-600">{errors.nama}</p>}
         </div>
 
-        {/* nip */}
+        {/* wali ke;as */}
         <div className="flex flex-col gap-2">
-          <Label htmlFor="nip" className="text-xs">
-            NIP
-          </Label>
-          <Input
-            id="nip"
-            type="text"
-            placeholder="NIP"
-            value={formData.nip || ""}
-            onChange={(e) => handleInputChange("nip", e.target.value)}
-            disabled={isLoading}
-            className="rounded-sm"
-          />
-        </div>
-
-        {/* nuptk */}
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="nuptk" className="text-xs">
-            NUPTK
-          </Label>
-          <Input
-            id="nuptk"
-            type="text"
-            placeholder="NUPTK"
-            value={formData.nuptk || ""}
-            onChange={(e) => handleInputChange("nuptk", e.target.value)}
-            disabled={isLoading}
-            className="rounded-sm"
-          />
-        </div>
-
-        {/* Gender */}
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="gender" className="text-xs">
-            Jenis Kelamin
+          <Label htmlFor="waliKelasId" className="text-xs">
+            Wali Kelas
           </Label>
           <select
-            name="gender"
-            id="gender"
+            name="waliKelasId"
+            id="waliKelasId"
             className="p-2 border rounded-sm bg-background"
-            value={formData.gender || ""}
-            onChange={(e) => handleInputChange("gender", e.target.value)}
+            value={formData.waliKelasId}
+            onChange={(e) => handleInputChange("waliKelasId", e.target.value)}
             disabled={isLoading}
           >
-            <option value="">Pilih Jenis Kelamin</option>
-            <option value="LAKI_LAKI">Laki-laki</option>
-            <option value="PEREMPUAN">Perempuan</option>
+            <option value="">Pilih Wali Kelas</option>
+            {dataGuru.map((guru) => (
+              <option key={guru.id} value={guru.id}>
+                {guru.nama}
+              </option>
+            ))}
           </select>
           {errors.gender && (
             <p className="text-sm text-red-600">{errors.gender}</p>
@@ -249,11 +170,11 @@ const FormEditGuru = ({ initialData: guru }) => {
         </div>
 
         <Button type="submit" disabled={isLoading} className="cursor-pointer">
-          {isLoading ? "Tunggu Sebentar..." : "Edit"}
+          {isLoading ? "Tunggu Sebentar..." : "Tambah"}
         </Button>
       </form>
     </div>
   );
 };
 
-export default FormEditGuru;
+export default FormTambahKelas;

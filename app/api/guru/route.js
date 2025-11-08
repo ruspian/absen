@@ -54,3 +54,34 @@ export const POST = async (req) => {
     );
   }
 };
+
+export const GET = async (req) => {
+  try {
+    const session = await auth();
+
+    if (!session || !session.user) {
+      return NextResponse.json(
+        { message: "Akses ditolak, harap login terlebih dahulu!" },
+        { status: 401 } // 401 Unauthorized
+      );
+    }
+
+    if (session.user.role !== "ADMIN" && session.user.role !== "GURU") {
+      return NextResponse.json(
+        { message: "Akses ditolak" },
+        { status: 403 } // 403 Forbidden
+      );
+    }
+
+    const guru = await prisma.guru.findMany();
+
+    return NextResponse.json(guru, { status: 200 });
+  } catch (error) {
+    console.log("gagal mengambil data guru", error);
+
+    return NextResponse.json(
+      { message: "Kesalahan server, silahkan coba lagi!" },
+      { status: 500 }
+    );
+  }
+};
