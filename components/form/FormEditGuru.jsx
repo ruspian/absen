@@ -135,15 +135,6 @@ const FormEditGuru = ({ initialData: guru }) => {
         duration: 5000,
       });
 
-      //   kosongkan form
-      setFormData({
-        nama: "",
-        kode: "",
-        gender: "",
-        nip: "",
-        nuptk: "",
-      });
-
       // arahkan ke halaman siswa
       router.push("/master/guru");
 
@@ -178,7 +169,7 @@ const FormEditGuru = ({ initialData: guru }) => {
             id="kode"
             type="text"
             placeholder="Kode"
-            value={formData.kode}
+            value={formData.kode || ""}
             onChange={(e) => handleInputChange("kode", e.target.value)}
             disabled={isLoading}
             className="rounded-sm"
@@ -195,7 +186,7 @@ const FormEditGuru = ({ initialData: guru }) => {
             id="nama"
             type="text"
             placeholder="Nama Siswa"
-            value={formData.nama}
+            value={formData.nama || ""}
             onChange={(e) => handleInputChange("nama", e.target.value)}
             disabled={isLoading}
             className="rounded-sm"
@@ -212,7 +203,7 @@ const FormEditGuru = ({ initialData: guru }) => {
             id="nip"
             type="text"
             placeholder="NIP"
-            value={formData.nip}
+            value={formData.nip || ""}
             onChange={(e) => handleInputChange("nip", e.target.value)}
             disabled={isLoading}
             className="rounded-sm"
@@ -228,7 +219,7 @@ const FormEditGuru = ({ initialData: guru }) => {
             id="nuptk"
             type="text"
             placeholder="NUPTK"
-            value={formData.nuptk}
+            value={formData.nuptk || ""}
             onChange={(e) => handleInputChange("nuptk", e.target.value)}
             disabled={isLoading}
             className="rounded-sm"
@@ -244,7 +235,7 @@ const FormEditGuru = ({ initialData: guru }) => {
             name="gender"
             id="gender"
             className="p-2 border rounded-sm bg-background"
-            value={formData.gender}
+            value={formData.gender || ""}
             onChange={(e) => handleInputChange("gender", e.target.value)}
             disabled={isLoading}
           >

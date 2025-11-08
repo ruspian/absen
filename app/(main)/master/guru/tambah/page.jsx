@@ -8,7 +8,7 @@ const TambahGuruPage = () => {
       <Breadcrumb />
 
       <div className="mt-6">
-        <h1 className="font-bold text-3xl mb-4">Tambah Data Siswa</h1>
+        <h1 className="font-bold text-3xl mb-4">Tambah Data Guru</h1>
         <FormTambahGuru />
       </div>
     </div>
