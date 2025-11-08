@@ -4,10 +4,7 @@ import { auth } from "@/lib/auth";
 
 export const GET = async (req, { params }) => {
   try {
-    // Cek apakah user sudah login
     const session = await auth();
-
-    // Pastikan hanya Admin atau Guru yang bisa lihat data ini
     if (!session || !session.user) {
       return NextResponse.json(
         { message: "Akses ditolak, harap login terlebih dahulu!" },
@@ -17,94 +14,87 @@ export const GET = async (req, { params }) => {
 
     if (session.user.role !== "ADMIN" && session.user.role !== "GURU") {
       return NextResponse.json(
-        { message: "Akses ditolak. Anda bukan Admin." },
+        { message: "Akses ditolak" },
         { status: 403 } // 403 Forbidden
       );
     }
 
     const { id } = await params;
 
-    const siswa = await prisma.siswa.findUnique({
+    const guru = await prisma.guru.findUnique({
       where: { id },
-      include: { kelas: true },
     });
 
-    if (!siswa) {
+    if (!guru) {
       return NextResponse.json(
-        { message: "Siswa tidak ditemukan" },
+        { message: "Guru tidak ditemukan" },
         { status: 404 } // 404 Not Found
       );
     }
 
-    return NextResponse.json(siswa, { status: 200 });
+    return NextResponse.json(guru, { status: 200 });
   } catch (error) {
-    console.log("gagal mengambil data siswa berdasarkan id:", error);
+    console.log("gagal mengambil data guru berdasarkan id:", error);
 
     return NextResponse.json(
-      { message: "Kesalahan Pada Server, Silahkan Coba Lagi!" },
+      {
+        message: "Kesalahan Server, silahkan coba lagi!",
+      },
       { status: 500 }
     );
   }
 };
 
 export const PUT = async (req, { params }) => {
-  const session = await auth();
-
-  if (!session || !session.user) {
-    return NextResponse.json(
-      { message: "Akses ditolak, harap login terlebih dahulu!" },
-      { status: 401 } // 401 Unauthorized
-    );
-  }
-
-  if (session.user.role !== "ADMIN" && session.user.role !== "GURU") {
-    return NextResponse.json(
-      { message: "Akses ditolak. Anda bukan Admin." },
-      { status: 403 } // 403 Forbidden
-    );
-  }
-
   try {
+    const session = await auth();
+
+    if (!session || !session.user) {
+      return NextResponse.json(
+        { message: "Akses ditolak, harap login terlebih dahulu!" },
+        { status: 401 } // 401 Unauthorized
+      );
+    }
+
+    if (session.user.role !== "ADMIN" && session.user.role !== "GURU") {
+      return NextResponse.json(
+        { message: "Akses ditolak" },
+        { status: 403 } // 403 Forbidden
+      );
+    }
+
     const body = await req.json();
     const { id } = await params;
+    const { nama, kode, gender, nip, nuptk } = body;
 
-    const { nama, nisn, kode, kelasId, gender } = body;
-
-    if (!kelasId || !gender || !nama || !nisn || !kode) {
+    if (!nama || !kode || !gender || !nip || !nuptk) {
       return NextResponse.json(
         { message: "Semua field harus diisi!" },
         { status: 400 }
       );
     }
 
-    if (!id) {
-      return NextResponse.json(
-        { message: "Siswa tidak ditemukan!" },
-        { status: 400 }
-      );
-    }
-
-    const updateSiswa = await prisma.siswa.update({
+    const updatedGuru = await prisma.guru.update({
       where: { id },
       data: {
         nama,
-        nisn,
         kode,
-        kelasId,
         gender,
+        nip,
+        nuptk,
       },
     });
 
     return NextResponse.json(
-      { updateSiswa, message: "Siswa berhasil diupdate!" },
+      { updatedGuru, message: "Guru berhasil diupdate!" },
       { status: 200 }
     );
   } catch (error) {
-    console.log("gagal edit data siswa:", error);
+    console.log("gagal edit data guru:", error);
 
-    return NextResponse(
+    return NextResponse.json(
       {
-        message: "Kesalahan Pada Server, Silahkan Coba Lagi!",
+        message: "Kesalahan Server, silahkan coba lagi!",
       },
       { status: 500 }
     );
@@ -133,21 +123,21 @@ export const DELETE = async (req, { params }) => {
 
     if (!id) {
       return NextResponse.json(
-        { message: "Siswa tidak ditemukan!" },
+        { message: "Guru tidak ditemukan!" },
         { status: 400 }
       );
     }
 
-    const deleteSiswa = await prisma.siswa.delete({
+    const deleteGuru = await prisma.guru.delete({
       where: { id },
     });
 
     return NextResponse.json(
-      { deleteSiswa, message: "Siswa berhasil dihapus!" },
+      { deleteGuru, message: "Guru berhasil dihapus!" },
       { status: 200 }
     );
   } catch (error) {
-    console.log("gagal menghapus siswa:", error);
+    console.log("gagal menghapus guru:", error);
 
     return NextResponse(
       {

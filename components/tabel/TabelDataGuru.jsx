@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Table,
@@ -11,9 +13,54 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { BiEdit } from "react-icons/bi";
 import { MdDeleteOutline } from "react-icons/md";
+import { useToaster } from "@/providers/ToasterProvider";
+import { useRouter } from "next/navigation";
 
 const TabelDataGuru = ({ filteredData }) => {
-  console.log("filteredData", filteredData);
+  const toaster = useToaster();
+  const router = useRouter();
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/guru/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toaster.current.show({
+          title: "Error",
+          message: data.message,
+          type: "error",
+          position: "top-center",
+          duration: 5000,
+        });
+        return;
+      }
+
+      toaster.current.show({
+        title: "Success",
+        message: data.message,
+        type: "success",
+        position: "top-center",
+        duration: 5000,
+      });
+
+      router.refresh();
+    } catch (error) {
+      toaster.current.show({
+        title: "Error",
+        message: error.message,
+        type: "error",
+        position: "top-center",
+        duration: 5000,
+      });
+    }
+  };
 
   return (
     <div className="bg-background rounded-sm">
@@ -52,7 +99,7 @@ const TabelDataGuru = ({ filteredData }) => {
                 <TableCell className="py-2.5">{item.nip || "-"}</TableCell>
                 <TableCell className="py-2.5">{item.nuptk || "-"}</TableCell>
                 <TableCell className="py-2.5 flex gap-2">
-                  <Link href={`/master/siswa/edit?id=${item.id}`}>
+                  <Link href={`/master/guru/edit?id=${item.id}`}>
                     <Button
                       variant="default"
                       size="sm"

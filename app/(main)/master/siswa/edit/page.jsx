@@ -48,7 +48,6 @@ const EditSiswaPage = () => {
   const [dataSiswa, setDataSiswa] = useState(null);
   const [dataKelas, setDataKelas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -56,11 +55,9 @@ const EditSiswaPage = () => {
   const fetchData = useCallback(async () => {
     // Cek jika ID tidak ada
 
-    setError("ID Siswa tidak ditemukan di URL.");
     setIsLoading(false);
 
     try {
-      setError(null);
       setIsLoading(true);
 
       const [siswa, kelas] = await Promise.all([getSiswa(id), getKelas()]);
@@ -79,15 +76,13 @@ const EditSiswaPage = () => {
   }, [fetchData]);
 
   if (isLoading) {
-    return <div className="p-8">Memuat data...</div>;
-  }
-
-  if (error) {
-    return <div className="p-8 text-red-500">Error: {error}</div>;
+    return <div className="p-8 flex justify-center">Memuat data...</div>;
   }
 
   if (!dataSiswa) {
-    return <div className="p-8">Data siswa tidak ditemukan.</div>;
+    return (
+      <div className="p-8 flex justify-center">Data siswa tidak ditemukan.</div>
+    );
   }
 
   return (

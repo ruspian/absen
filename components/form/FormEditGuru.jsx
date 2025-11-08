@@ -1,13 +1,13 @@
 "use client";
 
 import { Label } from "@radix-ui/react-label";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useToaster } from "@/providers/ToasterProvider";
 import { useRouter } from "next/navigation";
 
-const FormTambahGuru = () => {
+const FormEditGuru = ({ initialData: guru }) => {
   const [formData, setFormData] = useState({
     nama: "",
     kode: "",
@@ -20,6 +20,18 @@ const FormTambahGuru = () => {
 
   const toaster = useToaster();
   const router = useRouter();
+
+  useEffect(() => {
+    if (guru) {
+      setFormData({
+        nama: guru.nama,
+        kode: guru.kode,
+        gender: guru.gender,
+        nip: guru.nip,
+        nuptk: guru.nuptk,
+      });
+    }
+  }, [guru]);
 
   //   fungsi validasi form
   const validateForm = () => {
@@ -91,9 +103,9 @@ const FormTambahGuru = () => {
       };
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/guru`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/guru/${guru.id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
@@ -121,6 +133,15 @@ const FormTambahGuru = () => {
         type: "success",
         position: "top-center",
         duration: 5000,
+      });
+
+      //   kosongkan form
+      setFormData({
+        nama: "",
+        kode: "",
+        gender: "",
+        nip: "",
+        nuptk: "",
       });
 
       // arahkan ke halaman siswa
@@ -237,11 +258,11 @@ const FormTambahGuru = () => {
         </div>
 
         <Button type="submit" disabled={isLoading} className="cursor-pointer">
-          {isLoading ? "Tunggu Sebentar..." : "Tambah"}
+          {isLoading ? "Tunggu Sebentar..." : "Edit"}
         </Button>
       </form>
     </div>
   );
 };
 
-export default FormTambahGuru;
+export default FormEditGuru;
