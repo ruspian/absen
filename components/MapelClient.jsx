@@ -8,10 +8,10 @@ import { Input } from "./ui/input";
 import Pagination from "./Pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import TabelDataKelas from "./tabel/TabelDataKelas";
 import { Separator } from "@radix-ui/react-separator";
+import TabelDataMataPelajaran from "./tabel/TabelDataMataPelajaran";
 
-const KelasClient = ({ data, totalPage, currentPage }) => {
+const MapelClient = ({ data, totalPage, currentPage }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -59,17 +59,17 @@ const KelasClient = ({ data, totalPage, currentPage }) => {
     <div>
       <>
         <div className="flex items-center justify-between">
-          <Link href="/master/kelas/tambah">
+          <Link href="/master/mapel/tambah">
             <Button className="cursor-pointer">
               <Plus className="mr-2 h-4 w-4 " />
-              Tambah Kelas
+              Tambah Mapel
             </Button>
           </Link>
 
           {/* Input  Search  */}
           <div className="flex items-center py-4">
             <Input
-              placeholder={`Cari Kelas`}
+              placeholder={`Cari Mata Pelajaran`}
               defaultValue={searchParams.get("search") || ""}
               onChange={(e) => handleSearch(e.target.value)}
               className="max-w-sm"
@@ -78,7 +78,7 @@ const KelasClient = ({ data, totalPage, currentPage }) => {
         </div>
         <Separator />
 
-        <TabelDataKelas filteredData={data} />
+        <TabelDataMataPelajaran filteredData={data} />
 
         <Pagination
           totalPage={totalPage}
@@ -90,4 +90,4 @@ const KelasClient = ({ data, totalPage, currentPage }) => {
   );
 };
 
-export default KelasClient;
+export default MapelClient;
