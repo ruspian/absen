@@ -9,7 +9,7 @@ import {
 } from "../ui/table";
 import { getTimeFromDate } from "@/lib/formatTime";
 
-const TabelScanSiswa = ({ filteredData }) => {
+const TabelScanGuru = ({ filteredData }) => {
   return (
     <div className="bg-background rounded-sm">
       <Table>
@@ -29,7 +29,7 @@ const TabelScanSiswa = ({ filteredData }) => {
           {filteredData.length > 0 ? (
             filteredData.map((item, index) => (
               <TableRow
-                key={item.id + index}
+                key={item.id}
                 className="border-none odd:bg-muted/50 hover:bg-transparent odd:hover:bg-muted/50"
               >
                 <TableCell className="py-2.5 font-medium">
@@ -47,12 +47,12 @@ const TabelScanSiswa = ({ filteredData }) => {
                 <TableCell className="py-2.5">
                   {item.absen.jamMasuk
                     ? getTimeFromDate(item.absen.jamMasuk)
-                    : null}
+                    : "-"}
                 </TableCell>
                 <TableCell className="py-2.5">
                   {item.absen.jamPulang
                     ? getTimeFromDate(item.absen.jamPulang)
-                    : null}
+                    : "-"}
                 </TableCell>
                 <TableCell className="py-2.5 font-medium">
                   {item.kelas}
@@ -73,4 +73,4 @@ const TabelScanSiswa = ({ filteredData }) => {
   );
 };
 
-export default TabelScanSiswa;
+export default TabelScanGuru;

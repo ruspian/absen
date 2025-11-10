@@ -4,11 +4,11 @@ import React, { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { useToaster } from "@/providers/ToasterProvider";
 import { useRouter } from "next/navigation";
-import TabelScanSiswa from "./tabel/TabelScanSiswa";
 import { formatTanggalID } from "@/lib/formatTime";
 import { useSession } from "next-auth/react";
+import TabelScanGuru from "./tabel/TabelScanGuru";
 
-export const ScanMode = () => {
+export const ScanModeGuru = () => {
   const [kode, setKode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [log, setLog] = useState([]);
@@ -88,7 +88,7 @@ export const ScanMode = () => {
           value={kode}
           onChange={(e) => setKode(e.target.value)}
           placeholder="Arahkan scanner ke barcode..."
-          className="text-center text-lg p-4 "
+          className="text-center text-lg p-4"
           disabled={isLoading}
         />
         <button type="submit" className="hidden" />
@@ -105,7 +105,7 @@ export const ScanMode = () => {
           </p>
         </div>
 
-        <TabelScanSiswa filteredData={log} />
+        <TabelScanGuru filteredData={log} />
       </div>
     </div>
   );

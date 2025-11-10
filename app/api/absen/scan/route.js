@@ -2,12 +2,24 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
-// Helper
+const TIMEZONE = "Asia/Makassar"; // WITA
+
 const getToday = () => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Set ke awal hari
-  return today;
+  const todayStringWITA = new Date().toLocaleDateString("en-CA", {
+    timeZone: TIMEZONE,
+  });
+  return new Date(todayStringWITA);
 };
+
+const getUTCTime = (date) => {
+  const timeOnly = new Date(0);
+  timeOnly.setUTCHours(date.getUTCHours());
+  timeOnly.setUTCMinutes(date.getUTCMinutes());
+  timeOnly.setUTCSeconds(date.getUTCSeconds());
+  return timeOnly;
+};
+
+const BATAS_MENIT_MINIMAL = 180; // 3 jam
 
 export const POST = async (req) => {
   try {
@@ -40,6 +52,7 @@ export const POST = async (req) => {
 
     const today = getToday();
     const jamSekarang = new Date();
+    const jamMasukUTC = getUTCTime(jamSekarang);
 
     // cek siswa berdasarkan kode
     const siswa = await prisma.siswa.findUnique({
@@ -65,7 +78,7 @@ export const POST = async (req) => {
             siswaId: siswa.id,
             tanggal: today,
             status: "HADIR",
-            jamMasuk: jamSekarang,
+            jamMasuk: jamMasukUTC,
           },
         });
 
@@ -84,10 +97,45 @@ export const POST = async (req) => {
           message: `Masuk: ${siswa.nama}`,
         });
       } else if (absenAda && !absenAda.jamPulang) {
+        // Ambil 'jamMasuk'
+        const jamMasuk_DB = new Date(absenAda.jamMasuk);
+
+        // buat 'jamMasuk' pake tanggal HARI INI
+        const jamMasuk_HariIni = new Date(jamSekarang);
+
+        // Pindahin jam/menit/detik dari data DB ke tanggal hari ini
+        jamMasuk_HariIni.setUTCHours(jamMasuk_DB.getUTCHours());
+        jamMasuk_HariIni.setUTCMinutes(jamMasuk_DB.getUTCMinutes());
+        jamMasuk_HariIni.setUTCSeconds(jamMasuk_DB.getUTCSeconds());
+
+        // bandingkan jamMasuk_HariIni dengan jamSekarang
+        const selisihMenit =
+          (jamSekarang.getTime() - jamMasuk_HariIni.getTime()) / 60000;
+
+        //   cek jika scan lagi terlalu cepat
+        if (selisihMenit < BATAS_MENIT_MINIMAL) {
+          const dataSiswaResponse = {
+            id: siswa.id,
+            nama: siswa.nama,
+            kode: siswa.kode,
+            nisn: siswa.nisn,
+            kelas: siswa.kelas.nama,
+            absen: absenAda,
+          };
+
+          return NextResponse.json(
+            {
+              data: dataSiswaResponse,
+              message: `${siswa.nama} sudah absen MASUK. Belum bisa absen pulang.`,
+            },
+            { status: 400 } // 400 Bad Request
+          );
+        }
+
         // kalo siswa udah absen masuk tapi belum absen pulang, update jam pulang
         const absenUpdate = await prisma.absenHarian.update({
           where: { id: absenAda.id },
-          data: { jamPulang: jamSekarang },
+          data: { jamPulang: jamMasukUTC },
         });
 
         // siapkan data response siswa
@@ -105,8 +153,6 @@ export const POST = async (req) => {
           message: `Pulang: ${siswa.nama}`,
         });
       } else {
-        // kalo siswa udah absen masuk dan absen pulang, kirim pesan
-
         // siapkan data response siswa
         const dataSiswaResponse = {
           id: siswa.id,
@@ -143,28 +189,96 @@ export const POST = async (req) => {
       });
 
       if (!absenAda) {
-        await prisma.absenGuruHarian.create({
+        const absenBaru = await prisma.absenGuruHarian.create({
           data: {
             guruId: guru.id,
             tanggal: today,
             status: "HADIR",
-            jamMasuk: jamSekarang,
+            jamMasuk: jamMasukUTC,
           },
         });
+
+        // siapkan data response siswa
+        const dataGuruResponse = {
+          id: guru.id,
+          nama: guru.nama,
+          kode: guru.kode,
+          nip: guru.nip,
+          nuptk: guru.nuptk,
+          absen: absenBaru,
+        };
+
         return NextResponse.json({
+          data: dataGuruResponse,
           message: `Masuk: ${guru.nama} (Guru)`,
         });
       } else if (absenAda && !absenAda.jamPulang) {
-        await prisma.absenGuruHarian.update({
+        // Ambil 'jamMasuk'
+        const jamMasuk_DB = new Date(absenAda.jamMasuk);
+
+        // buat 'jamMasuk' pake tanggal HARI INI
+        const jamMasuk_HariIni = new Date(jamSekarang);
+
+        // Pindahin jam/menit/detik dari data DB ke tanggal hari ini
+        jamMasuk_HariIni.setUTCHours(jamMasuk_DB.getUTCHours());
+        jamMasuk_HariIni.setUTCMinutes(jamMasuk_DB.getUTCMinutes());
+        jamMasuk_HariIni.setUTCSeconds(jamMasuk_DB.getUTCSeconds());
+
+        // bandingkan jamMasuk_HariIni dengan jamSekarang
+        const selisihMenit =
+          (jamSekarang.getTime() - jamMasuk_HariIni.getTime()) / 60000;
+
+        //   cek jika scan lagi terlalu cepat
+        if (selisihMenit < BATAS_MENIT_MINIMAL) {
+          const dataGuruResponse = {
+            id: guru.id,
+            nama: guru.nama,
+            kode: guru.kode,
+            nip: guru.nip,
+            nuptk: guru.nuptk,
+            absen: absenAda,
+          };
+
+          return NextResponse.json(
+            {
+              data: dataGuruResponse,
+              message: `${guru.nama} sudah absen MASUK. Belum bisa absen pulang.`,
+            },
+            { status: 400 } // 400 Bad Request
+          );
+        }
+        const absenUpdate = await prisma.absenGuruHarian.update({
           where: { id: absenAda.id },
-          data: { jamPulang: jamSekarang },
+          data: { jamPulang: jamMasukUTC },
         });
+
+        // siapkan data response siswa
+        const dataGuruResponse = {
+          id: guru.id,
+          nama: guru.nama,
+          kode: guru.kode,
+          nip: guru.nip,
+          nuptk: guru.nuptk,
+          absen: absenUpdate,
+        };
         return NextResponse.json({
+          data: dataGuruResponse,
           message: `Pulang: ${guru.nama} (Guru)`,
         });
       } else {
+        const dataGuruResponse = {
+          id: guru.id,
+          nama: guru.nama,
+          kode: guru.kode,
+          nip: guru.nip,
+          nuptk: guru.nuptk,
+          absen: absenAda,
+        };
         return NextResponse.json(
-          { message: `${guru.nama} sudah absen pulang hari ini.` },
+          {
+            data: dataGuruResponse,
+            message: `${guru.nama} sudah absen pulang hari ini.`,
+          },
           { status: 400 }
         );
       }

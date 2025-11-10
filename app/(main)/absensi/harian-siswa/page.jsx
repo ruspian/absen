@@ -6,10 +6,16 @@ import Breadcrumb from "@/components/Breadcrumb";
 import HarianSiswaClient from "@/components/HarianSiswaClient";
 
 // dapatkan tanggal hari ini
+const TIMEZONE = "Asia/Makassar"; // WITA
+
 const getToday = () => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // atur waktu menjadi 00:00:00
-  return today;
+  // Dapatkan string tanggal hari ini dengan zona waktu WITA
+  const todayString = new Date().toLocaleDateString("en-CA", {
+    timeZone: TIMEZONE,
+  });
+
+  // Buat objek Date baru dari string
+  return new Date(todayString);
 };
 
 const AbsenHarianSiswaPage = async () => {
@@ -41,7 +47,6 @@ const AbsenHarianSiswaPage = async () => {
     },
   });
 
-  // GABUNGKAN DATA:
   // mapping semua siswa dan tambahkan status absennya
   const formattedData = siswa.map((s) => {
     // Cari data absen siswa ini di absenHariIni
@@ -54,8 +59,9 @@ const AbsenHarianSiswaPage = async () => {
       kelas: s.kelas.nama,
       kode: s.kode,
       kelasId: s.kelasId,
-      status: absen?.status,
+      status: absen?.status || null,
       jamMasuk: absen?.jamMasuk || null,
+      jamPulang: absen?.jamPulang || null,
     };
   });
 

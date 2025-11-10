@@ -19,10 +19,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"; //
+} from "./ui/table";
 
-export const ManualMode = ({ dataSiswa, dataKelas }) => {
-  const [filterKelas, setFilterKelas] = useState("semua");
+export const ManualModeGuru = ({ dataGuru }) => {
   const [filterStatus, setFilterStatus] = useState("semua");
   const [isLoading, setIsLoading] = useState(null);
   const router = useRouter();
@@ -30,41 +29,34 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
 
   // Filter data berdasarkan dropdown
   const filteredData = useMemo(() => {
-    // Terapkan filter dropdown ke data ASLI
-    return dataSiswa.filter((siswa) => {
-      const matchKelas =
-        filterKelas === "semua" || siswa.kelasId === filterKelas;
-
+    return dataGuru.filter((guru) => {
       const matchStatus = () => {
-        if (filterStatus === "semua") {
-          // Kalo filter Semua, tampilin semua
-          return true;
-        }
+        if (filterStatus === "semua") return true;
 
         if (filterStatus === "ALFA") {
-          return siswa.status === null || siswa.status === "ALFA";
+          return guru.status === null || guru.status === "ALFA";
         }
 
-        // Kalo filternya SAKIT atau IZIN,
-        return siswa.status === filterStatus;
+        //  Kalo filternya 'HADIR', 'SAKIT', atau 'IZIN'
+        return guru.status === filterStatus;
       };
 
-      return matchKelas && matchStatus();
+      return matchStatus();
     });
-  }, [dataSiswa, filterKelas, filterStatus]);
+  }, [dataGuru, filterStatus]);
 
   // Fungsi kirim absen manual (Sakit/Izin/Alfa)
-  const handleAbsen = async (siswaId, status) => {
-    setIsLoading(siswaId);
+  const handleAbsen = async (guruId, status) => {
+    setIsLoading(guruId);
 
     try {
       const payload = {
-        siswaId: siswaId,
+        guruId: guruId,
         status: status,
       };
 
-      // [PERBAIKAN 1] API endpoint salah, harusnya '/harian-manual'
-      const response = await fetch(`/api/absen/harian-manual`, {
+      // Panggil API manual (kode lo udah bener)
+      const response = await fetch(`/api/absen/manual`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -101,21 +93,6 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
     <div className="flex flex-col gap-4">
       {/* Bagian Filter */}
       <div className="flex gap-4">
-        {/* Filter per Kelas */}
-        <Select value={filterKelas} onValueChange={setFilterKelas}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter Kelas" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="semua">Semua Kelas</SelectItem>
-            {dataKelas.map((kelas) => (
-              <SelectItem key={kelas.id} value={kelas.id}>
-                {kelas.nama}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
         {/* Filter per Status */}
         <Select value={filterStatus} onValueChange={setFilterStatus}>
           <SelectTrigger className="w-[180px]">
@@ -123,15 +100,15 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="semua">Semua Status</SelectItem>
-            <SelectItem value="ALFA">Belum Absen / Alfa</SelectItem>
             <SelectItem value="HADIR">Hadir</SelectItem>
+            <SelectItem value="ALFA">Alfa</SelectItem>
             <SelectItem value="SAKIT">Sakit</SelectItem>
             <SelectItem value="IZIN">Izin</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
-      {/* Bagian Daftar Siswa */}
+      {/* Bagian Daftar Guru */}
       <div className="rounded-md border h-96 overflow-y-auto">
         <div className="bg-background rounded-sm">
           <Table>
@@ -139,10 +116,10 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
               <TableRow className="hover:bg-transparent">
                 <TableHead>No</TableHead>
                 <TableHead>Kode</TableHead>
-                <TableHead>Nama Siswa</TableHead>
-                <TableHead>NISN</TableHead>
+                <TableHead>Nama Guru</TableHead>
+                <TableHead>NIP</TableHead>
+                <TableHead>NUPTK</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Kelas</TableHead>
                 <TableHead>Aksi</TableHead>
               </TableRow>
             </TableHeader>
@@ -164,19 +141,13 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
                       {item.nama}
                     </TableCell>
                     <TableCell className="py-2.5 font-medium">
-                      {item.nisn || "-"}
+                      {item.nip || "-"}
                     </TableCell>
                     <TableCell className="py-2.5 font-medium">
-                      {/* [PERBAIKAN 2] Tampilan Status 'null' */}
-                      {item.status === null ? (
-                        <span className="text-gray-500">- Belum Absen -</span>
-                      ) : (
-                        item.status
-                      )}
+                      {item.nuptk}
                     </TableCell>
-
                     <TableCell className="py-2.5 font-medium">
-                      {item.kelas}
+                      {item.status || "-"}
                     </TableCell>
 
                     <TableCell className="py-2.5 font-medium">
@@ -211,10 +182,7 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
                         <Button
                           size="sm"
                           variant={
-                            // [PERBAIKAN 2] Logika Highlight Tombol Alfa
-                            item.status === "ALFA" || item.status === null
-                              ? "destructive"
-                              : "outline"
+                            item.status === "ALFA" ? "destructive" : "outline"
                           }
                           disabled={isLoading === item.id}
                           onClick={() => handleAbsen(item.id, "ALFA")}
@@ -231,7 +199,7 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
                     className="py-2.5 font-medium text-center"
                     colSpan={7}
                   >
-                    Tidak ada data siswa
+                    Belum ada data
                   </TableCell>
                 </TableRow>
               )}
@@ -244,4 +212,4 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
   );
 };
 
-export default ManualMode;
+export default ManualModeGuru;
