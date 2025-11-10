@@ -72,6 +72,8 @@ model Guru {
   user             User?             @relation("UserGuru", fields: [userId], references: [id])
   mengajarDiJadwal JadwalPelajaran[] @relation("GuruPengajar")
   waliDiKelas      Kelas?            @relation("WaliKelas")
+
+  absenHarian      AbsenGuruHarian[]
 }
 
 model Siswa {
@@ -166,4 +168,18 @@ enum StatusMapel {
   SAKIT
   IZIN
   ALFA
+}
+
+model AbsenGuruHarian {
+  id         String       @id @default(cuid())
+  tanggal    DateTime     @db.Date
+  jamMasuk   DateTime?    @db.Time(6)
+  jamPulang  DateTime?    @db.Time(6)
+  status     StatusHarian @default(ALFA) 
+  
+  // Relasi ke Guru
+  guru      Guru        @relation(fields: [guruId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  guruId    String
+  
+  @@unique([guruId, tanggal])
 }

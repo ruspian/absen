@@ -68,6 +68,11 @@ export type AbsenHarian = $Result.DefaultSelection<Prisma.$AbsenHarianPayload>
  * 
  */
 export type AbsenMapel = $Result.DefaultSelection<Prisma.$AbsenMapelPayload>
+/**
+ * Model AbsenGuruHarian
+ * 
+ */
+export type AbsenGuruHarian = $Result.DefaultSelection<Prisma.$AbsenGuruHarianPayload>
 
 /**
  * Enums
@@ -353,6 +358,16 @@ export class PrismaClient<
     * ```
     */
   get absenMapel(): Prisma.AbsenMapelDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.absenGuruHarian`: Exposes CRUD operations for the **AbsenGuruHarian** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AbsenGuruHarians
+    * const absenGuruHarians = await prisma.absenGuruHarian.findMany()
+    * ```
+    */
+  get absenGuruHarian(): Prisma.AbsenGuruHarianDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -804,7 +819,8 @@ export namespace Prisma {
     MataPelajaran: 'MataPelajaran',
     JadwalPelajaran: 'JadwalPelajaran',
     AbsenHarian: 'AbsenHarian',
-    AbsenMapel: 'AbsenMapel'
+    AbsenMapel: 'AbsenMapel',
+    AbsenGuruHarian: 'AbsenGuruHarian'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -823,7 +839,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "guru" | "siswa" | "kelas" | "mataPelajaran" | "jadwalPelajaran" | "absenHarian" | "absenMapel"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "guru" | "siswa" | "kelas" | "mataPelajaran" | "jadwalPelajaran" | "absenHarian" | "absenMapel" | "absenGuruHarian"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1641,6 +1657,80 @@ export namespace Prisma {
           }
         }
       }
+      AbsenGuruHarian: {
+        payload: Prisma.$AbsenGuruHarianPayload<ExtArgs>
+        fields: Prisma.AbsenGuruHarianFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AbsenGuruHarianFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AbsenGuruHarianFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload>
+          }
+          findFirst: {
+            args: Prisma.AbsenGuruHarianFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AbsenGuruHarianFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload>
+          }
+          findMany: {
+            args: Prisma.AbsenGuruHarianFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload>[]
+          }
+          create: {
+            args: Prisma.AbsenGuruHarianCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload>
+          }
+          createMany: {
+            args: Prisma.AbsenGuruHarianCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AbsenGuruHarianCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload>[]
+          }
+          delete: {
+            args: Prisma.AbsenGuruHarianDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload>
+          }
+          update: {
+            args: Prisma.AbsenGuruHarianUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload>
+          }
+          deleteMany: {
+            args: Prisma.AbsenGuruHarianDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AbsenGuruHarianUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AbsenGuruHarianUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload>[]
+          }
+          upsert: {
+            args: Prisma.AbsenGuruHarianUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AbsenGuruHarianPayload>
+          }
+          aggregate: {
+            args: Prisma.AbsenGuruHarianAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAbsenGuruHarian>
+          }
+          groupBy: {
+            args: Prisma.AbsenGuruHarianGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AbsenGuruHarianGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AbsenGuruHarianCountArgs<ExtArgs>
+            result: $Utils.Optional<AbsenGuruHarianCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1748,6 +1838,7 @@ export namespace Prisma {
     jadwalPelajaran?: JadwalPelajaranOmit
     absenHarian?: AbsenHarianOmit
     absenMapel?: AbsenMapelOmit
+    absenGuruHarian?: AbsenGuruHarianOmit
   }
 
   /* Types for Logging */
@@ -1869,10 +1960,12 @@ export namespace Prisma {
 
   export type GuruCountOutputType = {
     mengajarDiJadwal: number
+    absenHarian: number
   }
 
   export type GuruCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mengajarDiJadwal?: boolean | GuruCountOutputTypeCountMengajarDiJadwalArgs
+    absenHarian?: boolean | GuruCountOutputTypeCountAbsenHarianArgs
   }
 
   // Custom InputTypes
@@ -1891,6 +1984,13 @@ export namespace Prisma {
    */
   export type GuruCountOutputTypeCountMengajarDiJadwalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JadwalPelajaranWhereInput
+  }
+
+  /**
+   * GuruCountOutputType without action
+   */
+  export type GuruCountOutputTypeCountAbsenHarianArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AbsenGuruHarianWhereInput
   }
 
 
@@ -6640,6 +6740,7 @@ export namespace Prisma {
     user?: boolean | Guru$userArgs<ExtArgs>
     mengajarDiJadwal?: boolean | Guru$mengajarDiJadwalArgs<ExtArgs>
     waliDiKelas?: boolean | Guru$waliDiKelasArgs<ExtArgs>
+    absenHarian?: boolean | Guru$absenHarianArgs<ExtArgs>
     _count?: boolean | GuruCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["guru"]>
 
@@ -6683,6 +6784,7 @@ export namespace Prisma {
     user?: boolean | Guru$userArgs<ExtArgs>
     mengajarDiJadwal?: boolean | Guru$mengajarDiJadwalArgs<ExtArgs>
     waliDiKelas?: boolean | Guru$waliDiKelasArgs<ExtArgs>
+    absenHarian?: boolean | Guru$absenHarianArgs<ExtArgs>
     _count?: boolean | GuruCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GuruIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6698,6 +6800,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs> | null
       mengajarDiJadwal: Prisma.$JadwalPelajaranPayload<ExtArgs>[]
       waliDiKelas: Prisma.$KelasPayload<ExtArgs> | null
+      absenHarian: Prisma.$AbsenGuruHarianPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7105,6 +7208,7 @@ export namespace Prisma {
     user<T extends Guru$userArgs<ExtArgs> = {}>(args?: Subset<T, Guru$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     mengajarDiJadwal<T extends Guru$mengajarDiJadwalArgs<ExtArgs> = {}>(args?: Subset<T, Guru$mengajarDiJadwalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalPelajaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     waliDiKelas<T extends Guru$waliDiKelasArgs<ExtArgs> = {}>(args?: Subset<T, Guru$waliDiKelasArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    absenHarian<T extends Guru$absenHarianArgs<ExtArgs> = {}>(args?: Subset<T, Guru$absenHarianArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7597,6 +7701,30 @@ export namespace Prisma {
      */
     include?: KelasInclude<ExtArgs> | null
     where?: KelasWhereInput
+  }
+
+  /**
+   * Guru.absenHarian
+   */
+  export type Guru$absenHarianArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    where?: AbsenGuruHarianWhereInput
+    orderBy?: AbsenGuruHarianOrderByWithRelationInput | AbsenGuruHarianOrderByWithRelationInput[]
+    cursor?: AbsenGuruHarianWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AbsenGuruHarianScalarFieldEnum | AbsenGuruHarianScalarFieldEnum[]
   }
 
   /**
@@ -14220,6 +14348,1077 @@ export namespace Prisma {
 
 
   /**
+   * Model AbsenGuruHarian
+   */
+
+  export type AggregateAbsenGuruHarian = {
+    _count: AbsenGuruHarianCountAggregateOutputType | null
+    _min: AbsenGuruHarianMinAggregateOutputType | null
+    _max: AbsenGuruHarianMaxAggregateOutputType | null
+  }
+
+  export type AbsenGuruHarianMinAggregateOutputType = {
+    id: string | null
+    tanggal: Date | null
+    jamMasuk: Date | null
+    jamPulang: Date | null
+    status: $Enums.StatusHarian | null
+    guruId: string | null
+  }
+
+  export type AbsenGuruHarianMaxAggregateOutputType = {
+    id: string | null
+    tanggal: Date | null
+    jamMasuk: Date | null
+    jamPulang: Date | null
+    status: $Enums.StatusHarian | null
+    guruId: string | null
+  }
+
+  export type AbsenGuruHarianCountAggregateOutputType = {
+    id: number
+    tanggal: number
+    jamMasuk: number
+    jamPulang: number
+    status: number
+    guruId: number
+    _all: number
+  }
+
+
+  export type AbsenGuruHarianMinAggregateInputType = {
+    id?: true
+    tanggal?: true
+    jamMasuk?: true
+    jamPulang?: true
+    status?: true
+    guruId?: true
+  }
+
+  export type AbsenGuruHarianMaxAggregateInputType = {
+    id?: true
+    tanggal?: true
+    jamMasuk?: true
+    jamPulang?: true
+    status?: true
+    guruId?: true
+  }
+
+  export type AbsenGuruHarianCountAggregateInputType = {
+    id?: true
+    tanggal?: true
+    jamMasuk?: true
+    jamPulang?: true
+    status?: true
+    guruId?: true
+    _all?: true
+  }
+
+  export type AbsenGuruHarianAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AbsenGuruHarian to aggregate.
+     */
+    where?: AbsenGuruHarianWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AbsenGuruHarians to fetch.
+     */
+    orderBy?: AbsenGuruHarianOrderByWithRelationInput | AbsenGuruHarianOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AbsenGuruHarianWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AbsenGuruHarians from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AbsenGuruHarians.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AbsenGuruHarians
+    **/
+    _count?: true | AbsenGuruHarianCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AbsenGuruHarianMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AbsenGuruHarianMaxAggregateInputType
+  }
+
+  export type GetAbsenGuruHarianAggregateType<T extends AbsenGuruHarianAggregateArgs> = {
+        [P in keyof T & keyof AggregateAbsenGuruHarian]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAbsenGuruHarian[P]>
+      : GetScalarType<T[P], AggregateAbsenGuruHarian[P]>
+  }
+
+
+
+
+  export type AbsenGuruHarianGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AbsenGuruHarianWhereInput
+    orderBy?: AbsenGuruHarianOrderByWithAggregationInput | AbsenGuruHarianOrderByWithAggregationInput[]
+    by: AbsenGuruHarianScalarFieldEnum[] | AbsenGuruHarianScalarFieldEnum
+    having?: AbsenGuruHarianScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AbsenGuruHarianCountAggregateInputType | true
+    _min?: AbsenGuruHarianMinAggregateInputType
+    _max?: AbsenGuruHarianMaxAggregateInputType
+  }
+
+  export type AbsenGuruHarianGroupByOutputType = {
+    id: string
+    tanggal: Date
+    jamMasuk: Date | null
+    jamPulang: Date | null
+    status: $Enums.StatusHarian
+    guruId: string
+    _count: AbsenGuruHarianCountAggregateOutputType | null
+    _min: AbsenGuruHarianMinAggregateOutputType | null
+    _max: AbsenGuruHarianMaxAggregateOutputType | null
+  }
+
+  type GetAbsenGuruHarianGroupByPayload<T extends AbsenGuruHarianGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AbsenGuruHarianGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AbsenGuruHarianGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AbsenGuruHarianGroupByOutputType[P]>
+            : GetScalarType<T[P], AbsenGuruHarianGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AbsenGuruHarianSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tanggal?: boolean
+    jamMasuk?: boolean
+    jamPulang?: boolean
+    status?: boolean
+    guruId?: boolean
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["absenGuruHarian"]>
+
+  export type AbsenGuruHarianSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tanggal?: boolean
+    jamMasuk?: boolean
+    jamPulang?: boolean
+    status?: boolean
+    guruId?: boolean
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["absenGuruHarian"]>
+
+  export type AbsenGuruHarianSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tanggal?: boolean
+    jamMasuk?: boolean
+    jamPulang?: boolean
+    status?: boolean
+    guruId?: boolean
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["absenGuruHarian"]>
+
+  export type AbsenGuruHarianSelectScalar = {
+    id?: boolean
+    tanggal?: boolean
+    jamMasuk?: boolean
+    jamPulang?: boolean
+    status?: boolean
+    guruId?: boolean
+  }
+
+  export type AbsenGuruHarianOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tanggal" | "jamMasuk" | "jamPulang" | "status" | "guruId", ExtArgs["result"]["absenGuruHarian"]>
+  export type AbsenGuruHarianInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }
+  export type AbsenGuruHarianIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }
+  export type AbsenGuruHarianIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }
+
+  export type $AbsenGuruHarianPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AbsenGuruHarian"
+    objects: {
+      guru: Prisma.$GuruPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tanggal: Date
+      jamMasuk: Date | null
+      jamPulang: Date | null
+      status: $Enums.StatusHarian
+      guruId: string
+    }, ExtArgs["result"]["absenGuruHarian"]>
+    composites: {}
+  }
+
+  type AbsenGuruHarianGetPayload<S extends boolean | null | undefined | AbsenGuruHarianDefaultArgs> = $Result.GetResult<Prisma.$AbsenGuruHarianPayload, S>
+
+  type AbsenGuruHarianCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AbsenGuruHarianFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AbsenGuruHarianCountAggregateInputType | true
+    }
+
+  export interface AbsenGuruHarianDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AbsenGuruHarian'], meta: { name: 'AbsenGuruHarian' } }
+    /**
+     * Find zero or one AbsenGuruHarian that matches the filter.
+     * @param {AbsenGuruHarianFindUniqueArgs} args - Arguments to find a AbsenGuruHarian
+     * @example
+     * // Get one AbsenGuruHarian
+     * const absenGuruHarian = await prisma.absenGuruHarian.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AbsenGuruHarianFindUniqueArgs>(args: SelectSubset<T, AbsenGuruHarianFindUniqueArgs<ExtArgs>>): Prisma__AbsenGuruHarianClient<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AbsenGuruHarian that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AbsenGuruHarianFindUniqueOrThrowArgs} args - Arguments to find a AbsenGuruHarian
+     * @example
+     * // Get one AbsenGuruHarian
+     * const absenGuruHarian = await prisma.absenGuruHarian.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AbsenGuruHarianFindUniqueOrThrowArgs>(args: SelectSubset<T, AbsenGuruHarianFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AbsenGuruHarianClient<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AbsenGuruHarian that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsenGuruHarianFindFirstArgs} args - Arguments to find a AbsenGuruHarian
+     * @example
+     * // Get one AbsenGuruHarian
+     * const absenGuruHarian = await prisma.absenGuruHarian.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AbsenGuruHarianFindFirstArgs>(args?: SelectSubset<T, AbsenGuruHarianFindFirstArgs<ExtArgs>>): Prisma__AbsenGuruHarianClient<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AbsenGuruHarian that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsenGuruHarianFindFirstOrThrowArgs} args - Arguments to find a AbsenGuruHarian
+     * @example
+     * // Get one AbsenGuruHarian
+     * const absenGuruHarian = await prisma.absenGuruHarian.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AbsenGuruHarianFindFirstOrThrowArgs>(args?: SelectSubset<T, AbsenGuruHarianFindFirstOrThrowArgs<ExtArgs>>): Prisma__AbsenGuruHarianClient<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AbsenGuruHarians that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsenGuruHarianFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AbsenGuruHarians
+     * const absenGuruHarians = await prisma.absenGuruHarian.findMany()
+     * 
+     * // Get first 10 AbsenGuruHarians
+     * const absenGuruHarians = await prisma.absenGuruHarian.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const absenGuruHarianWithIdOnly = await prisma.absenGuruHarian.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AbsenGuruHarianFindManyArgs>(args?: SelectSubset<T, AbsenGuruHarianFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AbsenGuruHarian.
+     * @param {AbsenGuruHarianCreateArgs} args - Arguments to create a AbsenGuruHarian.
+     * @example
+     * // Create one AbsenGuruHarian
+     * const AbsenGuruHarian = await prisma.absenGuruHarian.create({
+     *   data: {
+     *     // ... data to create a AbsenGuruHarian
+     *   }
+     * })
+     * 
+     */
+    create<T extends AbsenGuruHarianCreateArgs>(args: SelectSubset<T, AbsenGuruHarianCreateArgs<ExtArgs>>): Prisma__AbsenGuruHarianClient<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AbsenGuruHarians.
+     * @param {AbsenGuruHarianCreateManyArgs} args - Arguments to create many AbsenGuruHarians.
+     * @example
+     * // Create many AbsenGuruHarians
+     * const absenGuruHarian = await prisma.absenGuruHarian.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AbsenGuruHarianCreateManyArgs>(args?: SelectSubset<T, AbsenGuruHarianCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AbsenGuruHarians and returns the data saved in the database.
+     * @param {AbsenGuruHarianCreateManyAndReturnArgs} args - Arguments to create many AbsenGuruHarians.
+     * @example
+     * // Create many AbsenGuruHarians
+     * const absenGuruHarian = await prisma.absenGuruHarian.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AbsenGuruHarians and only return the `id`
+     * const absenGuruHarianWithIdOnly = await prisma.absenGuruHarian.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AbsenGuruHarianCreateManyAndReturnArgs>(args?: SelectSubset<T, AbsenGuruHarianCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AbsenGuruHarian.
+     * @param {AbsenGuruHarianDeleteArgs} args - Arguments to delete one AbsenGuruHarian.
+     * @example
+     * // Delete one AbsenGuruHarian
+     * const AbsenGuruHarian = await prisma.absenGuruHarian.delete({
+     *   where: {
+     *     // ... filter to delete one AbsenGuruHarian
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AbsenGuruHarianDeleteArgs>(args: SelectSubset<T, AbsenGuruHarianDeleteArgs<ExtArgs>>): Prisma__AbsenGuruHarianClient<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AbsenGuruHarian.
+     * @param {AbsenGuruHarianUpdateArgs} args - Arguments to update one AbsenGuruHarian.
+     * @example
+     * // Update one AbsenGuruHarian
+     * const absenGuruHarian = await prisma.absenGuruHarian.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AbsenGuruHarianUpdateArgs>(args: SelectSubset<T, AbsenGuruHarianUpdateArgs<ExtArgs>>): Prisma__AbsenGuruHarianClient<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AbsenGuruHarians.
+     * @param {AbsenGuruHarianDeleteManyArgs} args - Arguments to filter AbsenGuruHarians to delete.
+     * @example
+     * // Delete a few AbsenGuruHarians
+     * const { count } = await prisma.absenGuruHarian.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AbsenGuruHarianDeleteManyArgs>(args?: SelectSubset<T, AbsenGuruHarianDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AbsenGuruHarians.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsenGuruHarianUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AbsenGuruHarians
+     * const absenGuruHarian = await prisma.absenGuruHarian.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AbsenGuruHarianUpdateManyArgs>(args: SelectSubset<T, AbsenGuruHarianUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AbsenGuruHarians and returns the data updated in the database.
+     * @param {AbsenGuruHarianUpdateManyAndReturnArgs} args - Arguments to update many AbsenGuruHarians.
+     * @example
+     * // Update many AbsenGuruHarians
+     * const absenGuruHarian = await prisma.absenGuruHarian.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AbsenGuruHarians and only return the `id`
+     * const absenGuruHarianWithIdOnly = await prisma.absenGuruHarian.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AbsenGuruHarianUpdateManyAndReturnArgs>(args: SelectSubset<T, AbsenGuruHarianUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AbsenGuruHarian.
+     * @param {AbsenGuruHarianUpsertArgs} args - Arguments to update or create a AbsenGuruHarian.
+     * @example
+     * // Update or create a AbsenGuruHarian
+     * const absenGuruHarian = await prisma.absenGuruHarian.upsert({
+     *   create: {
+     *     // ... data to create a AbsenGuruHarian
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AbsenGuruHarian we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AbsenGuruHarianUpsertArgs>(args: SelectSubset<T, AbsenGuruHarianUpsertArgs<ExtArgs>>): Prisma__AbsenGuruHarianClient<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AbsenGuruHarians.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsenGuruHarianCountArgs} args - Arguments to filter AbsenGuruHarians to count.
+     * @example
+     * // Count the number of AbsenGuruHarians
+     * const count = await prisma.absenGuruHarian.count({
+     *   where: {
+     *     // ... the filter for the AbsenGuruHarians we want to count
+     *   }
+     * })
+    **/
+    count<T extends AbsenGuruHarianCountArgs>(
+      args?: Subset<T, AbsenGuruHarianCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AbsenGuruHarianCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AbsenGuruHarian.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsenGuruHarianAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AbsenGuruHarianAggregateArgs>(args: Subset<T, AbsenGuruHarianAggregateArgs>): Prisma.PrismaPromise<GetAbsenGuruHarianAggregateType<T>>
+
+    /**
+     * Group by AbsenGuruHarian.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AbsenGuruHarianGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AbsenGuruHarianGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AbsenGuruHarianGroupByArgs['orderBy'] }
+        : { orderBy?: AbsenGuruHarianGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AbsenGuruHarianGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAbsenGuruHarianGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AbsenGuruHarian model
+   */
+  readonly fields: AbsenGuruHarianFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AbsenGuruHarian.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AbsenGuruHarianClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    guru<T extends GuruDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GuruDefaultArgs<ExtArgs>>): Prisma__GuruClient<$Result.GetResult<Prisma.$GuruPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AbsenGuruHarian model
+   */
+  interface AbsenGuruHarianFieldRefs {
+    readonly id: FieldRef<"AbsenGuruHarian", 'String'>
+    readonly tanggal: FieldRef<"AbsenGuruHarian", 'DateTime'>
+    readonly jamMasuk: FieldRef<"AbsenGuruHarian", 'DateTime'>
+    readonly jamPulang: FieldRef<"AbsenGuruHarian", 'DateTime'>
+    readonly status: FieldRef<"AbsenGuruHarian", 'StatusHarian'>
+    readonly guruId: FieldRef<"AbsenGuruHarian", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AbsenGuruHarian findUnique
+   */
+  export type AbsenGuruHarianFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsenGuruHarian to fetch.
+     */
+    where: AbsenGuruHarianWhereUniqueInput
+  }
+
+  /**
+   * AbsenGuruHarian findUniqueOrThrow
+   */
+  export type AbsenGuruHarianFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsenGuruHarian to fetch.
+     */
+    where: AbsenGuruHarianWhereUniqueInput
+  }
+
+  /**
+   * AbsenGuruHarian findFirst
+   */
+  export type AbsenGuruHarianFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsenGuruHarian to fetch.
+     */
+    where?: AbsenGuruHarianWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AbsenGuruHarians to fetch.
+     */
+    orderBy?: AbsenGuruHarianOrderByWithRelationInput | AbsenGuruHarianOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AbsenGuruHarians.
+     */
+    cursor?: AbsenGuruHarianWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AbsenGuruHarians from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AbsenGuruHarians.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AbsenGuruHarians.
+     */
+    distinct?: AbsenGuruHarianScalarFieldEnum | AbsenGuruHarianScalarFieldEnum[]
+  }
+
+  /**
+   * AbsenGuruHarian findFirstOrThrow
+   */
+  export type AbsenGuruHarianFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsenGuruHarian to fetch.
+     */
+    where?: AbsenGuruHarianWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AbsenGuruHarians to fetch.
+     */
+    orderBy?: AbsenGuruHarianOrderByWithRelationInput | AbsenGuruHarianOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AbsenGuruHarians.
+     */
+    cursor?: AbsenGuruHarianWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AbsenGuruHarians from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AbsenGuruHarians.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AbsenGuruHarians.
+     */
+    distinct?: AbsenGuruHarianScalarFieldEnum | AbsenGuruHarianScalarFieldEnum[]
+  }
+
+  /**
+   * AbsenGuruHarian findMany
+   */
+  export type AbsenGuruHarianFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    /**
+     * Filter, which AbsenGuruHarians to fetch.
+     */
+    where?: AbsenGuruHarianWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AbsenGuruHarians to fetch.
+     */
+    orderBy?: AbsenGuruHarianOrderByWithRelationInput | AbsenGuruHarianOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AbsenGuruHarians.
+     */
+    cursor?: AbsenGuruHarianWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AbsenGuruHarians from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AbsenGuruHarians.
+     */
+    skip?: number
+    distinct?: AbsenGuruHarianScalarFieldEnum | AbsenGuruHarianScalarFieldEnum[]
+  }
+
+  /**
+   * AbsenGuruHarian create
+   */
+  export type AbsenGuruHarianCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AbsenGuruHarian.
+     */
+    data: XOR<AbsenGuruHarianCreateInput, AbsenGuruHarianUncheckedCreateInput>
+  }
+
+  /**
+   * AbsenGuruHarian createMany
+   */
+  export type AbsenGuruHarianCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AbsenGuruHarians.
+     */
+    data: AbsenGuruHarianCreateManyInput | AbsenGuruHarianCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AbsenGuruHarian createManyAndReturn
+   */
+  export type AbsenGuruHarianCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * The data used to create many AbsenGuruHarians.
+     */
+    data: AbsenGuruHarianCreateManyInput | AbsenGuruHarianCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AbsenGuruHarian update
+   */
+  export type AbsenGuruHarianUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AbsenGuruHarian.
+     */
+    data: XOR<AbsenGuruHarianUpdateInput, AbsenGuruHarianUncheckedUpdateInput>
+    /**
+     * Choose, which AbsenGuruHarian to update.
+     */
+    where: AbsenGuruHarianWhereUniqueInput
+  }
+
+  /**
+   * AbsenGuruHarian updateMany
+   */
+  export type AbsenGuruHarianUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AbsenGuruHarians.
+     */
+    data: XOR<AbsenGuruHarianUpdateManyMutationInput, AbsenGuruHarianUncheckedUpdateManyInput>
+    /**
+     * Filter which AbsenGuruHarians to update
+     */
+    where?: AbsenGuruHarianWhereInput
+    /**
+     * Limit how many AbsenGuruHarians to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AbsenGuruHarian updateManyAndReturn
+   */
+  export type AbsenGuruHarianUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * The data used to update AbsenGuruHarians.
+     */
+    data: XOR<AbsenGuruHarianUpdateManyMutationInput, AbsenGuruHarianUncheckedUpdateManyInput>
+    /**
+     * Filter which AbsenGuruHarians to update
+     */
+    where?: AbsenGuruHarianWhereInput
+    /**
+     * Limit how many AbsenGuruHarians to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AbsenGuruHarian upsert
+   */
+  export type AbsenGuruHarianUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AbsenGuruHarian to update in case it exists.
+     */
+    where: AbsenGuruHarianWhereUniqueInput
+    /**
+     * In case the AbsenGuruHarian found by the `where` argument doesn't exist, create a new AbsenGuruHarian with this data.
+     */
+    create: XOR<AbsenGuruHarianCreateInput, AbsenGuruHarianUncheckedCreateInput>
+    /**
+     * In case the AbsenGuruHarian was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AbsenGuruHarianUpdateInput, AbsenGuruHarianUncheckedUpdateInput>
+  }
+
+  /**
+   * AbsenGuruHarian delete
+   */
+  export type AbsenGuruHarianDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+    /**
+     * Filter which AbsenGuruHarian to delete.
+     */
+    where: AbsenGuruHarianWhereUniqueInput
+  }
+
+  /**
+   * AbsenGuruHarian deleteMany
+   */
+  export type AbsenGuruHarianDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AbsenGuruHarians to delete
+     */
+    where?: AbsenGuruHarianWhereInput
+    /**
+     * Limit how many AbsenGuruHarians to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AbsenGuruHarian without action
+   */
+  export type AbsenGuruHarianDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AbsenGuruHarian
+     */
+    select?: AbsenGuruHarianSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AbsenGuruHarian
+     */
+    omit?: AbsenGuruHarianOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AbsenGuruHarianInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -14370,6 +15569,18 @@ export namespace Prisma {
   };
 
   export type AbsenMapelScalarFieldEnum = (typeof AbsenMapelScalarFieldEnum)[keyof typeof AbsenMapelScalarFieldEnum]
+
+
+  export const AbsenGuruHarianScalarFieldEnum: {
+    id: 'id',
+    tanggal: 'tanggal',
+    jamMasuk: 'jamMasuk',
+    jamPulang: 'jamPulang',
+    status: 'status',
+    guruId: 'guruId'
+  };
+
+  export type AbsenGuruHarianScalarFieldEnum = (typeof AbsenGuruHarianScalarFieldEnum)[keyof typeof AbsenGuruHarianScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -14820,6 +16031,7 @@ export namespace Prisma {
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     mengajarDiJadwal?: JadwalPelajaranListRelationFilter
     waliDiKelas?: XOR<KelasNullableScalarRelationFilter, KelasWhereInput> | null
+    absenHarian?: AbsenGuruHarianListRelationFilter
   }
 
   export type GuruOrderByWithRelationInput = {
@@ -14834,6 +16046,7 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     mengajarDiJadwal?: JadwalPelajaranOrderByRelationAggregateInput
     waliDiKelas?: KelasOrderByWithRelationInput
+    absenHarian?: AbsenGuruHarianOrderByRelationAggregateInput
   }
 
   export type GuruWhereUniqueInput = Prisma.AtLeast<{
@@ -14851,6 +16064,7 @@ export namespace Prisma {
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     mengajarDiJadwal?: JadwalPelajaranListRelationFilter
     waliDiKelas?: XOR<KelasNullableScalarRelationFilter, KelasWhereInput> | null
+    absenHarian?: AbsenGuruHarianListRelationFilter
   }, "id" | "kode" | "nip" | "nuptk" | "userId">
 
   export type GuruOrderByWithAggregationInput = {
@@ -15257,6 +16471,67 @@ export namespace Prisma {
     jadwalId?: StringWithAggregatesFilter<"AbsenMapel"> | string
   }
 
+  export type AbsenGuruHarianWhereInput = {
+    AND?: AbsenGuruHarianWhereInput | AbsenGuruHarianWhereInput[]
+    OR?: AbsenGuruHarianWhereInput[]
+    NOT?: AbsenGuruHarianWhereInput | AbsenGuruHarianWhereInput[]
+    id?: StringFilter<"AbsenGuruHarian"> | string
+    tanggal?: DateTimeFilter<"AbsenGuruHarian"> | Date | string
+    jamMasuk?: DateTimeNullableFilter<"AbsenGuruHarian"> | Date | string | null
+    jamPulang?: DateTimeNullableFilter<"AbsenGuruHarian"> | Date | string | null
+    status?: EnumStatusHarianFilter<"AbsenGuruHarian"> | $Enums.StatusHarian
+    guruId?: StringFilter<"AbsenGuruHarian"> | string
+    guru?: XOR<GuruScalarRelationFilter, GuruWhereInput>
+  }
+
+  export type AbsenGuruHarianOrderByWithRelationInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    jamMasuk?: SortOrderInput | SortOrder
+    jamPulang?: SortOrderInput | SortOrder
+    status?: SortOrder
+    guruId?: SortOrder
+    guru?: GuruOrderByWithRelationInput
+  }
+
+  export type AbsenGuruHarianWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    guruId_tanggal?: AbsenGuruHarianGuruIdTanggalCompoundUniqueInput
+    AND?: AbsenGuruHarianWhereInput | AbsenGuruHarianWhereInput[]
+    OR?: AbsenGuruHarianWhereInput[]
+    NOT?: AbsenGuruHarianWhereInput | AbsenGuruHarianWhereInput[]
+    tanggal?: DateTimeFilter<"AbsenGuruHarian"> | Date | string
+    jamMasuk?: DateTimeNullableFilter<"AbsenGuruHarian"> | Date | string | null
+    jamPulang?: DateTimeNullableFilter<"AbsenGuruHarian"> | Date | string | null
+    status?: EnumStatusHarianFilter<"AbsenGuruHarian"> | $Enums.StatusHarian
+    guruId?: StringFilter<"AbsenGuruHarian"> | string
+    guru?: XOR<GuruScalarRelationFilter, GuruWhereInput>
+  }, "id" | "guruId_tanggal">
+
+  export type AbsenGuruHarianOrderByWithAggregationInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    jamMasuk?: SortOrderInput | SortOrder
+    jamPulang?: SortOrderInput | SortOrder
+    status?: SortOrder
+    guruId?: SortOrder
+    _count?: AbsenGuruHarianCountOrderByAggregateInput
+    _max?: AbsenGuruHarianMaxOrderByAggregateInput
+    _min?: AbsenGuruHarianMinOrderByAggregateInput
+  }
+
+  export type AbsenGuruHarianScalarWhereWithAggregatesInput = {
+    AND?: AbsenGuruHarianScalarWhereWithAggregatesInput | AbsenGuruHarianScalarWhereWithAggregatesInput[]
+    OR?: AbsenGuruHarianScalarWhereWithAggregatesInput[]
+    NOT?: AbsenGuruHarianScalarWhereWithAggregatesInput | AbsenGuruHarianScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AbsenGuruHarian"> | string
+    tanggal?: DateTimeWithAggregatesFilter<"AbsenGuruHarian"> | Date | string
+    jamMasuk?: DateTimeNullableWithAggregatesFilter<"AbsenGuruHarian"> | Date | string | null
+    jamPulang?: DateTimeNullableWithAggregatesFilter<"AbsenGuruHarian"> | Date | string | null
+    status?: EnumStatusHarianWithAggregatesFilter<"AbsenGuruHarian"> | $Enums.StatusHarian
+    guruId?: StringWithAggregatesFilter<"AbsenGuruHarian"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -15579,6 +16854,7 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutGuruProfilInput
     mengajarDiJadwal?: JadwalPelajaranCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasCreateNestedOneWithoutWaliKelasInput
+    absenHarian?: AbsenGuruHarianCreateNestedManyWithoutGuruInput
   }
 
   export type GuruUncheckedCreateInput = {
@@ -15592,6 +16868,7 @@ export namespace Prisma {
     userId?: string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasUncheckedCreateNestedOneWithoutWaliKelasInput
+    absenHarian?: AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput
   }
 
   export type GuruUpdateInput = {
@@ -15605,6 +16882,7 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutGuruProfilNestedInput
     mengajarDiJadwal?: JadwalPelajaranUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUpdateOneWithoutWaliKelasNestedInput
+    absenHarian?: AbsenGuruHarianUpdateManyWithoutGuruNestedInput
   }
 
   export type GuruUncheckedUpdateInput = {
@@ -15618,6 +16896,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUncheckedUpdateOneWithoutWaliKelasNestedInput
+    absenHarian?: AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput
   }
 
   export type GuruCreateManyInput = {
@@ -16032,6 +17311,68 @@ export namespace Prisma {
     jadwalId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type AbsenGuruHarianCreateInput = {
+    id?: string
+    tanggal: Date | string
+    jamMasuk?: Date | string | null
+    jamPulang?: Date | string | null
+    status?: $Enums.StatusHarian
+    guru: GuruCreateNestedOneWithoutAbsenHarianInput
+  }
+
+  export type AbsenGuruHarianUncheckedCreateInput = {
+    id?: string
+    tanggal: Date | string
+    jamMasuk?: Date | string | null
+    jamPulang?: Date | string | null
+    status?: $Enums.StatusHarian
+    guruId: string
+  }
+
+  export type AbsenGuruHarianUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    jamMasuk?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jamPulang?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
+    guru?: GuruUpdateOneRequiredWithoutAbsenHarianNestedInput
+  }
+
+  export type AbsenGuruHarianUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    jamMasuk?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jamPulang?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
+    guruId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AbsenGuruHarianCreateManyInput = {
+    id?: string
+    tanggal: Date | string
+    jamMasuk?: Date | string | null
+    jamPulang?: Date | string | null
+    status?: $Enums.StatusHarian
+    guruId: string
+  }
+
+  export type AbsenGuruHarianUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    jamMasuk?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jamPulang?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
+  }
+
+  export type AbsenGuruHarianUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    jamMasuk?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jamPulang?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
+    guruId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -16402,7 +17743,17 @@ export namespace Prisma {
     isNot?: KelasWhereInput | null
   }
 
+  export type AbsenGuruHarianListRelationFilter = {
+    every?: AbsenGuruHarianWhereInput
+    some?: AbsenGuruHarianWhereInput
+    none?: AbsenGuruHarianWhereInput
+  }
+
   export type JadwalPelajaranOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AbsenGuruHarianOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16713,6 +18064,38 @@ export namespace Prisma {
     _max?: NestedEnumStatusMapelFilter<$PrismaModel>
   }
 
+  export type AbsenGuruHarianGuruIdTanggalCompoundUniqueInput = {
+    guruId: string
+    tanggal: Date | string
+  }
+
+  export type AbsenGuruHarianCountOrderByAggregateInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    jamMasuk?: SortOrder
+    jamPulang?: SortOrder
+    status?: SortOrder
+    guruId?: SortOrder
+  }
+
+  export type AbsenGuruHarianMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    jamMasuk?: SortOrder
+    jamPulang?: SortOrder
+    status?: SortOrder
+    guruId?: SortOrder
+  }
+
+  export type AbsenGuruHarianMinOrderByAggregateInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    jamMasuk?: SortOrder
+    jamPulang?: SortOrder
+    status?: SortOrder
+    guruId?: SortOrder
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -16904,6 +18287,13 @@ export namespace Prisma {
     connect?: KelasWhereUniqueInput
   }
 
+  export type AbsenGuruHarianCreateNestedManyWithoutGuruInput = {
+    create?: XOR<AbsenGuruHarianCreateWithoutGuruInput, AbsenGuruHarianUncheckedCreateWithoutGuruInput> | AbsenGuruHarianCreateWithoutGuruInput[] | AbsenGuruHarianUncheckedCreateWithoutGuruInput[]
+    connectOrCreate?: AbsenGuruHarianCreateOrConnectWithoutGuruInput | AbsenGuruHarianCreateOrConnectWithoutGuruInput[]
+    createMany?: AbsenGuruHarianCreateManyGuruInputEnvelope
+    connect?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
+  }
+
   export type JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput = {
     create?: XOR<JadwalPelajaranCreateWithoutGuruInput, JadwalPelajaranUncheckedCreateWithoutGuruInput> | JadwalPelajaranCreateWithoutGuruInput[] | JadwalPelajaranUncheckedCreateWithoutGuruInput[]
     connectOrCreate?: JadwalPelajaranCreateOrConnectWithoutGuruInput | JadwalPelajaranCreateOrConnectWithoutGuruInput[]
@@ -16915,6 +18305,13 @@ export namespace Prisma {
     create?: XOR<KelasCreateWithoutWaliKelasInput, KelasUncheckedCreateWithoutWaliKelasInput>
     connectOrCreate?: KelasCreateOrConnectWithoutWaliKelasInput
     connect?: KelasWhereUniqueInput
+  }
+
+  export type AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput = {
+    create?: XOR<AbsenGuruHarianCreateWithoutGuruInput, AbsenGuruHarianUncheckedCreateWithoutGuruInput> | AbsenGuruHarianCreateWithoutGuruInput[] | AbsenGuruHarianUncheckedCreateWithoutGuruInput[]
+    connectOrCreate?: AbsenGuruHarianCreateOrConnectWithoutGuruInput | AbsenGuruHarianCreateOrConnectWithoutGuruInput[]
+    createMany?: AbsenGuruHarianCreateManyGuruInputEnvelope
+    connect?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
   }
 
   export type EnumGenderFieldUpdateOperationsInput = {
@@ -16959,6 +18356,20 @@ export namespace Prisma {
     update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutWaliKelasInput, KelasUpdateWithoutWaliKelasInput>, KelasUncheckedUpdateWithoutWaliKelasInput>
   }
 
+  export type AbsenGuruHarianUpdateManyWithoutGuruNestedInput = {
+    create?: XOR<AbsenGuruHarianCreateWithoutGuruInput, AbsenGuruHarianUncheckedCreateWithoutGuruInput> | AbsenGuruHarianCreateWithoutGuruInput[] | AbsenGuruHarianUncheckedCreateWithoutGuruInput[]
+    connectOrCreate?: AbsenGuruHarianCreateOrConnectWithoutGuruInput | AbsenGuruHarianCreateOrConnectWithoutGuruInput[]
+    upsert?: AbsenGuruHarianUpsertWithWhereUniqueWithoutGuruInput | AbsenGuruHarianUpsertWithWhereUniqueWithoutGuruInput[]
+    createMany?: AbsenGuruHarianCreateManyGuruInputEnvelope
+    set?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
+    disconnect?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
+    delete?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
+    connect?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
+    update?: AbsenGuruHarianUpdateWithWhereUniqueWithoutGuruInput | AbsenGuruHarianUpdateWithWhereUniqueWithoutGuruInput[]
+    updateMany?: AbsenGuruHarianUpdateManyWithWhereWithoutGuruInput | AbsenGuruHarianUpdateManyWithWhereWithoutGuruInput[]
+    deleteMany?: AbsenGuruHarianScalarWhereInput | AbsenGuruHarianScalarWhereInput[]
+  }
+
   export type JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput = {
     create?: XOR<JadwalPelajaranCreateWithoutGuruInput, JadwalPelajaranUncheckedCreateWithoutGuruInput> | JadwalPelajaranCreateWithoutGuruInput[] | JadwalPelajaranUncheckedCreateWithoutGuruInput[]
     connectOrCreate?: JadwalPelajaranCreateOrConnectWithoutGuruInput | JadwalPelajaranCreateOrConnectWithoutGuruInput[]
@@ -16981,6 +18392,20 @@ export namespace Prisma {
     delete?: KelasWhereInput | boolean
     connect?: KelasWhereUniqueInput
     update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutWaliKelasInput, KelasUpdateWithoutWaliKelasInput>, KelasUncheckedUpdateWithoutWaliKelasInput>
+  }
+
+  export type AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput = {
+    create?: XOR<AbsenGuruHarianCreateWithoutGuruInput, AbsenGuruHarianUncheckedCreateWithoutGuruInput> | AbsenGuruHarianCreateWithoutGuruInput[] | AbsenGuruHarianUncheckedCreateWithoutGuruInput[]
+    connectOrCreate?: AbsenGuruHarianCreateOrConnectWithoutGuruInput | AbsenGuruHarianCreateOrConnectWithoutGuruInput[]
+    upsert?: AbsenGuruHarianUpsertWithWhereUniqueWithoutGuruInput | AbsenGuruHarianUpsertWithWhereUniqueWithoutGuruInput[]
+    createMany?: AbsenGuruHarianCreateManyGuruInputEnvelope
+    set?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
+    disconnect?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
+    delete?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
+    connect?: AbsenGuruHarianWhereUniqueInput | AbsenGuruHarianWhereUniqueInput[]
+    update?: AbsenGuruHarianUpdateWithWhereUniqueWithoutGuruInput | AbsenGuruHarianUpdateWithWhereUniqueWithoutGuruInput[]
+    updateMany?: AbsenGuruHarianUpdateManyWithWhereWithoutGuruInput | AbsenGuruHarianUpdateManyWithWhereWithoutGuruInput[]
+    deleteMany?: AbsenGuruHarianScalarWhereInput | AbsenGuruHarianScalarWhereInput[]
   }
 
   export type AbsenHarianCreateNestedManyWithoutSiswaInput = {
@@ -17357,6 +18782,20 @@ export namespace Prisma {
     update?: XOR<XOR<SiswaUpdateToOneWithWhereWithoutAbsenMapelInput, SiswaUpdateWithoutAbsenMapelInput>, SiswaUncheckedUpdateWithoutAbsenMapelInput>
   }
 
+  export type GuruCreateNestedOneWithoutAbsenHarianInput = {
+    create?: XOR<GuruCreateWithoutAbsenHarianInput, GuruUncheckedCreateWithoutAbsenHarianInput>
+    connectOrCreate?: GuruCreateOrConnectWithoutAbsenHarianInput
+    connect?: GuruWhereUniqueInput
+  }
+
+  export type GuruUpdateOneRequiredWithoutAbsenHarianNestedInput = {
+    create?: XOR<GuruCreateWithoutAbsenHarianInput, GuruUncheckedCreateWithoutAbsenHarianInput>
+    connectOrCreate?: GuruCreateOrConnectWithoutAbsenHarianInput
+    upsert?: GuruUpsertWithoutAbsenHarianInput
+    connect?: GuruWhereUniqueInput
+    update?: XOR<XOR<GuruUpdateToOneWithWhereWithoutAbsenHarianInput, GuruUpdateWithoutAbsenHarianInput>, GuruUncheckedUpdateWithoutAbsenHarianInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -17649,6 +19088,7 @@ export namespace Prisma {
     isPiket?: boolean
     mengajarDiJadwal?: JadwalPelajaranCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasCreateNestedOneWithoutWaliKelasInput
+    absenHarian?: AbsenGuruHarianCreateNestedManyWithoutGuruInput
   }
 
   export type GuruUncheckedCreateWithoutUserInput = {
@@ -17661,6 +19101,7 @@ export namespace Prisma {
     isPiket?: boolean
     mengajarDiJadwal?: JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasUncheckedCreateNestedOneWithoutWaliKelasInput
+    absenHarian?: AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput
   }
 
   export type GuruCreateOrConnectWithoutUserInput = {
@@ -17748,6 +19189,7 @@ export namespace Prisma {
     isPiket?: BoolFieldUpdateOperationsInput | boolean
     mengajarDiJadwal?: JadwalPelajaranUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUpdateOneWithoutWaliKelasNestedInput
+    absenHarian?: AbsenGuruHarianUpdateManyWithoutGuruNestedInput
   }
 
   export type GuruUncheckedUpdateWithoutUserInput = {
@@ -17760,6 +19202,7 @@ export namespace Prisma {
     isPiket?: BoolFieldUpdateOperationsInput | boolean
     mengajarDiJadwal?: JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUncheckedUpdateOneWithoutWaliKelasNestedInput
+    absenHarian?: AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput
   }
 
   export type SessionUpsertWithWhereUniqueWithoutUserInput = {
@@ -18025,6 +19468,32 @@ export namespace Prisma {
     create: XOR<KelasCreateWithoutWaliKelasInput, KelasUncheckedCreateWithoutWaliKelasInput>
   }
 
+  export type AbsenGuruHarianCreateWithoutGuruInput = {
+    id?: string
+    tanggal: Date | string
+    jamMasuk?: Date | string | null
+    jamPulang?: Date | string | null
+    status?: $Enums.StatusHarian
+  }
+
+  export type AbsenGuruHarianUncheckedCreateWithoutGuruInput = {
+    id?: string
+    tanggal: Date | string
+    jamMasuk?: Date | string | null
+    jamPulang?: Date | string | null
+    status?: $Enums.StatusHarian
+  }
+
+  export type AbsenGuruHarianCreateOrConnectWithoutGuruInput = {
+    where: AbsenGuruHarianWhereUniqueInput
+    create: XOR<AbsenGuruHarianCreateWithoutGuruInput, AbsenGuruHarianUncheckedCreateWithoutGuruInput>
+  }
+
+  export type AbsenGuruHarianCreateManyGuruInputEnvelope = {
+    data: AbsenGuruHarianCreateManyGuruInput | AbsenGuruHarianCreateManyGuruInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutGuruProfilInput = {
     update: XOR<UserUpdateWithoutGuruProfilInput, UserUncheckedUpdateWithoutGuruProfilInput>
     create: XOR<UserCreateWithoutGuruProfilInput, UserUncheckedCreateWithoutGuruProfilInput>
@@ -18118,6 +19587,34 @@ export namespace Prisma {
     nama?: StringFieldUpdateOperationsInput | string
     jadwal?: JadwalPelajaranUncheckedUpdateManyWithoutKelasNestedInput
     siswa?: SiswaUncheckedUpdateManyWithoutKelasNestedInput
+  }
+
+  export type AbsenGuruHarianUpsertWithWhereUniqueWithoutGuruInput = {
+    where: AbsenGuruHarianWhereUniqueInput
+    update: XOR<AbsenGuruHarianUpdateWithoutGuruInput, AbsenGuruHarianUncheckedUpdateWithoutGuruInput>
+    create: XOR<AbsenGuruHarianCreateWithoutGuruInput, AbsenGuruHarianUncheckedCreateWithoutGuruInput>
+  }
+
+  export type AbsenGuruHarianUpdateWithWhereUniqueWithoutGuruInput = {
+    where: AbsenGuruHarianWhereUniqueInput
+    data: XOR<AbsenGuruHarianUpdateWithoutGuruInput, AbsenGuruHarianUncheckedUpdateWithoutGuruInput>
+  }
+
+  export type AbsenGuruHarianUpdateManyWithWhereWithoutGuruInput = {
+    where: AbsenGuruHarianScalarWhereInput
+    data: XOR<AbsenGuruHarianUpdateManyMutationInput, AbsenGuruHarianUncheckedUpdateManyWithoutGuruInput>
+  }
+
+  export type AbsenGuruHarianScalarWhereInput = {
+    AND?: AbsenGuruHarianScalarWhereInput | AbsenGuruHarianScalarWhereInput[]
+    OR?: AbsenGuruHarianScalarWhereInput[]
+    NOT?: AbsenGuruHarianScalarWhereInput | AbsenGuruHarianScalarWhereInput[]
+    id?: StringFilter<"AbsenGuruHarian"> | string
+    tanggal?: DateTimeFilter<"AbsenGuruHarian"> | Date | string
+    jamMasuk?: DateTimeNullableFilter<"AbsenGuruHarian"> | Date | string | null
+    jamPulang?: DateTimeNullableFilter<"AbsenGuruHarian"> | Date | string | null
+    status?: EnumStatusHarianFilter<"AbsenGuruHarian"> | $Enums.StatusHarian
+    guruId?: StringFilter<"AbsenGuruHarian"> | string
   }
 
   export type AbsenHarianCreateWithoutSiswaInput = {
@@ -18321,6 +19818,7 @@ export namespace Prisma {
     isPiket?: boolean
     user?: UserCreateNestedOneWithoutGuruProfilInput
     mengajarDiJadwal?: JadwalPelajaranCreateNestedManyWithoutGuruInput
+    absenHarian?: AbsenGuruHarianCreateNestedManyWithoutGuruInput
   }
 
   export type GuruUncheckedCreateWithoutWaliDiKelasInput = {
@@ -18333,6 +19831,7 @@ export namespace Prisma {
     isPiket?: boolean
     userId?: string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput
+    absenHarian?: AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput
   }
 
   export type GuruCreateOrConnectWithoutWaliDiKelasInput = {
@@ -18407,6 +19906,7 @@ export namespace Prisma {
     isPiket?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutGuruProfilNestedInput
     mengajarDiJadwal?: JadwalPelajaranUpdateManyWithoutGuruNestedInput
+    absenHarian?: AbsenGuruHarianUpdateManyWithoutGuruNestedInput
   }
 
   export type GuruUncheckedUpdateWithoutWaliDiKelasInput = {
@@ -18419,6 +19919,7 @@ export namespace Prisma {
     isPiket?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput
+    absenHarian?: AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput
   }
 
   export type SiswaUpsertWithWhereUniqueWithoutKelasInput = {
@@ -18537,6 +20038,7 @@ export namespace Prisma {
     isPiket?: boolean
     user?: UserCreateNestedOneWithoutGuruProfilInput
     waliDiKelas?: KelasCreateNestedOneWithoutWaliKelasInput
+    absenHarian?: AbsenGuruHarianCreateNestedManyWithoutGuruInput
   }
 
   export type GuruUncheckedCreateWithoutMengajarDiJadwalInput = {
@@ -18549,6 +20051,7 @@ export namespace Prisma {
     isPiket?: boolean
     userId?: string | null
     waliDiKelas?: KelasUncheckedCreateNestedOneWithoutWaliKelasInput
+    absenHarian?: AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput
   }
 
   export type GuruCreateOrConnectWithoutMengajarDiJadwalInput = {
@@ -18629,6 +20132,7 @@ export namespace Prisma {
     isPiket?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutGuruProfilNestedInput
     waliDiKelas?: KelasUpdateOneWithoutWaliKelasNestedInput
+    absenHarian?: AbsenGuruHarianUpdateManyWithoutGuruNestedInput
   }
 
   export type GuruUncheckedUpdateWithoutMengajarDiJadwalInput = {
@@ -18641,6 +20145,7 @@ export namespace Prisma {
     isPiket?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     waliDiKelas?: KelasUncheckedUpdateOneWithoutWaliKelasNestedInput
+    absenHarian?: AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput
   }
 
   export type KelasUpsertWithoutJadwalInput = {
@@ -18859,6 +20364,74 @@ export namespace Prisma {
     absenHarian?: AbsenHarianUncheckedUpdateManyWithoutSiswaNestedInput
   }
 
+  export type GuruCreateWithoutAbsenHarianInput = {
+    id?: string
+    nama: string
+    kode: string
+    nip?: string | null
+    nuptk?: string | null
+    gender?: $Enums.Gender
+    isPiket?: boolean
+    user?: UserCreateNestedOneWithoutGuruProfilInput
+    mengajarDiJadwal?: JadwalPelajaranCreateNestedManyWithoutGuruInput
+    waliDiKelas?: KelasCreateNestedOneWithoutWaliKelasInput
+  }
+
+  export type GuruUncheckedCreateWithoutAbsenHarianInput = {
+    id?: string
+    nama: string
+    kode: string
+    nip?: string | null
+    nuptk?: string | null
+    gender?: $Enums.Gender
+    isPiket?: boolean
+    userId?: string | null
+    mengajarDiJadwal?: JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput
+    waliDiKelas?: KelasUncheckedCreateNestedOneWithoutWaliKelasInput
+  }
+
+  export type GuruCreateOrConnectWithoutAbsenHarianInput = {
+    where: GuruWhereUniqueInput
+    create: XOR<GuruCreateWithoutAbsenHarianInput, GuruUncheckedCreateWithoutAbsenHarianInput>
+  }
+
+  export type GuruUpsertWithoutAbsenHarianInput = {
+    update: XOR<GuruUpdateWithoutAbsenHarianInput, GuruUncheckedUpdateWithoutAbsenHarianInput>
+    create: XOR<GuruCreateWithoutAbsenHarianInput, GuruUncheckedCreateWithoutAbsenHarianInput>
+    where?: GuruWhereInput
+  }
+
+  export type GuruUpdateToOneWithWhereWithoutAbsenHarianInput = {
+    where?: GuruWhereInput
+    data: XOR<GuruUpdateWithoutAbsenHarianInput, GuruUncheckedUpdateWithoutAbsenHarianInput>
+  }
+
+  export type GuruUpdateWithoutAbsenHarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    nip?: NullableStringFieldUpdateOperationsInput | string | null
+    nuptk?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    isPiket?: BoolFieldUpdateOperationsInput | boolean
+    user?: UserUpdateOneWithoutGuruProfilNestedInput
+    mengajarDiJadwal?: JadwalPelajaranUpdateManyWithoutGuruNestedInput
+    waliDiKelas?: KelasUpdateOneWithoutWaliKelasNestedInput
+  }
+
+  export type GuruUncheckedUpdateWithoutAbsenHarianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    nip?: NullableStringFieldUpdateOperationsInput | string | null
+    nuptk?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    isPiket?: BoolFieldUpdateOperationsInput | boolean
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    mengajarDiJadwal?: JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput
+    waliDiKelas?: KelasUncheckedUpdateOneWithoutWaliKelasNestedInput
+  }
+
   export type AccountCreateManyUserInput = {
     type: string
     provider: string
@@ -18956,6 +20529,14 @@ export namespace Prisma {
     mapelId: string
   }
 
+  export type AbsenGuruHarianCreateManyGuruInput = {
+    id?: string
+    tanggal: Date | string
+    jamMasuk?: Date | string | null
+    jamPulang?: Date | string | null
+    status?: $Enums.StatusHarian
+  }
+
   export type JadwalPelajaranUpdateWithoutGuruInput = {
     id?: StringFieldUpdateOperationsInput | string
     hari?: StringFieldUpdateOperationsInput | string
@@ -18983,6 +20564,30 @@ export namespace Prisma {
     jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     kelasId?: StringFieldUpdateOperationsInput | string
     mapelId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AbsenGuruHarianUpdateWithoutGuruInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    jamMasuk?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jamPulang?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
+  }
+
+  export type AbsenGuruHarianUncheckedUpdateWithoutGuruInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    jamMasuk?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jamPulang?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
+  }
+
+  export type AbsenGuruHarianUncheckedUpdateManyWithoutGuruInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    jamMasuk?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    jamPulang?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    status?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
   }
 
   export type AbsenHarianCreateManySiswaInput = {

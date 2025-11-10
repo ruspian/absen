@@ -227,6 +227,15 @@ exports.Prisma.AbsenMapelScalarFieldEnum = {
   jadwalId: 'jadwalId'
 };
 
+exports.Prisma.AbsenGuruHarianScalarFieldEnum = {
+  id: 'id',
+  tanggal: 'tanggal',
+  jamMasuk: 'jamMasuk',
+  jamPulang: 'jamPulang',
+  status: 'status',
+  guruId: 'guruId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -276,7 +285,8 @@ exports.Prisma.ModelName = {
   MataPelajaran: 'MataPelajaran',
   JadwalPelajaran: 'JadwalPelajaran',
   AbsenHarian: 'AbsenHarian',
-  AbsenMapel: 'AbsenMapel'
+  AbsenMapel: 'AbsenMapel',
+  AbsenGuruHarian: 'AbsenGuruHarian'
 };
 
 /**
