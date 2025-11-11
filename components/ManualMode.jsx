@@ -41,17 +41,28 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
           return true;
         }
 
-        if (filterStatus === "ALFA") {
-          return siswa.status === null || siswa.status === "ALFA";
+        if (filterStatus === null) {
+          return siswa.status === null;
         }
-
-        // Kalo filternya SAKIT atau IZIN,
-        return siswa.status === filterStatus;
+        if (filterStatus === "HADIR") {
+          return siswa.status === "HADIR";
+        }
+        if (filterStatus === "ALFA") {
+          return siswa.status === "ALFA";
+        }
+        if (filterStatus === "IZIN") {
+          return siswa.status === "IZIN";
+        }
+        if (filterStatus === "SAKIT") {
+          return siswa.status === "SAKIT";
+        }
       };
 
       return matchKelas && matchStatus();
     });
   }, [dataSiswa, filterKelas, filterStatus]);
+
+  console.log("filteredData", filteredData);
 
   // Fungsi kirim absen manual (Sakit/Izin/Alfa)
   const handleAbsen = async (siswaId, status) => {
@@ -64,7 +75,7 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
       };
 
       // [PERBAIKAN 1] API endpoint salah, harusnya '/harian-manual'
-      const response = await fetch(`/api/absen/harian-manual`, {
+      const response = await fetch(`/api/absen/manual`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -167,7 +178,6 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
                       {item.nisn || "-"}
                     </TableCell>
                     <TableCell className="py-2.5 font-medium">
-                      {/* [PERBAIKAN 2] Tampilan Status 'null' */}
                       {item.status === null ? (
                         <span className="text-gray-500">- Belum Absen -</span>
                       ) : (
@@ -211,10 +221,7 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
                         <Button
                           size="sm"
                           variant={
-                            // [PERBAIKAN 2] Logika Highlight Tombol Alfa
-                            item.status === "ALFA" || item.status === null
-                              ? "destructive"
-                              : "outline"
+                            item.status === "ALFA" ? "destructive" : "outline"
                           }
                           disabled={isLoading === item.id}
                           onClick={() => handleAbsen(item.id, "ALFA")}

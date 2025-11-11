@@ -2,10 +2,13 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 
+const TIMEZONE = "Asia/Makassar"; // WITA
+
 const getToday = () => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return today;
+  const todayStringWITA = new Date().toLocaleDateString("en-CA", {
+    timeZone: TIMEZONE,
+  });
+  return new Date(todayStringWITA);
 };
 
 export const POST = async (req) => {
