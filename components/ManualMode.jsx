@@ -62,8 +62,6 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
     });
   }, [dataSiswa, filterKelas, filterStatus]);
 
-  console.log("filteredData", filteredData);
-
   // Fungsi kirim absen manual (Sakit/Izin/Alfa)
   const handleAbsen = async (siswaId, status) => {
     setIsLoading(siswaId);
@@ -75,11 +73,14 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
       };
 
       // [PERBAIKAN 1] API endpoint salah, harusnya '/harian-manual'
-      const response = await fetch(`/api/absen/manual`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/absen/manual`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await response.json();
 
