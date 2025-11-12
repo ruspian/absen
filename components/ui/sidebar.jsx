@@ -164,6 +164,7 @@ export const SidebarLink = ({ className, ...props }) => {
           { label: "Data Kelas", href: "/master/kelas" },
           { label: "Data Mata Pelajaran", href: "/master/mapel" },
           { label: "Data Jadwal", href: "/master/jadwal" },
+          { label: "Data Piket", href: "/master/piket" },
         ],
       },
       {
