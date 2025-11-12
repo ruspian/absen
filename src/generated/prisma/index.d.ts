@@ -39,6 +39,11 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type Guru = $Result.DefaultSelection<Prisma.$GuruPayload>
 /**
+ * Model JadwalPiket
+ * 
+ */
+export type JadwalPiket = $Result.DefaultSelection<Prisma.$JadwalPiketPayload>
+/**
  * Model Siswa
  * 
  */
@@ -298,6 +303,16 @@ export class PrismaClient<
     * ```
     */
   get guru(): Prisma.GuruDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.jadwalPiket`: Exposes CRUD operations for the **JadwalPiket** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more JadwalPikets
+    * const jadwalPikets = await prisma.jadwalPiket.findMany()
+    * ```
+    */
+  get jadwalPiket(): Prisma.JadwalPiketDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.siswa`: Exposes CRUD operations for the **Siswa** model.
@@ -814,6 +829,7 @@ export namespace Prisma {
     Session: 'Session',
     VerificationToken: 'VerificationToken',
     Guru: 'Guru',
+    JadwalPiket: 'JadwalPiket',
     Siswa: 'Siswa',
     Kelas: 'Kelas',
     MataPelajaran: 'MataPelajaran',
@@ -839,7 +855,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "guru" | "siswa" | "kelas" | "mataPelajaran" | "jadwalPelajaran" | "absenHarian" | "absenMapel" | "absenGuruHarian"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "guru" | "jadwalPiket" | "siswa" | "kelas" | "mataPelajaran" | "jadwalPelajaran" | "absenHarian" | "absenMapel" | "absenGuruHarian"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1210,6 +1226,80 @@ export namespace Prisma {
           count: {
             args: Prisma.GuruCountArgs<ExtArgs>
             result: $Utils.Optional<GuruCountAggregateOutputType> | number
+          }
+        }
+      }
+      JadwalPiket: {
+        payload: Prisma.$JadwalPiketPayload<ExtArgs>
+        fields: Prisma.JadwalPiketFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.JadwalPiketFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.JadwalPiketFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload>
+          }
+          findFirst: {
+            args: Prisma.JadwalPiketFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.JadwalPiketFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload>
+          }
+          findMany: {
+            args: Prisma.JadwalPiketFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload>[]
+          }
+          create: {
+            args: Prisma.JadwalPiketCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload>
+          }
+          createMany: {
+            args: Prisma.JadwalPiketCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.JadwalPiketCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload>[]
+          }
+          delete: {
+            args: Prisma.JadwalPiketDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload>
+          }
+          update: {
+            args: Prisma.JadwalPiketUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload>
+          }
+          deleteMany: {
+            args: Prisma.JadwalPiketDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.JadwalPiketUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.JadwalPiketUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload>[]
+          }
+          upsert: {
+            args: Prisma.JadwalPiketUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$JadwalPiketPayload>
+          }
+          aggregate: {
+            args: Prisma.JadwalPiketAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateJadwalPiket>
+          }
+          groupBy: {
+            args: Prisma.JadwalPiketGroupByArgs<ExtArgs>
+            result: $Utils.Optional<JadwalPiketGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.JadwalPiketCountArgs<ExtArgs>
+            result: $Utils.Optional<JadwalPiketCountAggregateOutputType> | number
           }
         }
       }
@@ -1832,6 +1922,7 @@ export namespace Prisma {
     session?: SessionOmit
     verificationToken?: VerificationTokenOmit
     guru?: GuruOmit
+    jadwalPiket?: JadwalPiketOmit
     siswa?: SiswaOmit
     kelas?: KelasOmit
     mataPelajaran?: MataPelajaranOmit
@@ -1960,11 +2051,13 @@ export namespace Prisma {
 
   export type GuruCountOutputType = {
     mengajarDiJadwal: number
+    jadwalPiket: number
     absenHarian: number
   }
 
   export type GuruCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mengajarDiJadwal?: boolean | GuruCountOutputTypeCountMengajarDiJadwalArgs
+    jadwalPiket?: boolean | GuruCountOutputTypeCountJadwalPiketArgs
     absenHarian?: boolean | GuruCountOutputTypeCountAbsenHarianArgs
   }
 
@@ -1984,6 +2077,13 @@ export namespace Prisma {
    */
   export type GuruCountOutputTypeCountMengajarDiJadwalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: JadwalPelajaranWhereInput
+  }
+
+  /**
+   * GuruCountOutputType without action
+   */
+  export type GuruCountOutputTypeCountJadwalPiketArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JadwalPiketWhereInput
   }
 
   /**
@@ -6566,7 +6666,6 @@ export namespace Prisma {
     nip: string | null
     nuptk: string | null
     gender: $Enums.Gender | null
-    isPiket: boolean | null
     userId: string | null
   }
 
@@ -6577,7 +6676,6 @@ export namespace Prisma {
     nip: string | null
     nuptk: string | null
     gender: $Enums.Gender | null
-    isPiket: boolean | null
     userId: string | null
   }
 
@@ -6588,7 +6686,6 @@ export namespace Prisma {
     nip: number
     nuptk: number
     gender: number
-    isPiket: number
     userId: number
     _all: number
   }
@@ -6601,7 +6698,6 @@ export namespace Prisma {
     nip?: true
     nuptk?: true
     gender?: true
-    isPiket?: true
     userId?: true
   }
 
@@ -6612,7 +6708,6 @@ export namespace Prisma {
     nip?: true
     nuptk?: true
     gender?: true
-    isPiket?: true
     userId?: true
   }
 
@@ -6623,7 +6718,6 @@ export namespace Prisma {
     nip?: true
     nuptk?: true
     gender?: true
-    isPiket?: true
     userId?: true
     _all?: true
   }
@@ -6707,7 +6801,6 @@ export namespace Prisma {
     nip: string | null
     nuptk: string | null
     gender: $Enums.Gender
-    isPiket: boolean
     userId: string | null
     _count: GuruCountAggregateOutputType | null
     _min: GuruMinAggregateOutputType | null
@@ -6735,11 +6828,11 @@ export namespace Prisma {
     nip?: boolean
     nuptk?: boolean
     gender?: boolean
-    isPiket?: boolean
     userId?: boolean
     user?: boolean | Guru$userArgs<ExtArgs>
     mengajarDiJadwal?: boolean | Guru$mengajarDiJadwalArgs<ExtArgs>
     waliDiKelas?: boolean | Guru$waliDiKelasArgs<ExtArgs>
+    jadwalPiket?: boolean | Guru$jadwalPiketArgs<ExtArgs>
     absenHarian?: boolean | Guru$absenHarianArgs<ExtArgs>
     _count?: boolean | GuruCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["guru"]>
@@ -6751,7 +6844,6 @@ export namespace Prisma {
     nip?: boolean
     nuptk?: boolean
     gender?: boolean
-    isPiket?: boolean
     userId?: boolean
     user?: boolean | Guru$userArgs<ExtArgs>
   }, ExtArgs["result"]["guru"]>
@@ -6763,7 +6855,6 @@ export namespace Prisma {
     nip?: boolean
     nuptk?: boolean
     gender?: boolean
-    isPiket?: boolean
     userId?: boolean
     user?: boolean | Guru$userArgs<ExtArgs>
   }, ExtArgs["result"]["guru"]>
@@ -6775,15 +6866,15 @@ export namespace Prisma {
     nip?: boolean
     nuptk?: boolean
     gender?: boolean
-    isPiket?: boolean
     userId?: boolean
   }
 
-  export type GuruOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "kode" | "nip" | "nuptk" | "gender" | "isPiket" | "userId", ExtArgs["result"]["guru"]>
+  export type GuruOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "kode" | "nip" | "nuptk" | "gender" | "userId", ExtArgs["result"]["guru"]>
   export type GuruInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Guru$userArgs<ExtArgs>
     mengajarDiJadwal?: boolean | Guru$mengajarDiJadwalArgs<ExtArgs>
     waliDiKelas?: boolean | Guru$waliDiKelasArgs<ExtArgs>
+    jadwalPiket?: boolean | Guru$jadwalPiketArgs<ExtArgs>
     absenHarian?: boolean | Guru$absenHarianArgs<ExtArgs>
     _count?: boolean | GuruCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -6800,6 +6891,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs> | null
       mengajarDiJadwal: Prisma.$JadwalPelajaranPayload<ExtArgs>[]
       waliDiKelas: Prisma.$KelasPayload<ExtArgs> | null
+      jadwalPiket: Prisma.$JadwalPiketPayload<ExtArgs>[]
       absenHarian: Prisma.$AbsenGuruHarianPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -6809,7 +6901,6 @@ export namespace Prisma {
       nip: string | null
       nuptk: string | null
       gender: $Enums.Gender
-      isPiket: boolean
       userId: string | null
     }, ExtArgs["result"]["guru"]>
     composites: {}
@@ -7208,6 +7299,7 @@ export namespace Prisma {
     user<T extends Guru$userArgs<ExtArgs> = {}>(args?: Subset<T, Guru$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     mengajarDiJadwal<T extends Guru$mengajarDiJadwalArgs<ExtArgs> = {}>(args?: Subset<T, Guru$mengajarDiJadwalArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalPelajaranPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     waliDiKelas<T extends Guru$waliDiKelasArgs<ExtArgs> = {}>(args?: Subset<T, Guru$waliDiKelasArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    jadwalPiket<T extends Guru$jadwalPiketArgs<ExtArgs> = {}>(args?: Subset<T, Guru$jadwalPiketArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     absenHarian<T extends Guru$absenHarianArgs<ExtArgs> = {}>(args?: Subset<T, Guru$absenHarianArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsenGuruHarianPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7244,7 +7336,6 @@ export namespace Prisma {
     readonly nip: FieldRef<"Guru", 'String'>
     readonly nuptk: FieldRef<"Guru", 'String'>
     readonly gender: FieldRef<"Guru", 'Gender'>
-    readonly isPiket: FieldRef<"Guru", 'Boolean'>
     readonly userId: FieldRef<"Guru", 'String'>
   }
     
@@ -7704,6 +7795,30 @@ export namespace Prisma {
   }
 
   /**
+   * Guru.jadwalPiket
+   */
+  export type Guru$jadwalPiketArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    where?: JadwalPiketWhereInput
+    orderBy?: JadwalPiketOrderByWithRelationInput | JadwalPiketOrderByWithRelationInput[]
+    cursor?: JadwalPiketWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: JadwalPiketScalarFieldEnum | JadwalPiketScalarFieldEnum[]
+  }
+
+  /**
    * Guru.absenHarian
    */
   export type Guru$absenHarianArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7743,6 +7858,1038 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: GuruInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model JadwalPiket
+   */
+
+  export type AggregateJadwalPiket = {
+    _count: JadwalPiketCountAggregateOutputType | null
+    _min: JadwalPiketMinAggregateOutputType | null
+    _max: JadwalPiketMaxAggregateOutputType | null
+  }
+
+  export type JadwalPiketMinAggregateOutputType = {
+    id: string | null
+    hari: string | null
+    guruId: string | null
+  }
+
+  export type JadwalPiketMaxAggregateOutputType = {
+    id: string | null
+    hari: string | null
+    guruId: string | null
+  }
+
+  export type JadwalPiketCountAggregateOutputType = {
+    id: number
+    hari: number
+    guruId: number
+    _all: number
+  }
+
+
+  export type JadwalPiketMinAggregateInputType = {
+    id?: true
+    hari?: true
+    guruId?: true
+  }
+
+  export type JadwalPiketMaxAggregateInputType = {
+    id?: true
+    hari?: true
+    guruId?: true
+  }
+
+  export type JadwalPiketCountAggregateInputType = {
+    id?: true
+    hari?: true
+    guruId?: true
+    _all?: true
+  }
+
+  export type JadwalPiketAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JadwalPiket to aggregate.
+     */
+    where?: JadwalPiketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JadwalPikets to fetch.
+     */
+    orderBy?: JadwalPiketOrderByWithRelationInput | JadwalPiketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: JadwalPiketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JadwalPikets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JadwalPikets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned JadwalPikets
+    **/
+    _count?: true | JadwalPiketCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: JadwalPiketMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: JadwalPiketMaxAggregateInputType
+  }
+
+  export type GetJadwalPiketAggregateType<T extends JadwalPiketAggregateArgs> = {
+        [P in keyof T & keyof AggregateJadwalPiket]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateJadwalPiket[P]>
+      : GetScalarType<T[P], AggregateJadwalPiket[P]>
+  }
+
+
+
+
+  export type JadwalPiketGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: JadwalPiketWhereInput
+    orderBy?: JadwalPiketOrderByWithAggregationInput | JadwalPiketOrderByWithAggregationInput[]
+    by: JadwalPiketScalarFieldEnum[] | JadwalPiketScalarFieldEnum
+    having?: JadwalPiketScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: JadwalPiketCountAggregateInputType | true
+    _min?: JadwalPiketMinAggregateInputType
+    _max?: JadwalPiketMaxAggregateInputType
+  }
+
+  export type JadwalPiketGroupByOutputType = {
+    id: string
+    hari: string
+    guruId: string
+    _count: JadwalPiketCountAggregateOutputType | null
+    _min: JadwalPiketMinAggregateOutputType | null
+    _max: JadwalPiketMaxAggregateOutputType | null
+  }
+
+  type GetJadwalPiketGroupByPayload<T extends JadwalPiketGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<JadwalPiketGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof JadwalPiketGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], JadwalPiketGroupByOutputType[P]>
+            : GetScalarType<T[P], JadwalPiketGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type JadwalPiketSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hari?: boolean
+    guruId?: boolean
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["jadwalPiket"]>
+
+  export type JadwalPiketSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hari?: boolean
+    guruId?: boolean
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["jadwalPiket"]>
+
+  export type JadwalPiketSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    hari?: boolean
+    guruId?: boolean
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["jadwalPiket"]>
+
+  export type JadwalPiketSelectScalar = {
+    id?: boolean
+    hari?: boolean
+    guruId?: boolean
+  }
+
+  export type JadwalPiketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "hari" | "guruId", ExtArgs["result"]["jadwalPiket"]>
+  export type JadwalPiketInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }
+  export type JadwalPiketIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }
+  export type JadwalPiketIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    guru?: boolean | GuruDefaultArgs<ExtArgs>
+  }
+
+  export type $JadwalPiketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "JadwalPiket"
+    objects: {
+      guru: Prisma.$GuruPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      hari: string
+      guruId: string
+    }, ExtArgs["result"]["jadwalPiket"]>
+    composites: {}
+  }
+
+  type JadwalPiketGetPayload<S extends boolean | null | undefined | JadwalPiketDefaultArgs> = $Result.GetResult<Prisma.$JadwalPiketPayload, S>
+
+  type JadwalPiketCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<JadwalPiketFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: JadwalPiketCountAggregateInputType | true
+    }
+
+  export interface JadwalPiketDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['JadwalPiket'], meta: { name: 'JadwalPiket' } }
+    /**
+     * Find zero or one JadwalPiket that matches the filter.
+     * @param {JadwalPiketFindUniqueArgs} args - Arguments to find a JadwalPiket
+     * @example
+     * // Get one JadwalPiket
+     * const jadwalPiket = await prisma.jadwalPiket.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends JadwalPiketFindUniqueArgs>(args: SelectSubset<T, JadwalPiketFindUniqueArgs<ExtArgs>>): Prisma__JadwalPiketClient<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one JadwalPiket that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {JadwalPiketFindUniqueOrThrowArgs} args - Arguments to find a JadwalPiket
+     * @example
+     * // Get one JadwalPiket
+     * const jadwalPiket = await prisma.jadwalPiket.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends JadwalPiketFindUniqueOrThrowArgs>(args: SelectSubset<T, JadwalPiketFindUniqueOrThrowArgs<ExtArgs>>): Prisma__JadwalPiketClient<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first JadwalPiket that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalPiketFindFirstArgs} args - Arguments to find a JadwalPiket
+     * @example
+     * // Get one JadwalPiket
+     * const jadwalPiket = await prisma.jadwalPiket.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends JadwalPiketFindFirstArgs>(args?: SelectSubset<T, JadwalPiketFindFirstArgs<ExtArgs>>): Prisma__JadwalPiketClient<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first JadwalPiket that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalPiketFindFirstOrThrowArgs} args - Arguments to find a JadwalPiket
+     * @example
+     * // Get one JadwalPiket
+     * const jadwalPiket = await prisma.jadwalPiket.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends JadwalPiketFindFirstOrThrowArgs>(args?: SelectSubset<T, JadwalPiketFindFirstOrThrowArgs<ExtArgs>>): Prisma__JadwalPiketClient<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more JadwalPikets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalPiketFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all JadwalPikets
+     * const jadwalPikets = await prisma.jadwalPiket.findMany()
+     * 
+     * // Get first 10 JadwalPikets
+     * const jadwalPikets = await prisma.jadwalPiket.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const jadwalPiketWithIdOnly = await prisma.jadwalPiket.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends JadwalPiketFindManyArgs>(args?: SelectSubset<T, JadwalPiketFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a JadwalPiket.
+     * @param {JadwalPiketCreateArgs} args - Arguments to create a JadwalPiket.
+     * @example
+     * // Create one JadwalPiket
+     * const JadwalPiket = await prisma.jadwalPiket.create({
+     *   data: {
+     *     // ... data to create a JadwalPiket
+     *   }
+     * })
+     * 
+     */
+    create<T extends JadwalPiketCreateArgs>(args: SelectSubset<T, JadwalPiketCreateArgs<ExtArgs>>): Prisma__JadwalPiketClient<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many JadwalPikets.
+     * @param {JadwalPiketCreateManyArgs} args - Arguments to create many JadwalPikets.
+     * @example
+     * // Create many JadwalPikets
+     * const jadwalPiket = await prisma.jadwalPiket.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends JadwalPiketCreateManyArgs>(args?: SelectSubset<T, JadwalPiketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many JadwalPikets and returns the data saved in the database.
+     * @param {JadwalPiketCreateManyAndReturnArgs} args - Arguments to create many JadwalPikets.
+     * @example
+     * // Create many JadwalPikets
+     * const jadwalPiket = await prisma.jadwalPiket.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many JadwalPikets and only return the `id`
+     * const jadwalPiketWithIdOnly = await prisma.jadwalPiket.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends JadwalPiketCreateManyAndReturnArgs>(args?: SelectSubset<T, JadwalPiketCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a JadwalPiket.
+     * @param {JadwalPiketDeleteArgs} args - Arguments to delete one JadwalPiket.
+     * @example
+     * // Delete one JadwalPiket
+     * const JadwalPiket = await prisma.jadwalPiket.delete({
+     *   where: {
+     *     // ... filter to delete one JadwalPiket
+     *   }
+     * })
+     * 
+     */
+    delete<T extends JadwalPiketDeleteArgs>(args: SelectSubset<T, JadwalPiketDeleteArgs<ExtArgs>>): Prisma__JadwalPiketClient<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one JadwalPiket.
+     * @param {JadwalPiketUpdateArgs} args - Arguments to update one JadwalPiket.
+     * @example
+     * // Update one JadwalPiket
+     * const jadwalPiket = await prisma.jadwalPiket.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends JadwalPiketUpdateArgs>(args: SelectSubset<T, JadwalPiketUpdateArgs<ExtArgs>>): Prisma__JadwalPiketClient<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more JadwalPikets.
+     * @param {JadwalPiketDeleteManyArgs} args - Arguments to filter JadwalPikets to delete.
+     * @example
+     * // Delete a few JadwalPikets
+     * const { count } = await prisma.jadwalPiket.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends JadwalPiketDeleteManyArgs>(args?: SelectSubset<T, JadwalPiketDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JadwalPikets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalPiketUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many JadwalPikets
+     * const jadwalPiket = await prisma.jadwalPiket.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends JadwalPiketUpdateManyArgs>(args: SelectSubset<T, JadwalPiketUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more JadwalPikets and returns the data updated in the database.
+     * @param {JadwalPiketUpdateManyAndReturnArgs} args - Arguments to update many JadwalPikets.
+     * @example
+     * // Update many JadwalPikets
+     * const jadwalPiket = await prisma.jadwalPiket.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more JadwalPikets and only return the `id`
+     * const jadwalPiketWithIdOnly = await prisma.jadwalPiket.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends JadwalPiketUpdateManyAndReturnArgs>(args: SelectSubset<T, JadwalPiketUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one JadwalPiket.
+     * @param {JadwalPiketUpsertArgs} args - Arguments to update or create a JadwalPiket.
+     * @example
+     * // Update or create a JadwalPiket
+     * const jadwalPiket = await prisma.jadwalPiket.upsert({
+     *   create: {
+     *     // ... data to create a JadwalPiket
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the JadwalPiket we want to update
+     *   }
+     * })
+     */
+    upsert<T extends JadwalPiketUpsertArgs>(args: SelectSubset<T, JadwalPiketUpsertArgs<ExtArgs>>): Prisma__JadwalPiketClient<$Result.GetResult<Prisma.$JadwalPiketPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of JadwalPikets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalPiketCountArgs} args - Arguments to filter JadwalPikets to count.
+     * @example
+     * // Count the number of JadwalPikets
+     * const count = await prisma.jadwalPiket.count({
+     *   where: {
+     *     // ... the filter for the JadwalPikets we want to count
+     *   }
+     * })
+    **/
+    count<T extends JadwalPiketCountArgs>(
+      args?: Subset<T, JadwalPiketCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], JadwalPiketCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a JadwalPiket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalPiketAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends JadwalPiketAggregateArgs>(args: Subset<T, JadwalPiketAggregateArgs>): Prisma.PrismaPromise<GetJadwalPiketAggregateType<T>>
+
+    /**
+     * Group by JadwalPiket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {JadwalPiketGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends JadwalPiketGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: JadwalPiketGroupByArgs['orderBy'] }
+        : { orderBy?: JadwalPiketGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, JadwalPiketGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetJadwalPiketGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the JadwalPiket model
+   */
+  readonly fields: JadwalPiketFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for JadwalPiket.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__JadwalPiketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    guru<T extends GuruDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GuruDefaultArgs<ExtArgs>>): Prisma__GuruClient<$Result.GetResult<Prisma.$GuruPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the JadwalPiket model
+   */
+  interface JadwalPiketFieldRefs {
+    readonly id: FieldRef<"JadwalPiket", 'String'>
+    readonly hari: FieldRef<"JadwalPiket", 'String'>
+    readonly guruId: FieldRef<"JadwalPiket", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * JadwalPiket findUnique
+   */
+  export type JadwalPiketFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalPiket to fetch.
+     */
+    where: JadwalPiketWhereUniqueInput
+  }
+
+  /**
+   * JadwalPiket findUniqueOrThrow
+   */
+  export type JadwalPiketFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalPiket to fetch.
+     */
+    where: JadwalPiketWhereUniqueInput
+  }
+
+  /**
+   * JadwalPiket findFirst
+   */
+  export type JadwalPiketFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalPiket to fetch.
+     */
+    where?: JadwalPiketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JadwalPikets to fetch.
+     */
+    orderBy?: JadwalPiketOrderByWithRelationInput | JadwalPiketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JadwalPikets.
+     */
+    cursor?: JadwalPiketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JadwalPikets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JadwalPikets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JadwalPikets.
+     */
+    distinct?: JadwalPiketScalarFieldEnum | JadwalPiketScalarFieldEnum[]
+  }
+
+  /**
+   * JadwalPiket findFirstOrThrow
+   */
+  export type JadwalPiketFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalPiket to fetch.
+     */
+    where?: JadwalPiketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JadwalPikets to fetch.
+     */
+    orderBy?: JadwalPiketOrderByWithRelationInput | JadwalPiketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for JadwalPikets.
+     */
+    cursor?: JadwalPiketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JadwalPikets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JadwalPikets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of JadwalPikets.
+     */
+    distinct?: JadwalPiketScalarFieldEnum | JadwalPiketScalarFieldEnum[]
+  }
+
+  /**
+   * JadwalPiket findMany
+   */
+  export type JadwalPiketFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    /**
+     * Filter, which JadwalPikets to fetch.
+     */
+    where?: JadwalPiketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of JadwalPikets to fetch.
+     */
+    orderBy?: JadwalPiketOrderByWithRelationInput | JadwalPiketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing JadwalPikets.
+     */
+    cursor?: JadwalPiketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` JadwalPikets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` JadwalPikets.
+     */
+    skip?: number
+    distinct?: JadwalPiketScalarFieldEnum | JadwalPiketScalarFieldEnum[]
+  }
+
+  /**
+   * JadwalPiket create
+   */
+  export type JadwalPiketCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    /**
+     * The data needed to create a JadwalPiket.
+     */
+    data: XOR<JadwalPiketCreateInput, JadwalPiketUncheckedCreateInput>
+  }
+
+  /**
+   * JadwalPiket createMany
+   */
+  export type JadwalPiketCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many JadwalPikets.
+     */
+    data: JadwalPiketCreateManyInput | JadwalPiketCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * JadwalPiket createManyAndReturn
+   */
+  export type JadwalPiketCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * The data used to create many JadwalPikets.
+     */
+    data: JadwalPiketCreateManyInput | JadwalPiketCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JadwalPiket update
+   */
+  export type JadwalPiketUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    /**
+     * The data needed to update a JadwalPiket.
+     */
+    data: XOR<JadwalPiketUpdateInput, JadwalPiketUncheckedUpdateInput>
+    /**
+     * Choose, which JadwalPiket to update.
+     */
+    where: JadwalPiketWhereUniqueInput
+  }
+
+  /**
+   * JadwalPiket updateMany
+   */
+  export type JadwalPiketUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update JadwalPikets.
+     */
+    data: XOR<JadwalPiketUpdateManyMutationInput, JadwalPiketUncheckedUpdateManyInput>
+    /**
+     * Filter which JadwalPikets to update
+     */
+    where?: JadwalPiketWhereInput
+    /**
+     * Limit how many JadwalPikets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * JadwalPiket updateManyAndReturn
+   */
+  export type JadwalPiketUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * The data used to update JadwalPikets.
+     */
+    data: XOR<JadwalPiketUpdateManyMutationInput, JadwalPiketUncheckedUpdateManyInput>
+    /**
+     * Filter which JadwalPikets to update
+     */
+    where?: JadwalPiketWhereInput
+    /**
+     * Limit how many JadwalPikets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * JadwalPiket upsert
+   */
+  export type JadwalPiketUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    /**
+     * The filter to search for the JadwalPiket to update in case it exists.
+     */
+    where: JadwalPiketWhereUniqueInput
+    /**
+     * In case the JadwalPiket found by the `where` argument doesn't exist, create a new JadwalPiket with this data.
+     */
+    create: XOR<JadwalPiketCreateInput, JadwalPiketUncheckedCreateInput>
+    /**
+     * In case the JadwalPiket was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<JadwalPiketUpdateInput, JadwalPiketUncheckedUpdateInput>
+  }
+
+  /**
+   * JadwalPiket delete
+   */
+  export type JadwalPiketDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
+    /**
+     * Filter which JadwalPiket to delete.
+     */
+    where: JadwalPiketWhereUniqueInput
+  }
+
+  /**
+   * JadwalPiket deleteMany
+   */
+  export type JadwalPiketDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which JadwalPikets to delete
+     */
+    where?: JadwalPiketWhereInput
+    /**
+     * Limit how many JadwalPikets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * JadwalPiket without action
+   */
+  export type JadwalPiketDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the JadwalPiket
+     */
+    select?: JadwalPiketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the JadwalPiket
+     */
+    omit?: JadwalPiketOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: JadwalPiketInclude<ExtArgs> | null
   }
 
 
@@ -15494,11 +16641,19 @@ export namespace Prisma {
     nip: 'nip',
     nuptk: 'nuptk',
     gender: 'gender',
-    isPiket: 'isPiket',
     userId: 'userId'
   };
 
   export type GuruScalarFieldEnum = (typeof GuruScalarFieldEnum)[keyof typeof GuruScalarFieldEnum]
+
+
+  export const JadwalPiketScalarFieldEnum: {
+    id: 'id',
+    hari: 'hari',
+    guruId: 'guruId'
+  };
+
+  export type JadwalPiketScalarFieldEnum = (typeof JadwalPiketScalarFieldEnum)[keyof typeof JadwalPiketScalarFieldEnum]
 
 
   export const SiswaScalarFieldEnum: {
@@ -15679,13 +16834,6 @@ export namespace Prisma {
    * Reference to a field of type 'Gender[]'
    */
   export type ListEnumGenderFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Gender[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -16026,11 +17174,11 @@ export namespace Prisma {
     nip?: StringNullableFilter<"Guru"> | string | null
     nuptk?: StringNullableFilter<"Guru"> | string | null
     gender?: EnumGenderFilter<"Guru"> | $Enums.Gender
-    isPiket?: BoolFilter<"Guru"> | boolean
     userId?: StringNullableFilter<"Guru"> | string | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     mengajarDiJadwal?: JadwalPelajaranListRelationFilter
     waliDiKelas?: XOR<KelasNullableScalarRelationFilter, KelasWhereInput> | null
+    jadwalPiket?: JadwalPiketListRelationFilter
     absenHarian?: AbsenGuruHarianListRelationFilter
   }
 
@@ -16041,11 +17189,11 @@ export namespace Prisma {
     nip?: SortOrderInput | SortOrder
     nuptk?: SortOrderInput | SortOrder
     gender?: SortOrder
-    isPiket?: SortOrder
     userId?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     mengajarDiJadwal?: JadwalPelajaranOrderByRelationAggregateInput
     waliDiKelas?: KelasOrderByWithRelationInput
+    jadwalPiket?: JadwalPiketOrderByRelationAggregateInput
     absenHarian?: AbsenGuruHarianOrderByRelationAggregateInput
   }
 
@@ -16060,10 +17208,10 @@ export namespace Prisma {
     NOT?: GuruWhereInput | GuruWhereInput[]
     nama?: StringFilter<"Guru"> | string
     gender?: EnumGenderFilter<"Guru"> | $Enums.Gender
-    isPiket?: BoolFilter<"Guru"> | boolean
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     mengajarDiJadwal?: JadwalPelajaranListRelationFilter
     waliDiKelas?: XOR<KelasNullableScalarRelationFilter, KelasWhereInput> | null
+    jadwalPiket?: JadwalPiketListRelationFilter
     absenHarian?: AbsenGuruHarianListRelationFilter
   }, "id" | "kode" | "nip" | "nuptk" | "userId">
 
@@ -16074,7 +17222,6 @@ export namespace Prisma {
     nip?: SortOrderInput | SortOrder
     nuptk?: SortOrderInput | SortOrder
     gender?: SortOrder
-    isPiket?: SortOrder
     userId?: SortOrderInput | SortOrder
     _count?: GuruCountOrderByAggregateInput
     _max?: GuruMaxOrderByAggregateInput
@@ -16091,8 +17238,53 @@ export namespace Prisma {
     nip?: StringNullableWithAggregatesFilter<"Guru"> | string | null
     nuptk?: StringNullableWithAggregatesFilter<"Guru"> | string | null
     gender?: EnumGenderWithAggregatesFilter<"Guru"> | $Enums.Gender
-    isPiket?: BoolWithAggregatesFilter<"Guru"> | boolean
     userId?: StringNullableWithAggregatesFilter<"Guru"> | string | null
+  }
+
+  export type JadwalPiketWhereInput = {
+    AND?: JadwalPiketWhereInput | JadwalPiketWhereInput[]
+    OR?: JadwalPiketWhereInput[]
+    NOT?: JadwalPiketWhereInput | JadwalPiketWhereInput[]
+    id?: StringFilter<"JadwalPiket"> | string
+    hari?: StringFilter<"JadwalPiket"> | string
+    guruId?: StringFilter<"JadwalPiket"> | string
+    guru?: XOR<GuruScalarRelationFilter, GuruWhereInput>
+  }
+
+  export type JadwalPiketOrderByWithRelationInput = {
+    id?: SortOrder
+    hari?: SortOrder
+    guruId?: SortOrder
+    guru?: GuruOrderByWithRelationInput
+  }
+
+  export type JadwalPiketWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    hari_guruId?: JadwalPiketHariGuruIdCompoundUniqueInput
+    AND?: JadwalPiketWhereInput | JadwalPiketWhereInput[]
+    OR?: JadwalPiketWhereInput[]
+    NOT?: JadwalPiketWhereInput | JadwalPiketWhereInput[]
+    hari?: StringFilter<"JadwalPiket"> | string
+    guruId?: StringFilter<"JadwalPiket"> | string
+    guru?: XOR<GuruScalarRelationFilter, GuruWhereInput>
+  }, "id" | "hari_guruId">
+
+  export type JadwalPiketOrderByWithAggregationInput = {
+    id?: SortOrder
+    hari?: SortOrder
+    guruId?: SortOrder
+    _count?: JadwalPiketCountOrderByAggregateInput
+    _max?: JadwalPiketMaxOrderByAggregateInput
+    _min?: JadwalPiketMinOrderByAggregateInput
+  }
+
+  export type JadwalPiketScalarWhereWithAggregatesInput = {
+    AND?: JadwalPiketScalarWhereWithAggregatesInput | JadwalPiketScalarWhereWithAggregatesInput[]
+    OR?: JadwalPiketScalarWhereWithAggregatesInput[]
+    NOT?: JadwalPiketScalarWhereWithAggregatesInput | JadwalPiketScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"JadwalPiket"> | string
+    hari?: StringWithAggregatesFilter<"JadwalPiket"> | string
+    guruId?: StringWithAggregatesFilter<"JadwalPiket"> | string
   }
 
   export type SiswaWhereInput = {
@@ -16850,10 +18042,10 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     user?: UserCreateNestedOneWithoutGuruProfilInput
     mengajarDiJadwal?: JadwalPelajaranCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasCreateNestedOneWithoutWaliKelasInput
+    jadwalPiket?: JadwalPiketCreateNestedManyWithoutGuruInput
     absenHarian?: AbsenGuruHarianCreateNestedManyWithoutGuruInput
   }
 
@@ -16864,10 +18056,10 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     userId?: string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasUncheckedCreateNestedOneWithoutWaliKelasInput
+    jadwalPiket?: JadwalPiketUncheckedCreateNestedManyWithoutGuruInput
     absenHarian?: AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput
   }
 
@@ -16878,10 +18070,10 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutGuruProfilNestedInput
     mengajarDiJadwal?: JadwalPelajaranUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUpdateOneWithoutWaliKelasNestedInput
+    jadwalPiket?: JadwalPiketUpdateManyWithoutGuruNestedInput
     absenHarian?: AbsenGuruHarianUpdateManyWithoutGuruNestedInput
   }
 
@@ -16892,10 +18084,10 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUncheckedUpdateOneWithoutWaliKelasNestedInput
+    jadwalPiket?: JadwalPiketUncheckedUpdateManyWithoutGuruNestedInput
     absenHarian?: AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput
   }
 
@@ -16906,7 +18098,6 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     userId?: string | null
   }
 
@@ -16917,7 +18108,6 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type GuruUncheckedUpdateManyInput = {
@@ -16927,8 +18117,48 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type JadwalPiketCreateInput = {
+    id?: string
+    hari: string
+    guru: GuruCreateNestedOneWithoutJadwalPiketInput
+  }
+
+  export type JadwalPiketUncheckedCreateInput = {
+    id?: string
+    hari: string
+    guruId: string
+  }
+
+  export type JadwalPiketUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hari?: StringFieldUpdateOperationsInput | string
+    guru?: GuruUpdateOneRequiredWithoutJadwalPiketNestedInput
+  }
+
+  export type JadwalPiketUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hari?: StringFieldUpdateOperationsInput | string
+    guruId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JadwalPiketCreateManyInput = {
+    id?: string
+    hari: string
+    guruId: string
+  }
+
+  export type JadwalPiketUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hari?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JadwalPiketUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hari?: StringFieldUpdateOperationsInput | string
+    guruId?: StringFieldUpdateOperationsInput | string
   }
 
   export type SiswaCreateInput = {
@@ -17722,11 +18952,6 @@ export namespace Prisma {
     not?: NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -17743,6 +18968,12 @@ export namespace Prisma {
     isNot?: KelasWhereInput | null
   }
 
+  export type JadwalPiketListRelationFilter = {
+    every?: JadwalPiketWhereInput
+    some?: JadwalPiketWhereInput
+    none?: JadwalPiketWhereInput
+  }
+
   export type AbsenGuruHarianListRelationFilter = {
     every?: AbsenGuruHarianWhereInput
     some?: AbsenGuruHarianWhereInput
@@ -17750,6 +18981,10 @@ export namespace Prisma {
   }
 
   export type JadwalPelajaranOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type JadwalPiketOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17764,7 +18999,6 @@ export namespace Prisma {
     nip?: SortOrder
     nuptk?: SortOrder
     gender?: SortOrder
-    isPiket?: SortOrder
     userId?: SortOrder
   }
 
@@ -17775,7 +19009,6 @@ export namespace Prisma {
     nip?: SortOrder
     nuptk?: SortOrder
     gender?: SortOrder
-    isPiket?: SortOrder
     userId?: SortOrder
   }
 
@@ -17786,7 +19019,6 @@ export namespace Prisma {
     nip?: SortOrder
     nuptk?: SortOrder
     gender?: SortOrder
-    isPiket?: SortOrder
     userId?: SortOrder
   }
 
@@ -17800,12 +19032,32 @@ export namespace Prisma {
     _max?: NestedEnumGenderFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type GuruScalarRelationFilter = {
+    is?: GuruWhereInput
+    isNot?: GuruWhereInput
+  }
+
+  export type JadwalPiketHariGuruIdCompoundUniqueInput = {
+    hari: string
+    guruId: string
+  }
+
+  export type JadwalPiketCountOrderByAggregateInput = {
+    id?: SortOrder
+    hari?: SortOrder
+    guruId?: SortOrder
+  }
+
+  export type JadwalPiketMaxOrderByAggregateInput = {
+    id?: SortOrder
+    hari?: SortOrder
+    guruId?: SortOrder
+  }
+
+  export type JadwalPiketMinOrderByAggregateInput = {
+    id?: SortOrder
+    hari?: SortOrder
+    guruId?: SortOrder
   }
 
   export type AbsenHarianListRelationFilter = {
@@ -17904,11 +19156,6 @@ export namespace Prisma {
     id?: SortOrder
     kode?: SortOrder
     nama?: SortOrder
-  }
-
-  export type GuruScalarRelationFilter = {
-    is?: GuruWhereInput
-    isNot?: GuruWhereInput
   }
 
   export type MataPelajaranScalarRelationFilter = {
@@ -18287,6 +19534,13 @@ export namespace Prisma {
     connect?: KelasWhereUniqueInput
   }
 
+  export type JadwalPiketCreateNestedManyWithoutGuruInput = {
+    create?: XOR<JadwalPiketCreateWithoutGuruInput, JadwalPiketUncheckedCreateWithoutGuruInput> | JadwalPiketCreateWithoutGuruInput[] | JadwalPiketUncheckedCreateWithoutGuruInput[]
+    connectOrCreate?: JadwalPiketCreateOrConnectWithoutGuruInput | JadwalPiketCreateOrConnectWithoutGuruInput[]
+    createMany?: JadwalPiketCreateManyGuruInputEnvelope
+    connect?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+  }
+
   export type AbsenGuruHarianCreateNestedManyWithoutGuruInput = {
     create?: XOR<AbsenGuruHarianCreateWithoutGuruInput, AbsenGuruHarianUncheckedCreateWithoutGuruInput> | AbsenGuruHarianCreateWithoutGuruInput[] | AbsenGuruHarianUncheckedCreateWithoutGuruInput[]
     connectOrCreate?: AbsenGuruHarianCreateOrConnectWithoutGuruInput | AbsenGuruHarianCreateOrConnectWithoutGuruInput[]
@@ -18307,6 +19561,13 @@ export namespace Prisma {
     connect?: KelasWhereUniqueInput
   }
 
+  export type JadwalPiketUncheckedCreateNestedManyWithoutGuruInput = {
+    create?: XOR<JadwalPiketCreateWithoutGuruInput, JadwalPiketUncheckedCreateWithoutGuruInput> | JadwalPiketCreateWithoutGuruInput[] | JadwalPiketUncheckedCreateWithoutGuruInput[]
+    connectOrCreate?: JadwalPiketCreateOrConnectWithoutGuruInput | JadwalPiketCreateOrConnectWithoutGuruInput[]
+    createMany?: JadwalPiketCreateManyGuruInputEnvelope
+    connect?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+  }
+
   export type AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput = {
     create?: XOR<AbsenGuruHarianCreateWithoutGuruInput, AbsenGuruHarianUncheckedCreateWithoutGuruInput> | AbsenGuruHarianCreateWithoutGuruInput[] | AbsenGuruHarianUncheckedCreateWithoutGuruInput[]
     connectOrCreate?: AbsenGuruHarianCreateOrConnectWithoutGuruInput | AbsenGuruHarianCreateOrConnectWithoutGuruInput[]
@@ -18316,10 +19577,6 @@ export namespace Prisma {
 
   export type EnumGenderFieldUpdateOperationsInput = {
     set?: $Enums.Gender
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type UserUpdateOneWithoutGuruProfilNestedInput = {
@@ -18354,6 +19611,20 @@ export namespace Prisma {
     delete?: KelasWhereInput | boolean
     connect?: KelasWhereUniqueInput
     update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutWaliKelasInput, KelasUpdateWithoutWaliKelasInput>, KelasUncheckedUpdateWithoutWaliKelasInput>
+  }
+
+  export type JadwalPiketUpdateManyWithoutGuruNestedInput = {
+    create?: XOR<JadwalPiketCreateWithoutGuruInput, JadwalPiketUncheckedCreateWithoutGuruInput> | JadwalPiketCreateWithoutGuruInput[] | JadwalPiketUncheckedCreateWithoutGuruInput[]
+    connectOrCreate?: JadwalPiketCreateOrConnectWithoutGuruInput | JadwalPiketCreateOrConnectWithoutGuruInput[]
+    upsert?: JadwalPiketUpsertWithWhereUniqueWithoutGuruInput | JadwalPiketUpsertWithWhereUniqueWithoutGuruInput[]
+    createMany?: JadwalPiketCreateManyGuruInputEnvelope
+    set?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+    disconnect?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+    delete?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+    connect?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+    update?: JadwalPiketUpdateWithWhereUniqueWithoutGuruInput | JadwalPiketUpdateWithWhereUniqueWithoutGuruInput[]
+    updateMany?: JadwalPiketUpdateManyWithWhereWithoutGuruInput | JadwalPiketUpdateManyWithWhereWithoutGuruInput[]
+    deleteMany?: JadwalPiketScalarWhereInput | JadwalPiketScalarWhereInput[]
   }
 
   export type AbsenGuruHarianUpdateManyWithoutGuruNestedInput = {
@@ -18394,6 +19665,20 @@ export namespace Prisma {
     update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutWaliKelasInput, KelasUpdateWithoutWaliKelasInput>, KelasUncheckedUpdateWithoutWaliKelasInput>
   }
 
+  export type JadwalPiketUncheckedUpdateManyWithoutGuruNestedInput = {
+    create?: XOR<JadwalPiketCreateWithoutGuruInput, JadwalPiketUncheckedCreateWithoutGuruInput> | JadwalPiketCreateWithoutGuruInput[] | JadwalPiketUncheckedCreateWithoutGuruInput[]
+    connectOrCreate?: JadwalPiketCreateOrConnectWithoutGuruInput | JadwalPiketCreateOrConnectWithoutGuruInput[]
+    upsert?: JadwalPiketUpsertWithWhereUniqueWithoutGuruInput | JadwalPiketUpsertWithWhereUniqueWithoutGuruInput[]
+    createMany?: JadwalPiketCreateManyGuruInputEnvelope
+    set?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+    disconnect?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+    delete?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+    connect?: JadwalPiketWhereUniqueInput | JadwalPiketWhereUniqueInput[]
+    update?: JadwalPiketUpdateWithWhereUniqueWithoutGuruInput | JadwalPiketUpdateWithWhereUniqueWithoutGuruInput[]
+    updateMany?: JadwalPiketUpdateManyWithWhereWithoutGuruInput | JadwalPiketUpdateManyWithWhereWithoutGuruInput[]
+    deleteMany?: JadwalPiketScalarWhereInput | JadwalPiketScalarWhereInput[]
+  }
+
   export type AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput = {
     create?: XOR<AbsenGuruHarianCreateWithoutGuruInput, AbsenGuruHarianUncheckedCreateWithoutGuruInput> | AbsenGuruHarianCreateWithoutGuruInput[] | AbsenGuruHarianUncheckedCreateWithoutGuruInput[]
     connectOrCreate?: AbsenGuruHarianCreateOrConnectWithoutGuruInput | AbsenGuruHarianCreateOrConnectWithoutGuruInput[]
@@ -18406,6 +19691,20 @@ export namespace Prisma {
     update?: AbsenGuruHarianUpdateWithWhereUniqueWithoutGuruInput | AbsenGuruHarianUpdateWithWhereUniqueWithoutGuruInput[]
     updateMany?: AbsenGuruHarianUpdateManyWithWhereWithoutGuruInput | AbsenGuruHarianUpdateManyWithWhereWithoutGuruInput[]
     deleteMany?: AbsenGuruHarianScalarWhereInput | AbsenGuruHarianScalarWhereInput[]
+  }
+
+  export type GuruCreateNestedOneWithoutJadwalPiketInput = {
+    create?: XOR<GuruCreateWithoutJadwalPiketInput, GuruUncheckedCreateWithoutJadwalPiketInput>
+    connectOrCreate?: GuruCreateOrConnectWithoutJadwalPiketInput
+    connect?: GuruWhereUniqueInput
+  }
+
+  export type GuruUpdateOneRequiredWithoutJadwalPiketNestedInput = {
+    create?: XOR<GuruCreateWithoutJadwalPiketInput, GuruUncheckedCreateWithoutJadwalPiketInput>
+    connectOrCreate?: GuruCreateOrConnectWithoutJadwalPiketInput
+    upsert?: GuruUpsertWithoutJadwalPiketInput
+    connect?: GuruWhereUniqueInput
+    update?: XOR<XOR<GuruUpdateToOneWithWhereWithoutJadwalPiketInput, GuruUpdateWithoutJadwalPiketInput>, GuruUncheckedUpdateWithoutJadwalPiketInput>
   }
 
   export type AbsenHarianCreateNestedManyWithoutSiswaInput = {
@@ -18981,11 +20280,6 @@ export namespace Prisma {
     not?: NestedEnumGenderFilter<$PrismaModel> | $Enums.Gender
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedEnumGenderWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Gender | EnumGenderFieldRefInput<$PrismaModel>
     in?: $Enums.Gender[] | ListEnumGenderFieldRefInput<$PrismaModel>
@@ -18994,14 +20288,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumGenderFilter<$PrismaModel>
     _max?: NestedEnumGenderFilter<$PrismaModel>
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumStatusHarianFilter<$PrismaModel = never> = {
@@ -19085,9 +20371,9 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     mengajarDiJadwal?: JadwalPelajaranCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasCreateNestedOneWithoutWaliKelasInput
+    jadwalPiket?: JadwalPiketCreateNestedManyWithoutGuruInput
     absenHarian?: AbsenGuruHarianCreateNestedManyWithoutGuruInput
   }
 
@@ -19098,9 +20384,9 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     mengajarDiJadwal?: JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasUncheckedCreateNestedOneWithoutWaliKelasInput
+    jadwalPiket?: JadwalPiketUncheckedCreateNestedManyWithoutGuruInput
     absenHarian?: AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput
   }
 
@@ -19186,9 +20472,9 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     mengajarDiJadwal?: JadwalPelajaranUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUpdateOneWithoutWaliKelasNestedInput
+    jadwalPiket?: JadwalPiketUpdateManyWithoutGuruNestedInput
     absenHarian?: AbsenGuruHarianUpdateManyWithoutGuruNestedInput
   }
 
@@ -19199,9 +20485,9 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     mengajarDiJadwal?: JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUncheckedUpdateOneWithoutWaliKelasNestedInput
+    jadwalPiket?: JadwalPiketUncheckedUpdateManyWithoutGuruNestedInput
     absenHarian?: AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput
   }
 
@@ -19468,6 +20754,26 @@ export namespace Prisma {
     create: XOR<KelasCreateWithoutWaliKelasInput, KelasUncheckedCreateWithoutWaliKelasInput>
   }
 
+  export type JadwalPiketCreateWithoutGuruInput = {
+    id?: string
+    hari: string
+  }
+
+  export type JadwalPiketUncheckedCreateWithoutGuruInput = {
+    id?: string
+    hari: string
+  }
+
+  export type JadwalPiketCreateOrConnectWithoutGuruInput = {
+    where: JadwalPiketWhereUniqueInput
+    create: XOR<JadwalPiketCreateWithoutGuruInput, JadwalPiketUncheckedCreateWithoutGuruInput>
+  }
+
+  export type JadwalPiketCreateManyGuruInputEnvelope = {
+    data: JadwalPiketCreateManyGuruInput | JadwalPiketCreateManyGuruInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AbsenGuruHarianCreateWithoutGuruInput = {
     id?: string
     tanggal: Date | string
@@ -19589,6 +20895,31 @@ export namespace Prisma {
     siswa?: SiswaUncheckedUpdateManyWithoutKelasNestedInput
   }
 
+  export type JadwalPiketUpsertWithWhereUniqueWithoutGuruInput = {
+    where: JadwalPiketWhereUniqueInput
+    update: XOR<JadwalPiketUpdateWithoutGuruInput, JadwalPiketUncheckedUpdateWithoutGuruInput>
+    create: XOR<JadwalPiketCreateWithoutGuruInput, JadwalPiketUncheckedCreateWithoutGuruInput>
+  }
+
+  export type JadwalPiketUpdateWithWhereUniqueWithoutGuruInput = {
+    where: JadwalPiketWhereUniqueInput
+    data: XOR<JadwalPiketUpdateWithoutGuruInput, JadwalPiketUncheckedUpdateWithoutGuruInput>
+  }
+
+  export type JadwalPiketUpdateManyWithWhereWithoutGuruInput = {
+    where: JadwalPiketScalarWhereInput
+    data: XOR<JadwalPiketUpdateManyMutationInput, JadwalPiketUncheckedUpdateManyWithoutGuruInput>
+  }
+
+  export type JadwalPiketScalarWhereInput = {
+    AND?: JadwalPiketScalarWhereInput | JadwalPiketScalarWhereInput[]
+    OR?: JadwalPiketScalarWhereInput[]
+    NOT?: JadwalPiketScalarWhereInput | JadwalPiketScalarWhereInput[]
+    id?: StringFilter<"JadwalPiket"> | string
+    hari?: StringFilter<"JadwalPiket"> | string
+    guruId?: StringFilter<"JadwalPiket"> | string
+  }
+
   export type AbsenGuruHarianUpsertWithWhereUniqueWithoutGuruInput = {
     where: AbsenGuruHarianWhereUniqueInput
     update: XOR<AbsenGuruHarianUpdateWithoutGuruInput, AbsenGuruHarianUncheckedUpdateWithoutGuruInput>
@@ -19615,6 +20946,74 @@ export namespace Prisma {
     jamPulang?: DateTimeNullableFilter<"AbsenGuruHarian"> | Date | string | null
     status?: EnumStatusHarianFilter<"AbsenGuruHarian"> | $Enums.StatusHarian
     guruId?: StringFilter<"AbsenGuruHarian"> | string
+  }
+
+  export type GuruCreateWithoutJadwalPiketInput = {
+    id?: string
+    nama: string
+    kode: string
+    nip?: string | null
+    nuptk?: string | null
+    gender?: $Enums.Gender
+    user?: UserCreateNestedOneWithoutGuruProfilInput
+    mengajarDiJadwal?: JadwalPelajaranCreateNestedManyWithoutGuruInput
+    waliDiKelas?: KelasCreateNestedOneWithoutWaliKelasInput
+    absenHarian?: AbsenGuruHarianCreateNestedManyWithoutGuruInput
+  }
+
+  export type GuruUncheckedCreateWithoutJadwalPiketInput = {
+    id?: string
+    nama: string
+    kode: string
+    nip?: string | null
+    nuptk?: string | null
+    gender?: $Enums.Gender
+    userId?: string | null
+    mengajarDiJadwal?: JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput
+    waliDiKelas?: KelasUncheckedCreateNestedOneWithoutWaliKelasInput
+    absenHarian?: AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput
+  }
+
+  export type GuruCreateOrConnectWithoutJadwalPiketInput = {
+    where: GuruWhereUniqueInput
+    create: XOR<GuruCreateWithoutJadwalPiketInput, GuruUncheckedCreateWithoutJadwalPiketInput>
+  }
+
+  export type GuruUpsertWithoutJadwalPiketInput = {
+    update: XOR<GuruUpdateWithoutJadwalPiketInput, GuruUncheckedUpdateWithoutJadwalPiketInput>
+    create: XOR<GuruCreateWithoutJadwalPiketInput, GuruUncheckedCreateWithoutJadwalPiketInput>
+    where?: GuruWhereInput
+  }
+
+  export type GuruUpdateToOneWithWhereWithoutJadwalPiketInput = {
+    where?: GuruWhereInput
+    data: XOR<GuruUpdateWithoutJadwalPiketInput, GuruUncheckedUpdateWithoutJadwalPiketInput>
+  }
+
+  export type GuruUpdateWithoutJadwalPiketInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    nip?: NullableStringFieldUpdateOperationsInput | string | null
+    nuptk?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    user?: UserUpdateOneWithoutGuruProfilNestedInput
+    mengajarDiJadwal?: JadwalPelajaranUpdateManyWithoutGuruNestedInput
+    waliDiKelas?: KelasUpdateOneWithoutWaliKelasNestedInput
+    absenHarian?: AbsenGuruHarianUpdateManyWithoutGuruNestedInput
+  }
+
+  export type GuruUncheckedUpdateWithoutJadwalPiketInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    kode?: StringFieldUpdateOperationsInput | string
+    nip?: NullableStringFieldUpdateOperationsInput | string | null
+    nuptk?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    mengajarDiJadwal?: JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput
+    waliDiKelas?: KelasUncheckedUpdateOneWithoutWaliKelasNestedInput
+    absenHarian?: AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput
   }
 
   export type AbsenHarianCreateWithoutSiswaInput = {
@@ -19815,9 +21214,9 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     user?: UserCreateNestedOneWithoutGuruProfilInput
     mengajarDiJadwal?: JadwalPelajaranCreateNestedManyWithoutGuruInput
+    jadwalPiket?: JadwalPiketCreateNestedManyWithoutGuruInput
     absenHarian?: AbsenGuruHarianCreateNestedManyWithoutGuruInput
   }
 
@@ -19828,9 +21227,9 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     userId?: string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput
+    jadwalPiket?: JadwalPiketUncheckedCreateNestedManyWithoutGuruInput
     absenHarian?: AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput
   }
 
@@ -19903,9 +21302,9 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutGuruProfilNestedInput
     mengajarDiJadwal?: JadwalPelajaranUpdateManyWithoutGuruNestedInput
+    jadwalPiket?: JadwalPiketUpdateManyWithoutGuruNestedInput
     absenHarian?: AbsenGuruHarianUpdateManyWithoutGuruNestedInput
   }
 
@@ -19916,9 +21315,9 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput
+    jadwalPiket?: JadwalPiketUncheckedUpdateManyWithoutGuruNestedInput
     absenHarian?: AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput
   }
 
@@ -20035,9 +21434,9 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     user?: UserCreateNestedOneWithoutGuruProfilInput
     waliDiKelas?: KelasCreateNestedOneWithoutWaliKelasInput
+    jadwalPiket?: JadwalPiketCreateNestedManyWithoutGuruInput
     absenHarian?: AbsenGuruHarianCreateNestedManyWithoutGuruInput
   }
 
@@ -20048,9 +21447,9 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     userId?: string | null
     waliDiKelas?: KelasUncheckedCreateNestedOneWithoutWaliKelasInput
+    jadwalPiket?: JadwalPiketUncheckedCreateNestedManyWithoutGuruInput
     absenHarian?: AbsenGuruHarianUncheckedCreateNestedManyWithoutGuruInput
   }
 
@@ -20129,9 +21528,9 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutGuruProfilNestedInput
     waliDiKelas?: KelasUpdateOneWithoutWaliKelasNestedInput
+    jadwalPiket?: JadwalPiketUpdateManyWithoutGuruNestedInput
     absenHarian?: AbsenGuruHarianUpdateManyWithoutGuruNestedInput
   }
 
@@ -20142,9 +21541,9 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     waliDiKelas?: KelasUncheckedUpdateOneWithoutWaliKelasNestedInput
+    jadwalPiket?: JadwalPiketUncheckedUpdateManyWithoutGuruNestedInput
     absenHarian?: AbsenGuruHarianUncheckedUpdateManyWithoutGuruNestedInput
   }
 
@@ -20371,10 +21770,10 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     user?: UserCreateNestedOneWithoutGuruProfilInput
     mengajarDiJadwal?: JadwalPelajaranCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasCreateNestedOneWithoutWaliKelasInput
+    jadwalPiket?: JadwalPiketCreateNestedManyWithoutGuruInput
   }
 
   export type GuruUncheckedCreateWithoutAbsenHarianInput = {
@@ -20384,10 +21783,10 @@ export namespace Prisma {
     nip?: string | null
     nuptk?: string | null
     gender?: $Enums.Gender
-    isPiket?: boolean
     userId?: string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedCreateNestedManyWithoutGuruInput
     waliDiKelas?: KelasUncheckedCreateNestedOneWithoutWaliKelasInput
+    jadwalPiket?: JadwalPiketUncheckedCreateNestedManyWithoutGuruInput
   }
 
   export type GuruCreateOrConnectWithoutAbsenHarianInput = {
@@ -20413,10 +21812,10 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneWithoutGuruProfilNestedInput
     mengajarDiJadwal?: JadwalPelajaranUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUpdateOneWithoutWaliKelasNestedInput
+    jadwalPiket?: JadwalPiketUpdateManyWithoutGuruNestedInput
   }
 
   export type GuruUncheckedUpdateWithoutAbsenHarianInput = {
@@ -20426,10 +21825,10 @@ export namespace Prisma {
     nip?: NullableStringFieldUpdateOperationsInput | string | null
     nuptk?: NullableStringFieldUpdateOperationsInput | string | null
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
-    isPiket?: BoolFieldUpdateOperationsInput | boolean
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     mengajarDiJadwal?: JadwalPelajaranUncheckedUpdateManyWithoutGuruNestedInput
     waliDiKelas?: KelasUncheckedUpdateOneWithoutWaliKelasNestedInput
+    jadwalPiket?: JadwalPiketUncheckedUpdateManyWithoutGuruNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -20529,6 +21928,11 @@ export namespace Prisma {
     mapelId: string
   }
 
+  export type JadwalPiketCreateManyGuruInput = {
+    id?: string
+    hari: string
+  }
+
   export type AbsenGuruHarianCreateManyGuruInput = {
     id?: string
     tanggal: Date | string
@@ -20564,6 +21968,21 @@ export namespace Prisma {
     jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     kelasId?: StringFieldUpdateOperationsInput | string
     mapelId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JadwalPiketUpdateWithoutGuruInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hari?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JadwalPiketUncheckedUpdateWithoutGuruInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hari?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type JadwalPiketUncheckedUpdateManyWithoutGuruInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    hari?: StringFieldUpdateOperationsInput | string
   }
 
   export type AbsenGuruHarianUpdateWithoutGuruInput = {

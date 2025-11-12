@@ -67,13 +67,23 @@ model Guru {
   nip              String?           @unique
   nuptk            String?           @unique
   gender           Gender            @default(LAKI_LAKI)
-  isPiket          Boolean           @default(false)
+  // isPiket          Boolean           @default(false)
   userId           String?           @unique
   user             User?             @relation("UserGuru", fields: [userId], references: [id])
   mengajarDiJadwal JadwalPelajaran[] @relation("GuruPengajar")
   waliDiKelas      Kelas?            @relation("WaliKelas")
 
+  jadwalPiket JadwalPiket[]
   absenHarian AbsenGuruHarian[]
+}
+
+model JadwalPiket {
+  id     String @id @default(cuid())
+  hari   String
+  guruId String
+  guru   Guru   @relation(fields: [guruId], references: [id], onDelete: Cascade)
+
+  @@unique([hari, guruId])
 }
 
 model Siswa {

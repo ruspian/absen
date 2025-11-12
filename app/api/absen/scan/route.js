@@ -4,19 +4,34 @@ import { auth } from "@/lib/auth";
 
 const TIMEZONE = "Asia/Makassar"; // WITA
 
+// fungsi ambil hari ini wita
 const getToday = () => {
-  const todayStringWITA = new Date().toLocaleDateString("en-CA", {
-    timeZone: TIMEZONE,
-  });
-  return new Date(todayStringWITA);
+  const nowWITA = new Date(
+    new Date().toLocaleString("en-US", { timeZone: TIMEZONE })
+  );
+  const tahun = nowWITA.getFullYear();
+  const bulanIndex = nowWITA.getMonth();
+  const tanggal = nowWITA.getDate();
+  const todayWITA = new Date(Date.UTC(tahun, bulanIndex, tanggal, -8));
+  return todayWITA;
 };
 
+// fungsi ambil jam wita
 const getUTCTime = (date) => {
-  const timeOnly = new Date(0);
+  const timeOnly = new Date(0); // 1970-01-01T00:00:00Z
   timeOnly.setUTCHours(date.getUTCHours());
   timeOnly.setUTCMinutes(date.getUTCMinutes());
   timeOnly.setUTCSeconds(date.getUTCSeconds());
   return timeOnly;
+};
+
+// fungsi ambil nama hari ini
+const getTodayNameWITA = () => {
+  // 'eeee' -> "Kamis"
+  return format(new Date(), "eeee", {
+    locale: localeID,
+    timeZone: TIMEZONE,
+  });
 };
 
 const BATAS_MENIT_MINIMAL = 180; // 3 jam
@@ -31,10 +46,27 @@ export const POST = async (req) => {
         { status: 401 }
       );
     }
+
     const userRole = session.user.role;
-    const isPiket = session.user.isPiket;
-    const isAuthorized =
-      userRole === "ADMIN" || (userRole === "GURU" && isPiket);
+    const guruId = session.user.guruId; // <-- Ambil 'guruId' dari sesi
+    const hariIni = getTodayNameWITA(); // Misal: "Kamis"
+
+    // Cek ke DB apakah guru ini piket hari ini
+    let isGuruPiket = false;
+    if (userRole === "GURU" && guruId) {
+      const cekPiket = await prisma.jadwalPiket.findFirst({
+        where: {
+          guruId: guruId,
+          hari: hariIni,
+        },
+      });
+      if (cekPiket) {
+        isGuruPiket = true;
+      }
+    }
+
+    // cek Admin ATAU Guru yang piket HARI INI
+    const isAuthorized = userRole === "ADMIN" || isGuruPiket;
 
     if (!isAuthorized) {
       return NextResponse.json(

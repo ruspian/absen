@@ -5,10 +5,22 @@ import { auth } from "@/lib/auth";
 const TIMEZONE = "Asia/Makassar"; // WITA
 
 const getToday = () => {
-  const todayStringWITA = new Date().toLocaleDateString("en-CA", {
+  const nowWITA = new Date(
+    new Date().toLocaleString("en-US", { timeZone: TIMEZONE })
+  );
+  const tahun = nowWITA.getFullYear();
+  const bulanIndex = nowWITA.getMonth();
+  const tanggal = nowWITA.getDate();
+  const todayWITA = new Date(Date.UTC(tahun, bulanIndex, tanggal, -8));
+  return todayWITA;
+};
+
+const getTodayNameWITA = () => {
+  // 'eeee' -> "Kamis"
+  return format(new Date(), "eeee", {
+    locale: localeID,
     timeZone: TIMEZONE,
   });
-  return new Date(todayStringWITA);
 };
 
 export const POST = async (req) => {
@@ -24,9 +36,23 @@ export const POST = async (req) => {
     }
 
     const userRole = session.user.role;
-    const isPiket = session.user.isPiket;
-    const isAuthorized =
-      userRole === "ADMIN" || (userRole === "GURU" && isPiket);
+    const guruId = session.user.guruId; // <-- Ambil 'guruId' dari sesi
+    const hariIni = getTodayNameWITA(); // Misal: "Kamis"
+
+    let isGuruPiket = false;
+    if (userRole === "GURU" && guruId) {
+      const cekPiket = await prisma.jadwalPiket.findFirst({
+        where: {
+          guruId: guruId,
+          hari: hariIni,
+        },
+      });
+      if (cekPiket) {
+        isGuruPiket = true;
+      }
+    }
+
+    const isAuthorized = userRole === "ADMIN" || isGuruPiket;
 
     if (!isAuthorized) {
       return NextResponse.json(
@@ -37,12 +63,12 @@ export const POST = async (req) => {
 
     // Ambil data dari body
     const body = await req.json();
-    const { siswaId, guruId, status } = body;
+    const { siswaId, guruId: bodyGuruId, status } = body;
 
     const today = getToday();
 
     // cek apakah data lengkap
-    if (!status || (!siswaId && !guruId)) {
+    if (!status || (!siswaId && !bodyGuruId)) {
       return NextResponse.json(
         {
           message:
@@ -78,12 +104,12 @@ export const POST = async (req) => {
         { absenSiswa, message: `Absen ${status} (Siswa) berhasil dicatat` },
         { status: 201 }
       );
-    } else if (guruId) {
+    } else if (bodyGuruId) {
       // jika ini guru
       const absenGuru = await prisma.absenGuruHarian.upsert({
         where: {
           guruId_tanggal: {
-            guruId: guruId,
+            guruId: bodyGuruId,
             tanggal: today,
           },
         },
@@ -93,7 +119,7 @@ export const POST = async (req) => {
           jamPulang: null,
         },
         create: {
-          guruId: guruId,
+          guruId: bodyGuruId,
           tanggal: today,
           status: status,
           jamMasuk: status === "HADIR" ? new Date() : null,

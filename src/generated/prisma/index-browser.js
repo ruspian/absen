@@ -171,8 +171,13 @@ exports.Prisma.GuruScalarFieldEnum = {
   nip: 'nip',
   nuptk: 'nuptk',
   gender: 'gender',
-  isPiket: 'isPiket',
   userId: 'userId'
+};
+
+exports.Prisma.JadwalPiketScalarFieldEnum = {
+  id: 'id',
+  hari: 'hari',
+  guruId: 'guruId'
 };
 
 exports.Prisma.SiswaScalarFieldEnum = {
@@ -280,6 +285,7 @@ exports.Prisma.ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Guru: 'Guru',
+  JadwalPiket: 'JadwalPiket',
   Siswa: 'Siswa',
   Kelas: 'Kelas',
   MataPelajaran: 'MataPelajaran',
