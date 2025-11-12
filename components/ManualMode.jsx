@@ -72,9 +72,8 @@ export const ManualMode = ({ dataSiswa, dataKelas }) => {
         status: status,
       };
 
-      // [PERBAIKAN 1] API endpoint salah, harusnya '/harian-manual'
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/absen/manual`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/absen/manual`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

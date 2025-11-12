@@ -495,7 +495,7 @@ const LaporanBulananClient = ({ dataSiswa, dataGuru, dataKelas }) => {
           className="flex items-center gap-2"
         >
           <IoSearch size={20} />
-          {isLoading ? "Memuat..." : "Tampilkan Laporan Individu"}
+          {isLoading ? "Memuat..." : "Tampilkan Laporan"}
         </Button>
 
         {/* Tombol PDF Per-Kelas  */}
