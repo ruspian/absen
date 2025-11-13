@@ -208,8 +208,8 @@ export const SidebarLink = ({ className, ...props }) => {
         label: "Tugas Mengajar",
         icon: <CiCalendar size={30} />,
         subLinks: [
-          { label: "Input Absen Mapel", href: "/mengajar/absen-mapel" },
           { label: "Jadwal Saya", href: "/mengajar/jadwal" },
+          { label: "Absensi", href: "/mengajar/absensi" },
         ],
       },
     ];
