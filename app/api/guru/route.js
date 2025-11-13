@@ -73,7 +73,16 @@ export const GET = async (req) => {
       );
     }
 
-    const guru = await prisma.guru.findMany();
+    const guru = await prisma.guru.findMany({
+      include: {
+        mengajarDiJadwal: {
+          include: {
+            mapel: true,
+            kelas: true,
+          },
+        },
+      },
+    });
 
     return NextResponse.json(guru, { status: 200 });
   } catch (error) {

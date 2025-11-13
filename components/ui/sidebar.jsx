@@ -9,8 +9,6 @@ import { useSession, signOut } from "next-auth/react";
 import {
   CiGrid31,
   CiDatabase,
-  CiGrid41,
-  CiViewList,
   CiCalendar,
   CiPen,
   CiFileOn,

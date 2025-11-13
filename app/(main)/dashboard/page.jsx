@@ -50,7 +50,9 @@ const DashboardPage = () => {
 
       {user.role === "ADMIN" && <AdminDashboard />}
 
-      {user.role === "GURU" && user.isPiket === false && <GuruDashboard />}
+      {user.role === "GURU" && user.isPiket === false && (
+        <GuruDashboard session={sessionData} />
+      )}
 
       {user.role === "GURU" && user.isPiket === true && <PiketDashboard />}
     </div>

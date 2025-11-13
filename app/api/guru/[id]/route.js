@@ -23,6 +23,14 @@ export const GET = async (req, { params }) => {
 
     const guru = await prisma.guru.findUnique({
       where: { id },
+      include: {
+        mengajarDiJadwal: {
+          include: {
+            mapel: true,
+            kelas: true,
+          },
+        },
+      },
     });
 
     if (!guru) {

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { getTodayNameWITA } from "@/lib/formatTime";
 
 export const POST = async (req) => {
   try {
@@ -59,5 +60,48 @@ export const POST = async (req) => {
       { message: "Terjadi kesalahan Server, coba lagi!" },
       { status: 500 }
     );
+  }
+};
+
+export const GET = async (req) => {
+  try {
+    // Cek Sesi
+    const session = await auth();
+
+    // Cek kalo dia GURU dan punya 'guruId'
+    if (session?.user?.role !== "GURU" || !session?.user?.guruId) {
+      return NextResponse.json(
+        { message: "Akses ditolak. Anda bukan Guru." },
+        { status: 403 } // 403 Forbidden
+      );
+    }
+
+    const guruId = session.user.guruId;
+    const hariIni = getTodayNameWITA();
+
+    //  Kalo hari ini "Jumat", langsung return array kosong
+    if (hariIni === "Jumat") {
+      return NextResponse.json([], { status: 200 }); // Nggak ada jadwal
+    }
+
+    // Cari jadwal guru ini HARI INI
+    const jadwalHariIni = await prisma.jadwalPelajaran.findMany({
+      where: {
+        guruId: guruId,
+        hari: hariIni,
+      },
+      include: {
+        kelas: { select: { nama: true } },
+        mapel: { select: { nama: true } },
+      },
+      orderBy: {
+        jamMulai: "asc",
+      },
+    });
+
+    return NextResponse.json(jadwalHariIni, { status: 200 });
+  } catch (error) {
+    console.log("Gagal mengambil jadwal guru:", error);
+    return NextResponse.json({ message: "Kesalahan Server" }, { status: 500 });
   }
 };
