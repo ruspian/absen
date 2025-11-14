@@ -54,7 +54,9 @@ const DashboardPage = () => {
         <GuruDashboard session={sessionData} />
       )}
 
-      {user.role === "GURU" && user.isPiket === true && <PiketDashboard />}
+      {user.role === "GURU" && user.isPiket === true && (
+        <PiketDashboard session={sessionData} />
+      )}
     </div>
   );
 };

@@ -23,35 +23,37 @@ export default function TabelJadwalGuruHariIni({ data, jamSekarang }) {
         </TableHeader>
         <tbody aria-hidden="true" className="table-row h-2"></tbody>
         <TableBody className="[&_td:first-child]:rounded-l-lg [&_td:last-child]:rounded-r-lg">
-          {data.length > 0 ? (
+          {data.length > 0 && data[0] !== undefined ? (
             data.map((item) => (
               <TableRow
-                key={item.id}
+                key={item?.id}
                 className="border-none odd:bg-muted/50 hover:bg-transparent odd:hover:bg-muted/50"
               >
                 <TableCell className="py-2.5 font-medium">
-                  {item.hari}
+                  {item?.hari}
                 </TableCell>
                 <TableCell className="py-2.5 font-medium">
-                  {item.mapel.nama}
+                  {item?.mapel?.nama}
                 </TableCell>
-                <TableCell className="py-2.5">{item.kelas.nama}</TableCell>
+                <TableCell className="py-2.5">{item?.kelas?.nama}</TableCell>
                 <TableCell className="py-2.5">
-                  {`${getTimeFromDate(item.jamMulai)} - ${getTimeFromDate(
-                    item.jamSelesai
-                  )} WITA`}
+                  {item?.jamMulai &&
+                    item?.jamSelesai &&
+                    `${getTimeFromDate(item?.jamMulai)} - ${getTimeFromDate(
+                      item?.jamSelesai
+                    )} WITA`}
                 </TableCell>
                 <TableCell className="py-2.5">
-                  {jamSekarang <= getTimeFromDate(item.jamMulai) ? (
+                  {jamSekarang <= getTimeFromDate(item?.jamMulai) ? (
                     <p className="text-sm  text-blue-500 ">Belum Dimulai</p>
-                  ) : getTimeFromDate(item.jamMulai) <= jamSekarang &&
-                    getTimeFromDate(item.jamSelesai) >= jamSekarang ? (
+                  ) : getTimeFromDate(item?.jamMulai) <= jamSekarang &&
+                    getTimeFromDate(item?.jamSelesai) >= jamSekarang ? (
                     <p className="text-sm text-yellow-500 ">
                       Sedang Berlangsung
                     </p>
                   ) : (
                     <p className="text-sm p-1 rounded-sm bg-emerald-500 border items-center flex justify-center text-white ">
-                      Selesaiß
+                      Selesai
                     </p>
                   )}
                 </TableCell>

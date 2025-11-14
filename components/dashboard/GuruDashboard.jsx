@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import TabelSiswaAlfa from "../tabel/TabelSiswaAlfa";
 import TabelJadwalGuruHariIni from "../tabel/TabelJadwalGuruHariIni";
 import { useToaster } from "@/providers/ToasterProvider";
 import { getGuruById } from "@/lib/data";
 import { getTimeFromDate, getTodayNameWITA } from "@/lib/formatTime";
-import TabelJadwalSaya from "../tabel/TabelJadwalSaya";
 
 const GuruDashboard = ({ session }) => {
   const { user } = session;
