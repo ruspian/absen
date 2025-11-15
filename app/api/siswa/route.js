@@ -12,7 +12,7 @@ export const POST = async (req) => {
     );
   }
 
-  if (session.user.role !== "ADMIN" && session.user.role !== "GURU") {
+  if (session.user.role !== "ADMIN") {
     return NextResponse.json(
       { message: "Akses ditolak. Anda bukan Admin." },
       { status: 403 } // 403 Forbidden
@@ -22,20 +22,30 @@ export const POST = async (req) => {
   try {
     const body = await req.json();
 
-    const { nama, nisn, kode, kelasId, gender } = body;
+    const { nama, nisn, kelasId, gender } = body;
 
-    if (!kelasId || !gender || !nama || !nisn || !kode) {
+    if (!kelasId || !gender || !nama || !nisn) {
       return NextResponse.json(
         { message: "Semua field harus diisi!" },
         { status: 400 }
       );
     }
 
+    // Hitung total siswa yang ada
+    const totalSiswa = await prisma.siswa.count();
+
+    // buat nomor baru untuk kode
+    const newNumber = totalSiswa + 1;
+
+    // buat format kode
+    // 'padStart(3, '0')' -> "1" jadi "001", "12" jadi "012", "123" jadi "123"
+    const newKode = "SW" + String(newNumber).padStart(4, "0");
+
     const createSiswa = await prisma.siswa.create({
       data: {
         nama,
         nisn,
-        kode,
+        kode: newKode,
         kelasId,
         gender,
       },

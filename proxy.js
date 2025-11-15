@@ -22,15 +22,15 @@ export default auth((req) => {
   ];
 
   // Rute Khusus Admin
-  const adminRoutes = [
-    "/master",
-    "/pengguna",
-    "/api/master",
-    "/api/pengguna",
-    "/api/dashboard/admin",
-    "/api/laporan/bulanan-kelas",
-    "/api/laporan/bulanan-guru",
-  ];
+  // const adminRoutes = [
+  //   "/master",
+  //   "/pengguna",
+  //   "/api/master",
+  //   "/api/pengguna",
+  //   "/api/dashboard/admin",
+  //   "/api/laporan/bulanan-kelas",
+  //   "/api/laporan/bulanan-guru",
+  // ];
 
   // Rute Khusus Guru Piket atau admin
   const piketRoutes = [
@@ -42,11 +42,16 @@ export default auth((req) => {
 
   // Rute Umum Guru atau guru piket
   const guruRoutes = [
-    "/mengajar",
+    "/mengajar/jadwal",
+    "/mengajar/absen-mapel",
     "/laporan",
     "/absen/mapel",
-    "/api/dashboard/guru",
+
+    "/api/jadwal",
     "/api/absen/mapel",
+    "/api/laporan/bulanan-kelas",
+    "/api/laporan/bulanan-guru",
+    "/api/laporan/bulanan",
   ];
 
   // Cek Rute Publik

@@ -185,3 +185,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Aturan khusus pas nge-print */
+@media print {
+  /* Sembunyiin SEMUA-nya */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Tampilin 'print-container' dan semua isinya */
+  .print-container,
+  .print-container * {
+    visibility: visible;
+  }
+
+  /* Pindahin 'print-container' ke '0,0' */
+  .print-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* hapus 'header/footer' bawaan browser */
+  @page {
+    size: auto;
+    margin: 10mm;
+  }
+}

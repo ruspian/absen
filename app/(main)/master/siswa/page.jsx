@@ -41,7 +41,7 @@ const SiswaPage = async ({ searchParams }) => {
     : {};
 
   // Jalankan query
-  const [siswa, totalCount] = await prisma.$transaction([
+  const [siswa, totalCount, dataKelas] = await prisma.$transaction([
     prisma.siswa.findMany({
       where: whereClause,
       include: {
@@ -55,6 +55,9 @@ const SiswaPage = async ({ searchParams }) => {
     }),
     prisma.siswa.count({
       where: whereClause,
+    }),
+    prisma.kelas.findMany({
+      orderBy: { nama: "asc" },
     }),
   ]);
 
@@ -80,6 +83,7 @@ const SiswaPage = async ({ searchParams }) => {
           totalPage={totalPage}
           currentPage={page}
           totalCount={totalCount}
+          dataKelas={dataKelas}
         />
       </div>
     </div>

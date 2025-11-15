@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getGuru } from "@/lib/data";
 import AksesDitolak from "@/components/AksesDitolak";
 
 const AbsenMapelListPage = () => {
@@ -19,8 +18,10 @@ const AbsenMapelListPage = () => {
   useEffect(() => {
     const fetchJadwal = async () => {
       try {
-        const response = await fetch(`
-          ${process.env.NEXT_PUBLIC_BASE_URL}/api/jadwal`);
+        setIsLoading(true);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/jadwal`
+        );
 
         if (!response.ok) {
           const data = await response.json();

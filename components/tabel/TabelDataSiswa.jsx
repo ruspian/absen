@@ -15,6 +15,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { useToaster } from "@/providers/ToasterProvider";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Barcode from "react-barcode";
 
 export default function TabelDataSiswa({ filteredData }) {
   const [openDelete, setOpenDelete] = useState(null);
@@ -104,13 +105,21 @@ export default function TabelDataSiswa({ filteredData }) {
                     {index + 1}
                   </TableCell>
                   <TableCell className="py-2.5 font-medium">
-                    {item.kode}
+                    {item.kode && (
+                      <Barcode
+                        value={item.kode}
+                        height={30}
+                        width={1.5}
+                        fontSize={10}
+                        margin={0}
+                      />
+                    )}
                   </TableCell>
                   <TableCell className="py-2.5 font-medium">
                     {item.nama}
                   </TableCell>
                   <TableCell className="py-2.5 font-medium">
-                    {item.gender}
+                    {item.gender === "LAKI_LAKI" ? "Laki-laki" : "Perempuan"}
                   </TableCell>
                   <TableCell className="py-2.5">{item.nisn}</TableCell>
                   <TableCell className="py-2.5">{item.kelas}</TableCell>

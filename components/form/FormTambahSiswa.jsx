@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 const FormTambahSiswa = ({ kelas }) => {
   const [formData, setFormData] = useState({
     nama: "",
-    kode: "",
     gender: "",
     kelasId: "",
     nisn: "",
@@ -28,11 +27,6 @@ const FormTambahSiswa = ({ kelas }) => {
     //   jika nama siswa kosong
     if (!formData.nama.trim() || !formData.nama) {
       newErrors.nama = "Nama harus diisi!";
-    }
-
-    //   jika kode kosong
-    if (!formData.kode.trim() || !formData.kode) {
-      newErrors.kode = "Kode harus diisi!";
     }
 
     //   jika gender belum dipilih
@@ -79,7 +73,6 @@ const FormTambahSiswa = ({ kelas }) => {
 
       const payload = {
         nama: formData.nama,
-        kode: formData.kode,
         gender: formData.gender,
         kelasId: formData.kelasId,
         nisn: formData.nisn,
@@ -143,23 +136,6 @@ const FormTambahSiswa = ({ kelas }) => {
         onSubmit={handleSubmit}
         className="flex flex-col gap-4 bg-background p-4 rounded-md"
       >
-        {/* kode */}
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="kode" className="text-xs">
-            Kode
-          </Label>
-          <Input
-            id="kode"
-            type="text"
-            placeholder="Kode"
-            value={formData.kode}
-            onChange={(e) => handleInputChange("kode", e.target.value)}
-            disabled={isLoading}
-            className="rounded-sm"
-          />
-          {errors.kode && <p className="text-sm text-red-600">{errors.kode}</p>}
-        </div>
-
         {/* nama */}
         <div className="flex flex-col gap-2">
           <Label htmlFor="nama" className="text-xs">

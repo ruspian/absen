@@ -14,7 +14,7 @@ export const POST = async (req) => {
       );
     }
 
-    if (session.user.role !== "ADMIN" && session.user.role !== "GURU") {
+    if (session.user.role !== "ADMIN") {
       return NextResponse.json(
         { message: "Akses ditolak" },
         { status: 403 } // 403 Forbidden
@@ -51,7 +51,7 @@ export const POST = async (req) => {
 
     return NextResponse.json(
       { createdJadwal, message: "Jadwal berhasil dibuat" },
-      { status: 200 }
+      { status: 201 }
     );
   } catch (error) {
     console.log("gagal membuat jadwal pelajaran:", error);
