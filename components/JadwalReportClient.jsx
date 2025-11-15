@@ -74,11 +74,13 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
   // Fungsi handleExportKelasPDF
   const handleExportKelasPDF = async () => {
     // Validasi
-    if (!filters.kelasId || filters.kelasId === "semua") {
+    if (!filters.kelasId || filters.kelasId === "") {
       toaster.current.show({
         title: "Error",
         message: "Pilih Kelas terlebih dahulu untuk export PDF.",
         type: "error",
+        position: "top-center",
+        duration: 5000,
       });
       return;
     }
@@ -90,7 +92,7 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
         kelasId: filters.kelasId,
         bulan: filters.bulan,
         tahun: filters.tahun,
-        mapelId: filters.mapelId || "semua",
+        mapelId: filters.mapelId || "",
         sumber: "mapel",
       };
       const response = await fetch("/api/laporan/bulanan-kelas", {
@@ -311,7 +313,9 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {absenData.length > 0 ? (
+            {absenData.length > 0 &&
+            filters.kelasId &&
+            filters.mapelId !== "semua" ? (
               absenData.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>
