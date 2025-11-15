@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
           <ToasterProvider>{children}</ToasterProvider>
         </AuthProvider>
 
-        <footer className="flex justify-center py-2 mt-2 bg-none fixed bottom-0 w-full">
+        <footer className="flex justify-center py-2 mt-2 bg-none  bottom-0 w-full">
           {/* Konten footer */}
           <p className="text-xs ">
             {" "}
