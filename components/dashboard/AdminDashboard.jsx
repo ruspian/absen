@@ -6,6 +6,7 @@ import { PiStudent } from "react-icons/pi";
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { IoMale, IoFemale } from "react-icons/io5";
 import { FiPieChart } from "react-icons/fi";
+import AksesDitolak from "../AksesDitolak";
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -57,7 +58,7 @@ const AdminDashboard = () => {
 
   // Tanganin state Error
   if (error) {
-    return <div className="mt-8 text-red-500">Error: {error}</div>;
+    return <AksesDitolak teks={error} />;
   }
 
   // Tanganin kalo data gak ada
