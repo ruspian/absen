@@ -14390,10 +14390,7 @@ export namespace Prisma {
     id: string | null
     tanggal: Date | null
     status: $Enums.StatusMapel | null
-    keterangan: string | null
     hari: string | null
-    jamMulai: Date | null
-    jamSelesai: Date | null
     siswaId: string | null
     jadwalId: string | null
   }
@@ -14402,10 +14399,7 @@ export namespace Prisma {
     id: string | null
     tanggal: Date | null
     status: $Enums.StatusMapel | null
-    keterangan: string | null
     hari: string | null
-    jamMulai: Date | null
-    jamSelesai: Date | null
     siswaId: string | null
     jadwalId: string | null
   }
@@ -14414,10 +14408,7 @@ export namespace Prisma {
     id: number
     tanggal: number
     status: number
-    keterangan: number
     hari: number
-    jamMulai: number
-    jamSelesai: number
     siswaId: number
     jadwalId: number
     _all: number
@@ -14428,10 +14419,7 @@ export namespace Prisma {
     id?: true
     tanggal?: true
     status?: true
-    keterangan?: true
     hari?: true
-    jamMulai?: true
-    jamSelesai?: true
     siswaId?: true
     jadwalId?: true
   }
@@ -14440,10 +14428,7 @@ export namespace Prisma {
     id?: true
     tanggal?: true
     status?: true
-    keterangan?: true
     hari?: true
-    jamMulai?: true
-    jamSelesai?: true
     siswaId?: true
     jadwalId?: true
   }
@@ -14452,10 +14437,7 @@ export namespace Prisma {
     id?: true
     tanggal?: true
     status?: true
-    keterangan?: true
     hari?: true
-    jamMulai?: true
-    jamSelesai?: true
     siswaId?: true
     jadwalId?: true
     _all?: true
@@ -14537,10 +14519,7 @@ export namespace Prisma {
     id: string
     tanggal: Date
     status: $Enums.StatusMapel
-    keterangan: string | null
     hari: string
-    jamMulai: Date
-    jamSelesai: Date
     siswaId: string
     jadwalId: string
     _count: AbsenMapelCountAggregateOutputType | null
@@ -14566,10 +14545,7 @@ export namespace Prisma {
     id?: boolean
     tanggal?: boolean
     status?: boolean
-    keterangan?: boolean
     hari?: boolean
-    jamMulai?: boolean
-    jamSelesai?: boolean
     siswaId?: boolean
     jadwalId?: boolean
     jadwal?: boolean | JadwalPelajaranDefaultArgs<ExtArgs>
@@ -14580,10 +14556,7 @@ export namespace Prisma {
     id?: boolean
     tanggal?: boolean
     status?: boolean
-    keterangan?: boolean
     hari?: boolean
-    jamMulai?: boolean
-    jamSelesai?: boolean
     siswaId?: boolean
     jadwalId?: boolean
     jadwal?: boolean | JadwalPelajaranDefaultArgs<ExtArgs>
@@ -14594,10 +14567,7 @@ export namespace Prisma {
     id?: boolean
     tanggal?: boolean
     status?: boolean
-    keterangan?: boolean
     hari?: boolean
-    jamMulai?: boolean
-    jamSelesai?: boolean
     siswaId?: boolean
     jadwalId?: boolean
     jadwal?: boolean | JadwalPelajaranDefaultArgs<ExtArgs>
@@ -14608,15 +14578,12 @@ export namespace Prisma {
     id?: boolean
     tanggal?: boolean
     status?: boolean
-    keterangan?: boolean
     hari?: boolean
-    jamMulai?: boolean
-    jamSelesai?: boolean
     siswaId?: boolean
     jadwalId?: boolean
   }
 
-  export type AbsenMapelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tanggal" | "status" | "keterangan" | "hari" | "jamMulai" | "jamSelesai" | "siswaId" | "jadwalId", ExtArgs["result"]["absenMapel"]>
+  export type AbsenMapelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tanggal" | "status" | "hari" | "siswaId" | "jadwalId", ExtArgs["result"]["absenMapel"]>
   export type AbsenMapelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     jadwal?: boolean | JadwalPelajaranDefaultArgs<ExtArgs>
     siswa?: boolean | SiswaDefaultArgs<ExtArgs>
@@ -14640,10 +14607,7 @@ export namespace Prisma {
       id: string
       tanggal: Date
       status: $Enums.StatusMapel
-      keterangan: string | null
       hari: string
-      jamMulai: Date
-      jamSelesai: Date
       siswaId: string
       jadwalId: string
     }, ExtArgs["result"]["absenMapel"]>
@@ -15074,10 +15038,7 @@ export namespace Prisma {
     readonly id: FieldRef<"AbsenMapel", 'String'>
     readonly tanggal: FieldRef<"AbsenMapel", 'DateTime'>
     readonly status: FieldRef<"AbsenMapel", 'StatusMapel'>
-    readonly keterangan: FieldRef<"AbsenMapel", 'String'>
     readonly hari: FieldRef<"AbsenMapel", 'String'>
-    readonly jamMulai: FieldRef<"AbsenMapel", 'DateTime'>
-    readonly jamSelesai: FieldRef<"AbsenMapel", 'DateTime'>
     readonly siswaId: FieldRef<"AbsenMapel", 'String'>
     readonly jadwalId: FieldRef<"AbsenMapel", 'String'>
   }
@@ -16715,10 +16676,7 @@ export namespace Prisma {
     id: 'id',
     tanggal: 'tanggal',
     status: 'status',
-    keterangan: 'keterangan',
     hari: 'hari',
-    jamMulai: 'jamMulai',
-    jamSelesai: 'jamSelesai',
     siswaId: 'siswaId',
     jadwalId: 'jadwalId'
   };
@@ -17591,10 +17549,7 @@ export namespace Prisma {
     id?: StringFilter<"AbsenMapel"> | string
     tanggal?: DateTimeFilter<"AbsenMapel"> | Date | string
     status?: EnumStatusMapelFilter<"AbsenMapel"> | $Enums.StatusMapel
-    keterangan?: StringNullableFilter<"AbsenMapel"> | string | null
     hari?: StringFilter<"AbsenMapel"> | string
-    jamMulai?: DateTimeFilter<"AbsenMapel"> | Date | string
-    jamSelesai?: DateTimeFilter<"AbsenMapel"> | Date | string
     siswaId?: StringFilter<"AbsenMapel"> | string
     jadwalId?: StringFilter<"AbsenMapel"> | string
     jadwal?: XOR<JadwalPelajaranScalarRelationFilter, JadwalPelajaranWhereInput>
@@ -17605,10 +17560,7 @@ export namespace Prisma {
     id?: SortOrder
     tanggal?: SortOrder
     status?: SortOrder
-    keterangan?: SortOrderInput | SortOrder
     hari?: SortOrder
-    jamMulai?: SortOrder
-    jamSelesai?: SortOrder
     siswaId?: SortOrder
     jadwalId?: SortOrder
     jadwal?: JadwalPelajaranOrderByWithRelationInput
@@ -17623,10 +17575,7 @@ export namespace Prisma {
     NOT?: AbsenMapelWhereInput | AbsenMapelWhereInput[]
     tanggal?: DateTimeFilter<"AbsenMapel"> | Date | string
     status?: EnumStatusMapelFilter<"AbsenMapel"> | $Enums.StatusMapel
-    keterangan?: StringNullableFilter<"AbsenMapel"> | string | null
     hari?: StringFilter<"AbsenMapel"> | string
-    jamMulai?: DateTimeFilter<"AbsenMapel"> | Date | string
-    jamSelesai?: DateTimeFilter<"AbsenMapel"> | Date | string
     siswaId?: StringFilter<"AbsenMapel"> | string
     jadwalId?: StringFilter<"AbsenMapel"> | string
     jadwal?: XOR<JadwalPelajaranScalarRelationFilter, JadwalPelajaranWhereInput>
@@ -17637,10 +17586,7 @@ export namespace Prisma {
     id?: SortOrder
     tanggal?: SortOrder
     status?: SortOrder
-    keterangan?: SortOrderInput | SortOrder
     hari?: SortOrder
-    jamMulai?: SortOrder
-    jamSelesai?: SortOrder
     siswaId?: SortOrder
     jadwalId?: SortOrder
     _count?: AbsenMapelCountOrderByAggregateInput
@@ -17655,10 +17601,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"AbsenMapel"> | string
     tanggal?: DateTimeWithAggregatesFilter<"AbsenMapel"> | Date | string
     status?: EnumStatusMapelWithAggregatesFilter<"AbsenMapel"> | $Enums.StatusMapel
-    keterangan?: StringNullableWithAggregatesFilter<"AbsenMapel"> | string | null
     hari?: StringWithAggregatesFilter<"AbsenMapel"> | string
-    jamMulai?: DateTimeWithAggregatesFilter<"AbsenMapel"> | Date | string
-    jamSelesai?: DateTimeWithAggregatesFilter<"AbsenMapel"> | Date | string
     siswaId?: StringWithAggregatesFilter<"AbsenMapel"> | string
     jadwalId?: StringWithAggregatesFilter<"AbsenMapel"> | string
   }
@@ -18463,10 +18406,7 @@ export namespace Prisma {
     id?: string
     tanggal: Date | string
     status?: $Enums.StatusMapel
-    keterangan?: string | null
     hari: string
-    jamMulai: Date | string
-    jamSelesai: Date | string
     jadwal: JadwalPelajaranCreateNestedOneWithoutAbsenMapelInput
     siswa: SiswaCreateNestedOneWithoutAbsenMapelInput
   }
@@ -18475,10 +18415,7 @@ export namespace Prisma {
     id?: string
     tanggal: Date | string
     status?: $Enums.StatusMapel
-    keterangan?: string | null
     hari: string
-    jamMulai: Date | string
-    jamSelesai: Date | string
     siswaId: string
     jadwalId: string
   }
@@ -18487,10 +18424,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     jadwal?: JadwalPelajaranUpdateOneRequiredWithoutAbsenMapelNestedInput
     siswa?: SiswaUpdateOneRequiredWithoutAbsenMapelNestedInput
   }
@@ -18499,10 +18433,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     siswaId?: StringFieldUpdateOperationsInput | string
     jadwalId?: StringFieldUpdateOperationsInput | string
   }
@@ -18511,10 +18442,7 @@ export namespace Prisma {
     id?: string
     tanggal: Date | string
     status?: $Enums.StatusMapel
-    keterangan?: string | null
     hari: string
-    jamMulai: Date | string
-    jamSelesai: Date | string
     siswaId: string
     jadwalId: string
   }
@@ -18523,20 +18451,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AbsenMapelUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     siswaId?: StringFieldUpdateOperationsInput | string
     jadwalId?: StringFieldUpdateOperationsInput | string
   }
@@ -19269,10 +19191,7 @@ export namespace Prisma {
     id?: SortOrder
     tanggal?: SortOrder
     status?: SortOrder
-    keterangan?: SortOrder
     hari?: SortOrder
-    jamMulai?: SortOrder
-    jamSelesai?: SortOrder
     siswaId?: SortOrder
     jadwalId?: SortOrder
   }
@@ -19281,10 +19200,7 @@ export namespace Prisma {
     id?: SortOrder
     tanggal?: SortOrder
     status?: SortOrder
-    keterangan?: SortOrder
     hari?: SortOrder
-    jamMulai?: SortOrder
-    jamSelesai?: SortOrder
     siswaId?: SortOrder
     jadwalId?: SortOrder
   }
@@ -19293,10 +19209,7 @@ export namespace Prisma {
     id?: SortOrder
     tanggal?: SortOrder
     status?: SortOrder
-    keterangan?: SortOrder
     hari?: SortOrder
-    jamMulai?: SortOrder
-    jamSelesai?: SortOrder
     siswaId?: SortOrder
     jadwalId?: SortOrder
   }
@@ -21046,10 +20959,7 @@ export namespace Prisma {
     id?: string
     tanggal: Date | string
     status?: $Enums.StatusMapel
-    keterangan?: string | null
     hari: string
-    jamMulai: Date | string
-    jamSelesai: Date | string
     jadwal: JadwalPelajaranCreateNestedOneWithoutAbsenMapelInput
   }
 
@@ -21057,10 +20967,7 @@ export namespace Prisma {
     id?: string
     tanggal: Date | string
     status?: $Enums.StatusMapel
-    keterangan?: string | null
     hari: string
-    jamMulai: Date | string
-    jamSelesai: Date | string
     jadwalId: string
   }
 
@@ -21144,10 +21051,7 @@ export namespace Prisma {
     id?: StringFilter<"AbsenMapel"> | string
     tanggal?: DateTimeFilter<"AbsenMapel"> | Date | string
     status?: EnumStatusMapelFilter<"AbsenMapel"> | $Enums.StatusMapel
-    keterangan?: StringNullableFilter<"AbsenMapel"> | string | null
     hari?: StringFilter<"AbsenMapel"> | string
-    jamMulai?: DateTimeFilter<"AbsenMapel"> | Date | string
-    jamSelesai?: DateTimeFilter<"AbsenMapel"> | Date | string
     siswaId?: StringFilter<"AbsenMapel"> | string
     jadwalId?: StringFilter<"AbsenMapel"> | string
   }
@@ -21399,10 +21303,7 @@ export namespace Prisma {
     id?: string
     tanggal: Date | string
     status?: $Enums.StatusMapel
-    keterangan?: string | null
     hari: string
-    jamMulai: Date | string
-    jamSelesai: Date | string
     siswa: SiswaCreateNestedOneWithoutAbsenMapelInput
   }
 
@@ -21410,10 +21311,7 @@ export namespace Prisma {
     id?: string
     tanggal: Date | string
     status?: $Enums.StatusMapel
-    keterangan?: string | null
     hari: string
-    jamMulai: Date | string
-    jamSelesai: Date | string
     siswaId: string
   }
 
@@ -22021,10 +21919,7 @@ export namespace Prisma {
     id?: string
     tanggal: Date | string
     status?: $Enums.StatusMapel
-    keterangan?: string | null
     hari: string
-    jamMulai: Date | string
-    jamSelesai: Date | string
     jadwalId: string
   }
 
@@ -22056,10 +21951,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     jadwal?: JadwalPelajaranUpdateOneRequiredWithoutAbsenMapelNestedInput
   }
 
@@ -22067,10 +21959,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     jadwalId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -22078,10 +21967,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     jadwalId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -22201,10 +22087,7 @@ export namespace Prisma {
     id?: string
     tanggal: Date | string
     status?: $Enums.StatusMapel
-    keterangan?: string | null
     hari: string
-    jamMulai: Date | string
-    jamSelesai: Date | string
     siswaId: string
   }
 
@@ -22212,10 +22095,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     siswa?: SiswaUpdateOneRequiredWithoutAbsenMapelNestedInput
   }
 
@@ -22223,10 +22103,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     siswaId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -22234,10 +22111,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: EnumStatusMapelFieldUpdateOperationsInput | $Enums.StatusMapel
-    keterangan?: NullableStringFieldUpdateOperationsInput | string | null
     hari?: StringFieldUpdateOperationsInput | string
-    jamMulai?: DateTimeFieldUpdateOperationsInput | Date | string
-    jamSelesai?: DateTimeFieldUpdateOperationsInput | Date | string
     siswaId?: StringFieldUpdateOperationsInput | string
   }
 

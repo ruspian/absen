@@ -154,7 +154,7 @@ const AbsenMapelListPage = () => {
 
                     <Button
                       size="sm"
-                      disabled={statusJadwal !== "BERLANGSUNG"}
+                      // disabled={statusJadwal !== "BERLANGSUNG"}
                       onClick={() => router.push(`/absensi/mapel/${item.id}`)}
                     >
                       Ambil Absen Mapel

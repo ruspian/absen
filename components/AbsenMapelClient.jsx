@@ -30,11 +30,14 @@ export const AbsenMapelClient = ({ dataSiswa, jadwalId }) => {
         status: status,
       };
 
-      const response = await fetch(`/api/absen/mapel`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/absen/mapel`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await response.json();
       if (!response.ok) {
@@ -45,6 +48,8 @@ export const AbsenMapelClient = ({ dataSiswa, jadwalId }) => {
         title: "Sukses",
         message: data.message,
         type: "success",
+        position: "top-center",
+        duration: 5000,
       });
       router.refresh(); // Refresh halaman
     } catch (error) {
@@ -52,6 +57,8 @@ export const AbsenMapelClient = ({ dataSiswa, jadwalId }) => {
         title: "Error",
         message: error.message,
         type: "error",
+        position: "top-center",
+        duration: 5000,
       });
     } finally {
       setIsLoading(null);

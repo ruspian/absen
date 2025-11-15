@@ -144,10 +144,7 @@ model AbsenMapel {
   id         String          @id @default(cuid())
   tanggal    DateTime        @db.Date
   status     StatusMapel     @default(ALFA)
-  keterangan String?
   hari       String
-  jamMulai   DateTime        @db.Time(6)
-  jamSelesai DateTime        @db.Time(6)
   siswaId    String
   jadwalId   String
   jadwal     JadwalPelajaran @relation(fields: [jadwalId], references: [id], onDelete: Cascade)

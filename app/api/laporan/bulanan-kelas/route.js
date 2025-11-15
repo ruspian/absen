@@ -28,8 +28,11 @@ export const POST = async (req) => {
       return NextResponse.json({ message: "Akses ditolak" }, { status: 403 });
     }
 
+    // ambil id guru yang login
+    const loggedInGuruId = session.user.guruId;
+
     const body = await req.json();
-    const { kelasId, bulan, tahun } = body;
+    const { kelasId, bulan, tahun, sumber, mapelId } = body;
 
     if (!kelasId || !bulan || !tahun) {
       return NextResponse.json(
@@ -49,23 +52,46 @@ export const POST = async (req) => {
 
     const studentIds = students.map((s) => s.id);
 
-    // Ambil semua data absen di kelas itu di bulan itu
-    const attendance = await prisma.absenHarian.findMany({
-      where: {
-        siswaId: {
-          in: studentIds,
+    let attendance;
+
+    // jika sumber 'mapel'
+    if (sumber === "mapel" && loggedInGuruId) {
+      // buat where dinamis buat mapel
+      const whereMapel = {
+        jadwal: {
+          guruId: loggedInGuruId,
+          kelasId: kelasId,
         },
-        tanggal: {
-          gte: startDate,
-          lte: endDate,
+        tanggal: { gte: startDate, lte: endDate },
+      };
+      // Kalo 'mapelId' dikirim, tambahin ke filter
+      if (mapelId && mapelId !== "semua") {
+        whereMapel.jadwal.mapelId = mapelId;
+      }
+
+      attendance = await prisma.absenMapel.findMany({
+        where: whereMapel,
+        select: { siswaId: true, tanggal: true, status: true },
+      });
+    } else {
+      // Ambil semua data absen di kelas itu di bulan itu
+      attendance = await prisma.absenHarian.findMany({
+        where: {
+          siswaId: {
+            in: studentIds,
+          },
+          tanggal: {
+            gte: startDate,
+            lte: endDate,
+          },
         },
-      },
-      select: {
-        siswaId: true,
-        tanggal: true,
-        status: true,
-      },
-    });
+        select: {
+          siswaId: true,
+          tanggal: true,
+          status: true,
+        },
+      });
+    }
 
     return NextResponse.json({ students, attendance });
   } catch (error) {

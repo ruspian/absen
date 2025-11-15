@@ -17,15 +17,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { format } from "date-fns";
+import { format, getDaysInMonth, getDay } from "date-fns";
 import { id as localeID } from "date-fns/locale";
 
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { Printer } from "lucide-react";
-import { KOP_SEKOLAH_BASE64 } from "@/lib/kopSurat";
 import { useToaster } from "@/providers/ToasterProvider";
 import { Button } from "./ui/button";
+import { addKopSurat } from "@/lib/kopSurat";
 
 // array untuk dropdown bulan
 const MASA_BULAN = [
@@ -90,6 +90,8 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
         kelasId: filters.kelasId,
         bulan: filters.bulan,
         tahun: filters.tahun,
+        mapelId: filters.mapelId || "semua",
+        sumber: "mapel",
       };
       const response = await fetch("/api/laporan/bulanan-kelas", {
         method: "POST",
@@ -111,27 +113,13 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
       const doc = new jsPDF({
         orientation: "landscape",
         unit: "mm",
-        format: [330, 210],
+        format: [330, 210], // F4
       });
 
-      doc.addImage(KOP_SEKOLAH_BASE64, "PNG", 15, 10, 30, 30);
-      doc.setFontSize(18);
-      doc.setFont(undefined, "bold");
-      doc.text("NAMA SEKOLAH ANDA", 165, 15, { align: "center" });
-      doc.setFontSize(12);
-      doc.setFont(undefined, "normal");
-      doc.text("Jl. Alamat Sekolah No. 123, Kota Manado", 165, 22, {
-        align: "center",
-      });
-      doc.text("Telp: (0431) 123456 | Email: info@sekolah.sch.id", 165, 29, {
-        align: "center",
-      });
-      doc.setLineWidth(1);
-      doc.line(15, 35, 315, 35);
-      doc.setLineWidth(0.2);
-      doc.line(15, 36, 315, 36);
+      // Panggil fungsi Kop Surat
+      const startY = addKopSurat(doc);
 
-      // --- Judul Laporan ---
+      // Judul Laporan
       const namaBulan = MASA_BULAN.find(
         (b) => b.value === filters.bulan
       )?.label;
@@ -139,23 +127,23 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
 
       doc.setFontSize(14);
       doc.setFont(undefined, "bold");
-      doc.text(`Rekap Absensi Bulanan - Kelas ${namaKelas}`, 165, 45, {
+      doc.text(`Rekap Absensi Bulanan - Kelas ${namaKelas}`, 165, startY + 5, {
         align: "center",
       });
       doc.setFontSize(10);
       doc.setFont(undefined, "normal");
-      doc.text(`Periode: ${namaBulan} ${filters.tahun}`, 165, 50, {
+      doc.text(`Periode: ${namaBulan} ${filters.tahun}`, 165, startY + 10, {
         align: "center",
       });
 
-      // 4. Bikin Header Tabel (No, Nama, 1...31, H, S, I, A)
+      // Bikin Header Tabel (No, Nama, 1...31, H, S, I, A)
       const head = [["No", "Nama Siswa"]];
       for (let i = 1; i <= daysInMonth; i++) {
         head[0].push(String(i));
       }
       head[0].push(...["H", "S", "I", "A"]);
 
-      // 5. Bikin Body Tabel
+      //  Bikin Body Tabel
       const body = [];
       students.forEach((student, index) => {
         const row = [index + 1, student.nama];
@@ -174,6 +162,7 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
             continue;
           }
 
+          // Cari data absen
           const absen = attendance.find(
             (a) =>
               a.siswaId === student.id && new Date(a.tanggal).getUTCDate() === i
@@ -187,8 +176,7 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
             else if (status === "I") totalI++;
             else if (status === "A") totalA++;
           } else {
-            row.push("A");
-            totalA++;
+            row.push("-");
           }
         }
 
@@ -196,9 +184,9 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
         body.push(row);
       });
 
-      // 6. Gambar Tabel
+      // Gambar Tabel
       autoTable(doc, {
-        startY: 55, // Turunin
+        startY: startY + 15, // Kasih jarak 10mm
         head: head,
         body: body,
         theme: "grid",
@@ -206,7 +194,7 @@ const JadwalReportClient = ({ absenData, dataKelas, dataMapel, filters }) => {
         styles: { fontSize: 8, cellPadding: 1 },
       });
 
-      // 7. Simpen
+      // Simpen
       doc.save(`Rekap-Kelas-${namaKelas}-${namaBulan}.pdf`);
     } catch (error) {
       toaster.current.show({

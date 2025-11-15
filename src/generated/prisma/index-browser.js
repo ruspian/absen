@@ -224,10 +224,7 @@ exports.Prisma.AbsenMapelScalarFieldEnum = {
   id: 'id',
   tanggal: 'tanggal',
   status: 'status',
-  keterangan: 'keterangan',
   hari: 'hari',
-  jamMulai: 'jamMulai',
-  jamSelesai: 'jamSelesai',
   siswaId: 'siswaId',
   jadwalId: 'jadwalId'
 };

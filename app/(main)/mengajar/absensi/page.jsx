@@ -31,14 +31,15 @@ const RekapMapelPage = async ({ searchParams }) => {
   const loggedInGuruId = session.user.guruId;
 
   // Ambil SEMUA filter dari URL
-  const filterKelasId = searchParams.kelasId || null;
-  const filterMapelId = searchParams.mapelId || null;
+  const { kelasId, mapelId, bulan, tahun } = await searchParams;
+  const filterKelasId = kelasId || null;
+  const filterMapelId = mapelId || null;
   // Ambil bulan & tahun hari ini sebagai default
   const nowWITA = new Date(
     new Date().toLocaleString("en-US", { timeZone: TIMEZONE })
   );
-  const filterBulan = searchParams.bulan || String(nowWITA.getMonth() + 1);
-  const filterTahun = searchParams.tahun || String(nowWITA.getFullYear());
+  const filterBulan = bulan || String(nowWITA.getMonth() + 1);
+  const filterTahun = tahun || String(nowWITA.getFullYear());
 
   // ambil rentang tanggal
   const { startDate, endDate } = getMonthRangeWITA(filterBulan, filterTahun);
@@ -100,7 +101,7 @@ const RekapMapelPage = async ({ searchParams }) => {
     }),
   ]);
 
-  // 6. Format data buat tabel
+  //  Format data buat tabel
   const formattedData = absenData.map((item) => ({
     id: item.id,
     tanggal: item.tanggal,

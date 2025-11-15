@@ -1,15 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
-
-const TIMEZONE = "Asia/Makassar";
-
-const getToday = () => {
-  const todayString = new Date().toLocaleDateString("en-CA", {
-    timeZone: TIMEZONE,
-  });
-  return new Date(todayString);
-};
+import { getToday, getTodayNameWITA } from "@/lib/formatTime";
 
 export const POST = async (req) => {
   try {
@@ -47,6 +39,7 @@ export const POST = async (req) => {
     }
 
     const today = getToday();
+    const namaHari = getTodayNameWITA();
 
     // Simpen pake 'upsert'
     const absen = await prisma.absenMapel.upsert({
@@ -65,6 +58,7 @@ export const POST = async (req) => {
         jadwalId: jadwalId,
         tanggal: today,
         status: status,
+        hari: namaHari,
       },
     });
 

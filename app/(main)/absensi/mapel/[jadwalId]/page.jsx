@@ -9,7 +9,7 @@ import { getToday } from "@/lib/formatTime";
 import AbsenMapelClient from "@/components/AbsenMapelClient";
 
 const AbsenMapelPage = async ({ params }) => {
-  const { jadwalId } = params;
+  const { jadwalId } = await params;
 
   const today = getToday();
 
