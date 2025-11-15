@@ -254,7 +254,8 @@ exports.Prisma.NullsOrder = {
 };
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
-  GURU: 'GURU'
+  GURU: 'GURU',
+  USER: 'USER'
 };
 
 exports.Gender = exports.$Enums.Gender = {

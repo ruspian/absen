@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { PiStudent } from "react-icons/pi";
-import { FaChalkboardTeacher } from "react-icons/fa";
 import TabelSiswaAlfa from "../tabel/TabelSiswaAlfa";
 import { Skeleton } from "../ui/skeleton";
+import { StatCardAdmin } from "../StatCard";
+import { PiStudent } from "react-icons/pi";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { IoMale, IoFemale } from "react-icons/io5";
+import { FiPieChart } from "react-icons/fi";
 
 const AdminDashboard = () => {
   const [data, setData] = useState(null);
@@ -32,7 +35,24 @@ const AdminDashboard = () => {
 
   // Tanganin state loading
   if (isLoading) {
-    return <Skeleton />;
+    return (
+      <div className="mt-8">
+        {/* Skeleton 6 Card */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <Skeleton className="h-[100px] w-full" />
+          <Skeleton className="h-[100px] w-full" />
+          <Skeleton className="h-[100px] w-full" />
+          <Skeleton className="h-[100px] w-full" />
+          <Skeleton className="h-[100px] w-full" />
+          <Skeleton className="h-[100px] w-full" />
+        </div>
+        {/* Skeleton Tabel */}
+        <div className="mt-8">
+          <Skeleton className="h-8 w-1/3 mb-2" />
+          <Skeleton className="h-96 w-full" />
+        </div>
+      </div>
+    );
   }
 
   // Tanganin state Error
@@ -50,57 +70,36 @@ const AdminDashboard = () => {
   return (
     <div className="mt-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div className="border rounded-sm flex items-center gap-2 p-2">
-          <PiStudent size={70} />
-          <div className="">
-            <h3 className="font-bold text-xl">JUMLAH SISWA</h3>
-            <h1 className="font-bold text-4xl">{statistik.totalSiswa || 0}</h1>
-          </div>
-        </div>
-
-        <div className="border rounded-sm flex items-center gap-2 p-2">
-          <PiStudent size={70} />
-          <div className="">
-            <h3 className="font-bold text-xl">JUMLAH LAKI-LAKI</h3>
-            <h1 className="font-bold text-4xl">
-              {statistik.totalSiswaLaki || 0}
-            </h1>
-          </div>
-        </div>
-
-        <div className="border rounded-sm flex items-center gap-2 p-2">
-          <PiStudent size={70} />
-          <div className="">
-            <h3 className="font-bold text-xl">JUMLAH PEREMPUAN</h3>
-            <h1 className="font-bold text-4xl">
-              {statistik.totalSiswaPerempuan || 0}
-            </h1>
-          </div>
-        </div>
-
-        <div className="border rounded-sm flex items-center gap-2 p-2">
-          <PiStudent size={70} />
-          <div className="">
-            <h3 className="font-bold text-xl">JUMLAH GURU</h3>
-            <h1 className="font-bold text-4xl">{statistik.totalGuru || 0}</h1>
-          </div>
-        </div>
-
-        <div className="border rounded-sm flex items-center gap-2 p-2">
-          <FaChalkboardTeacher size={70} />
-          <div className="">
-            <h3 className="font-bold text-xl">ABSENSI SISWA</h3>
-            <h1 className="font-bold text-4xl">{statistik.persenSiswa}</h1>
-          </div>
-        </div>
-
-        <div className="border rounded-sm flex items-center gap-2 p-2">
-          <FaChalkboardTeacher size={70} />
-          <div className="">
-            <h3 className="font-bold text-xl">ABSENSI GURU</h3>
-            <h1 className="font-bold text-4xl">{statistik.persenGuru}</h1>
-          </div>
-        </div>
+        <StatCardAdmin
+          title="JUMLAH SISWA"
+          value={statistik.totalSiswa || 0}
+          icon={<PiStudent />}
+        />
+        <StatCardAdmin
+          title="JUMLAH LAKI-LAKI"
+          value={statistik.totalSiswaLaki || 0}
+          icon={<IoMale />}
+        />
+        <StatCardAdmin
+          title="JUMLAH PEREMPUAN"
+          value={statistik.totalSiswaPerempuan || 0}
+          icon={<IoFemale />}
+        />
+        <StatCardAdmin
+          title="JUMLAH GURU"
+          value={statistik.totalGuru || 0}
+          icon={<FaChalkboardTeacher />}
+        />
+        <StatCardAdmin
+          title="SISWA HADIR"
+          value={statistik.persenSiswa}
+          icon={<FiPieChart />}
+        />
+        <StatCardAdmin
+          title="GURU HADIR"
+          value={statistik.persenGuru}
+          icon={<FiPieChart />}
+        />
       </div>
 
       <div className="mt-8">

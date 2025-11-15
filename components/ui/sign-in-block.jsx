@@ -104,6 +104,8 @@ const SignInBlock = () => {
         duration: 5000,
         position: "top-center",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 

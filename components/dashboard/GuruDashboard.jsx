@@ -3,10 +3,12 @@ import TabelJadwalGuruHariIni from "../tabel/TabelJadwalGuruHariIni";
 import { useToaster } from "@/providers/ToasterProvider";
 import { getGuruById } from "@/lib/data";
 import { getTimeFromDate, getTodayNameWITA } from "@/lib/formatTime";
+import { Skeleton } from "../ui/skeleton";
 
 const GuruDashboard = ({ session }) => {
   const { user } = session;
   const [dataJadwalHariIni, setDataJadwalHariIni] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const toaster = useToaster();
   const jamSekarang = getTimeFromDate(new Date());
@@ -14,6 +16,8 @@ const GuruDashboard = ({ session }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setIsLoading(true);
+
         const guru = await getGuruById(user.guruId);
 
         const hariIni = getTodayNameWITA();
@@ -35,11 +39,25 @@ const GuruDashboard = ({ session }) => {
           position: "top-center",
           duration: 5000,
         });
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, [toaster, user.guruId]);
+
+  if (isLoading) {
+    return (
+      <div className="mt-8">
+        {/* Skeleton Tabel */}
+        <div className="mt-8">
+          <Skeleton className="h-8 w-1/3 mb-2" />
+          <Skeleton className="h-96 w-full" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-8">

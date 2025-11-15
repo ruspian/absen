@@ -48,7 +48,7 @@ export const POST = async (req) => {
     });
 
     return NextResponse.json(
-      { user, message: "User created successfully" },
+      { user, message: "Daftar berhasil!" },
       { status: 201 }
     );
   } catch (error) {

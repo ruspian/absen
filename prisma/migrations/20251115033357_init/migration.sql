@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('ADMIN', 'GURU');
+CREATE TYPE "Role" AS ENUM ('ADMIN', 'GURU', 'USER');
 
 -- CreateEnum
 CREATE TYPE "Gender" AS ENUM ('LAKI_LAKI', 'PEREMPUAN');
@@ -18,9 +18,10 @@ CREATE TABLE "User" (
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
     "password" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT 'GURU',
+    "role" "Role" NOT NULL DEFAULT 'USER',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "lastLogin" TIMESTAMP(3),
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -70,10 +71,18 @@ CREATE TABLE "Guru" (
     "nip" TEXT,
     "nuptk" TEXT,
     "gender" "Gender" NOT NULL DEFAULT 'LAKI_LAKI',
-    "isPiket" BOOLEAN NOT NULL DEFAULT false,
     "userId" TEXT,
 
     CONSTRAINT "Guru_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "JadwalPiket" (
+    "id" TEXT NOT NULL,
+    "hari" TEXT NOT NULL,
+    "guruId" TEXT NOT NULL,
+
+    CONSTRAINT "JadwalPiket_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -123,8 +132,8 @@ CREATE TABLE "JadwalPelajaran" (
 CREATE TABLE "AbsenHarian" (
     "id" TEXT NOT NULL,
     "tanggal" DATE NOT NULL,
-    "jamMasuk" TIME,
-    "jamPulang" TIME,
+    "jamMasuk" TIME(6),
+    "jamPulang" TIME(6),
     "status" "StatusHarian" NOT NULL DEFAULT 'ALFA',
     "siswaId" TEXT NOT NULL,
 
@@ -136,14 +145,23 @@ CREATE TABLE "AbsenMapel" (
     "id" TEXT NOT NULL,
     "tanggal" DATE NOT NULL,
     "status" "StatusMapel" NOT NULL DEFAULT 'ALFA',
-    "keterangan" TEXT,
     "hari" TEXT NOT NULL,
-    "jamMulai" TIME NOT NULL,
-    "jamSelesai" TIME NOT NULL,
     "siswaId" TEXT NOT NULL,
     "jadwalId" TEXT NOT NULL,
 
     CONSTRAINT "AbsenMapel_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "AbsenGuruHarian" (
+    "id" TEXT NOT NULL,
+    "tanggal" DATE NOT NULL,
+    "jamMasuk" TIME(6),
+    "jamPulang" TIME(6),
+    "status" "StatusHarian" NOT NULL DEFAULT 'ALFA',
+    "guruId" TEXT NOT NULL,
+
+    CONSTRAINT "AbsenGuruHarian_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -163,6 +181,9 @@ CREATE UNIQUE INDEX "Guru_nuptk_key" ON "Guru"("nuptk");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Guru_userId_key" ON "Guru"("userId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "JadwalPiket_hari_guruId_key" ON "JadwalPiket"("hari", "guruId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Siswa_nisn_key" ON "Siswa"("nisn");
@@ -185,6 +206,9 @@ CREATE UNIQUE INDEX "AbsenHarian_siswaId_tanggal_key" ON "AbsenHarian"("siswaId"
 -- CreateIndex
 CREATE UNIQUE INDEX "AbsenMapel_siswaId_jadwalId_tanggal_key" ON "AbsenMapel"("siswaId", "jadwalId", "tanggal");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "AbsenGuruHarian_guruId_tanggal_key" ON "AbsenGuruHarian"("guruId", "tanggal");
+
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -195,10 +219,16 @@ ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Guru" ADD CONSTRAINT "Guru_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "JadwalPiket" ADD CONSTRAINT "JadwalPiket_guruId_fkey" FOREIGN KEY ("guruId") REFERENCES "Guru"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Siswa" ADD CONSTRAINT "Siswa_kelasId_fkey" FOREIGN KEY ("kelasId") REFERENCES "Kelas"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Kelas" ADD CONSTRAINT "Kelas_waliKelasId_fkey" FOREIGN KEY ("waliKelasId") REFERENCES "Guru"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "JadwalPelajaran" ADD CONSTRAINT "JadwalPelajaran_guruId_fkey" FOREIGN KEY ("guruId") REFERENCES "Guru"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "JadwalPelajaran" ADD CONSTRAINT "JadwalPelajaran_kelasId_fkey" FOREIGN KEY ("kelasId") REFERENCES "Kelas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -207,13 +237,13 @@ ALTER TABLE "JadwalPelajaran" ADD CONSTRAINT "JadwalPelajaran_kelasId_fkey" FORE
 ALTER TABLE "JadwalPelajaran" ADD CONSTRAINT "JadwalPelajaran_mapelId_fkey" FOREIGN KEY ("mapelId") REFERENCES "MataPelajaran"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "JadwalPelajaran" ADD CONSTRAINT "JadwalPelajaran_guruId_fkey" FOREIGN KEY ("guruId") REFERENCES "Guru"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "AbsenHarian" ADD CONSTRAINT "AbsenHarian_siswaId_fkey" FOREIGN KEY ("siswaId") REFERENCES "Siswa"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AbsenHarian" ADD CONSTRAINT "AbsenHarian_siswaId_fkey" FOREIGN KEY ("siswaId") REFERENCES "Siswa"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "AbsenMapel" ADD CONSTRAINT "AbsenMapel_jadwalId_fkey" FOREIGN KEY ("jadwalId") REFERENCES "JadwalPelajaran"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "AbsenMapel" ADD CONSTRAINT "AbsenMapel_siswaId_fkey" FOREIGN KEY ("siswaId") REFERENCES "Siswa"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "AbsenMapel" ADD CONSTRAINT "AbsenMapel_jadwalId_fkey" FOREIGN KEY ("jadwalId") REFERENCES "JadwalPelajaran"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "AbsenGuruHarian" ADD CONSTRAINT "AbsenGuruHarian_guruId_fkey" FOREIGN KEY ("guruId") REFERENCES "Guru"("id") ON DELETE CASCADE ON UPDATE CASCADE;

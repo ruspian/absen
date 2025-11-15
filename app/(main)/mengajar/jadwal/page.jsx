@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Breadcrumb from "@/components/Breadcrumb";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getGuru } from "@/lib/data";
+import AksesDitolak from "@/components/AksesDitolak";
 
 const AbsenMapelListPage = () => {
   const [jadwal, setJadwal] = useState([]);
@@ -86,9 +87,7 @@ const AbsenMapelListPage = () => {
     return (
       <div className="p-8">
         <Breadcrumb />
-        <div className="mt-8 p-4 border rounded-md text-center text-red-500">
-          Error: {error}
-        </div>
+        <AksesDitolak teks={error} />
       </div>
     );
   }

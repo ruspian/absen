@@ -85,7 +85,8 @@ export type AbsenGuruHarian = $Result.DefaultSelection<Prisma.$AbsenGuruHarianPa
 export namespace $Enums {
   export const Role: {
   ADMIN: 'ADMIN',
-  GURU: 'GURU'
+  GURU: 'GURU',
+  USER: 'USER'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]

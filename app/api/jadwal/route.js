@@ -71,7 +71,7 @@ export const GET = async (req) => {
     // Cek kalo dia GURU dan punya 'guruId'
     if (session?.user?.role !== "GURU" || !session?.user?.guruId) {
       return NextResponse.json(
-        { message: "Akses ditolak. Anda bukan Guru." },
+        { message: "Anda bukan Guru." },
         { status: 403 } // 403 Forbidden
       );
     }

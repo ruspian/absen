@@ -9,6 +9,7 @@ import { getDashboardGuruPiket, getGuruById } from "@/lib/data";
 import { useToaster } from "@/providers/ToasterProvider";
 import TabelJadwalGuruHariIni from "../tabel/TabelJadwalGuruHariIni";
 import { getTodayNameWITA, getWaktuSekarang } from "@/lib/formatTime";
+import AksesDitolak from "../AksesDitolak";
 
 const PiketDashboard = ({ session }) => {
   const [stats, setStats] = useState(null);
@@ -69,11 +70,7 @@ const PiketDashboard = ({ session }) => {
   }
 
   if (error) {
-    return (
-      <div className="mt-8 p-4 border rounded-md text-center text-red-500">
-        Error: {error}
-      </div>
-    );
+    return <AksesDitolak teks={error} />;
   }
 
   return (

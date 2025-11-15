@@ -4,6 +4,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import AdminDashboard from "@/components/dashboard/AdminDashboard";
 import GuruDashboard from "@/components/dashboard/GuruDashboard";
 import PiketDashboard from "@/components/dashboard/PiketDashboard";
+import UserDashboard from "@/components/dashboard/UserDashboard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatTanggalID } from "@/lib/formatTime";
 import { useSession } from "next-auth/react";
@@ -30,17 +31,22 @@ const DashboardPage = () => {
 
   const { user } = sessionData;
 
+  const getRoleName = () => {
+    if (user.role === "ADMIN") return "ADMIN";
+    if (user.role === "GURU") {
+      return user.isPiket ? "GURU PIKET" : "GURU MAPEL";
+    }
+    if (user.role === "USER") return "USER";
+    return "TIDAK DIKENAL";
+  };
+
   return (
     <div>
       <Breadcrumb />
 
       <div className="flex items-center justify-end gap-2 ">
         <h1 className=" border rounded-sm px-4 py-2 text-xs ml-2">
-          {user?.role === "ADMIN"
-            ? "ADMIN"
-            : user?.role === "GURU" && user?.isPiket === false
-            ? "GURU MAPEL"
-            : "GURU PIKET"}
+          {getRoleName()}
         </h1>
 
         <h1 className=" border rounded-sm px-4 py-2 text-xs">
@@ -57,6 +63,8 @@ const DashboardPage = () => {
       {user.role === "GURU" && user.isPiket === true && (
         <PiketDashboard session={sessionData} />
       )}
+
+      {user.role === "USER" && <UserDashboard />}
     </div>
   );
 };
