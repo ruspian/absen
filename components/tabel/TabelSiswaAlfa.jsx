@@ -2,7 +2,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -32,7 +31,9 @@ export default function TabelSiswaAlfa({ data }) {
               <TableCell className="py-2.5 font-medium">{index + 1}</TableCell>
               <TableCell className="py-2.5 font-medium">{item.nama}</TableCell>
               <TableCell className="py-2.5">{item.kelas}</TableCell>
-              <TableCell className="py-2.5">{item.status}</TableCell>
+              <TableCell className="py-2.5">
+                {item.status === "ALFA" ? "ALFA" : "Belum Absen"}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

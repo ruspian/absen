@@ -1,15 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth"; // Pastiin path ini bener
-
-const TIMEZONE = "Asia/Makassar"; // WITA
-
-const getToday = () => {
-  const todayString = new Date().toLocaleDateString("en-CA", {
-    timeZone: TIMEZONE,
-  });
-  return new Date(todayString);
-};
+import { getToday } from "@/lib/formatTime";
 
 export const GET = async (req) => {
   try {
@@ -72,7 +64,9 @@ export const GET = async (req) => {
     });
 
     // Filter siswa yang ALFA atau Belum Absen
-    const siswaAlfa = formattedSiswa.filter((s) => s.status === "ALFA");
+    const siswaAlfa = formattedSiswa.filter(
+      (s) => s.status === "ALFA" || s.status === null
+    );
 
     // Siapin 'props'
     const statistik = {

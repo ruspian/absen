@@ -17,11 +17,11 @@ const TabelScanGuru = ({ filteredData }) => {
           <TableRow className="hover:bg-transparent">
             <TableHead>No</TableHead>
             <TableHead>Kode</TableHead>
-            <TableHead>Nama Siswa</TableHead>
-            <TableHead>NISN</TableHead>
+            <TableHead>Nama Guru</TableHead>
+            <TableHead>NIP</TableHead>
+            <TableHead>NUPTK</TableHead>
             <TableHead>Jam Masuk</TableHead>
             <TableHead>Jam Pulang</TableHead>
-            <TableHead>Kelas</TableHead>
           </TableRow>
         </TableHeader>
         <tbody aria-hidden="true" className="table-row h-2"></tbody>
@@ -42,7 +42,10 @@ const TabelScanGuru = ({ filteredData }) => {
                   {item.nama}
                 </TableCell>
                 <TableCell className="py-2.5 font-medium">
-                  {item.nisn || "-"}
+                  {item.nip || "-"}
+                </TableCell>
+                <TableCell className="py-2.5 font-medium">
+                  {item.nuptk || "-"}
                 </TableCell>
                 <TableCell className="py-2.5">
                   {item.absen.jamMasuk
@@ -53,9 +56,6 @@ const TabelScanGuru = ({ filteredData }) => {
                   {item.absen.jamPulang
                     ? getTimeFromDate(item.absen.jamPulang)
                     : "-"}
-                </TableCell>
-                <TableCell className="py-2.5 font-medium">
-                  {item.kelas}
                 </TableCell>
               </TableRow>
             ))

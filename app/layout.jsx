@@ -27,6 +27,14 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <ToasterProvider>{children}</ToasterProvider>
         </AuthProvider>
+
+        <footer className="flex justify-center py-2 mt-2 bg-none fixed bottom-0 w-full">
+          {/* Konten footer */}
+          <p className="text-xs ">
+            {" "}
+            &copy; 2025 Ruspian Majid - All rights reserved
+          </p>
+        </footer>
       </body>
     </html>
   );

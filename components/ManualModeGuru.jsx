@@ -147,7 +147,11 @@ export const ManualModeGuru = ({ dataGuru }) => {
                       {item.nuptk}
                     </TableCell>
                     <TableCell className="py-2.5 font-medium">
-                      {item.status || "-"}
+                      {item.status === null ? (
+                        <span className="text-gray-500">Belum Absen</span>
+                      ) : (
+                        item.status
+                      )}
                     </TableCell>
 
                     <TableCell className="py-2.5 font-medium">

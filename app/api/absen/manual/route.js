@@ -1,29 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
-import { format } from "date-fns";
-import { id as localeID } from "date-fns/locale";
-
-const TIMEZONE = "Asia/Makassar"; // WITA
-
-const getToday = () => {
-  const nowWITA = new Date(
-    new Date().toLocaleString("en-US", { timeZone: TIMEZONE })
-  );
-  const tahun = nowWITA.getFullYear();
-  const bulanIndex = nowWITA.getMonth();
-  const tanggal = nowWITA.getDate();
-  const todayWITA = new Date(Date.UTC(tahun, bulanIndex, tanggal, -8));
-  return todayWITA;
-};
-
-const getTodayNameWITA = () => {
-  // 'eeee' -> "Kamis"
-  return format(new Date(), "eeee", {
-    locale: localeID,
-    timeZone: TIMEZONE,
-  });
-};
+import { getToday, getTodayNameWITA } from "@/lib/formatTime";
 
 export const POST = async (req) => {
   try {

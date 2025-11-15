@@ -22,7 +22,7 @@ import { id as localeID } from "date-fns/locale";
 
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { Printer } from "lucide-react"; // (Icon)
+import { Printer } from "lucide-react";
 import { KOP_SEKOLAH_BASE64 } from "@/lib/kopSurat";
 import { useToaster } from "@/providers/ToasterProvider";
 import { Button } from "./ui/button";

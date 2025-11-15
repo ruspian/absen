@@ -21,8 +21,11 @@ export const ScanModeGuru = () => {
 
   // Fokus ke input pas tab ini dibuka
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    // Selalu fokus ke input kalo lagi GAK loading
+    if (!isLoading) {
+      inputRef.current?.focus();
+    }
+  }, [isLoading]);
 
   const handleScan = async (e) => {
     e.preventDefault();
@@ -31,10 +34,15 @@ export const ScanModeGuru = () => {
     setIsLoading(true);
 
     try {
+      const payload = {
+        kode: kode,
+        tipe: "guru",
+      };
+
       const response = await fetch(`/api/absen/scan`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kode: kode }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
@@ -77,10 +85,11 @@ export const ScanModeGuru = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <h2 className="text-xl font-semibold text-center">
-        Scan Barcode Absensi
-      </h2>
+    <div
+      className="flex flex-col gap-4"
+      onClick={() => inputRef.current?.focus()}
+    >
+      <h2 className="text-xl font-semibold text-center">Scan Barcode Guru</h2>
 
       <form onSubmit={handleScan}>
         <Input
@@ -88,11 +97,20 @@ export const ScanModeGuru = () => {
           value={kode}
           onChange={(e) => setKode(e.target.value)}
           placeholder="Arahkan scanner ke barcode..."
-          className="text-center text-lg p-4"
+          className="absolute -top-96 -left-96 w-0 h-0 p-0 m-0 border-0 opacity-0"
           disabled={isLoading}
+          onBlur={() => {
+            if (!isLoading) {
+              inputRef.current?.focus();
+            }
+          }}
         />
         <button type="submit" className="hidden" />
       </form>
+
+      <div className="text-center text-lg text-muted-foreground p-4 border-2 border-dashed rounded-md">
+        {isLoading ? "Memproses..." : "SIAP UNTUK SCAN"}
+      </div>
 
       {/* Tampilan Log */}
       <div className="p-4 border rounded-md h-96 overflow-y-auto">

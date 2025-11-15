@@ -4,19 +4,7 @@ export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/prisma";
 import Breadcrumb from "@/components/Breadcrumb";
 import HarianSiswaClient from "@/components/HarianSiswaClient";
-
-// dapatkan tanggal hari ini
-const TIMEZONE = "Asia/Makassar"; // WITA
-
-const getToday = () => {
-  // Dapatkan string tanggal hari ini dengan zona waktu WITA
-  const todayString = new Date().toLocaleDateString("en-CA", {
-    timeZone: TIMEZONE,
-  });
-
-  // Buat objek Date baru dari string
-  return new Date(todayString);
-};
+import { getToday } from "@/lib/formatTime";
 
 const AbsenHarianSiswaPage = async () => {
   const today = getToday();

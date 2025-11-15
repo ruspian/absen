@@ -25,6 +25,7 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { BiSolidFilePdf } from "react-icons/bi";
 import { IoSearch } from "react-icons/io5";
+import { addKopSurat } from "@/lib/kopSurat";
 
 // item dropdown bulan
 const MASA_BULAN = [
@@ -150,6 +151,8 @@ const LaporanBulananClient = ({ dataSiswa, dataGuru, dataKelas }) => {
         title: "Error",
         message: "Silakan pilih kelas terlebih dahulu.",
         type: "error",
+        position: "top-center",
+        duration: 5000,
       });
       return;
     }
@@ -182,6 +185,9 @@ const LaporanBulananClient = ({ dataSiswa, dataGuru, dataKelas }) => {
       const bulanIndex = parseInt(bulan) - 1;
       const tgl = new Date(tahun, bulanIndex, 1);
       const daysInMonth = getDaysInMonth(tgl); // Total hari di bulan itu
+      const namaKelas =
+        dataKelas.find((k) => k.id === selectedKelasId)?.nama || "";
+      const namaBulan = MASA_BULAN.find((b) => b.value === bulan)?.label || "";
 
       // Setup Dokumen PDF ukuran F4 Landscape
       const doc = new jsPDF({
@@ -189,18 +195,17 @@ const LaporanBulananClient = ({ dataSiswa, dataGuru, dataKelas }) => {
         unit: "mm",
         format: [330, 210],
       });
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const centerX = pageWidth / 2;
-      const namaKelas =
-        dataKelas.find((k) => k.id === selectedKelasId)?.nama || "";
-      const namaBulan = MASA_BULAN.find((b) => b.value === bulan)?.label || "";
 
-      doc.setFontSize(16);
-      doc.text(`REKAP ABSEN BULANAN KELAS ${namaKelas}`, centerX, 15, {
+      const startY = addKopSurat(doc);
+
+      doc.setFontSize(14);
+      doc.setFont(undefined, "bold");
+      doc.text(`Rekap Absensi Bulanan - Kelas ${namaKelas}`, 165, startY + 5, {
         align: "center",
       });
-      doc.setFontSize(12);
-      doc.text(`Bulan: ${namaBulan} ${tahun}`, centerX, 22, {
+      doc.setFontSize(10);
+      doc.setFont(undefined, "normal");
+      doc.text(`Periode: ${namaBulan} ${tahun}`, 165, startY + 10, {
         align: "center",
       });
 
@@ -258,7 +263,7 @@ const LaporanBulananClient = ({ dataSiswa, dataGuru, dataKelas }) => {
 
       // buat Tabel
       autoTable(doc, {
-        startY: 30,
+        startY: startY + 15,
         head: head,
         body: body,
         theme: "grid",
@@ -273,6 +278,8 @@ const LaporanBulananClient = ({ dataSiswa, dataGuru, dataKelas }) => {
         title: "Error",
         message: error.message,
         type: "error",
+        position: "top-center",
+        duration: 5000,
       });
     } finally {
       setIsPdfLoading(false);
