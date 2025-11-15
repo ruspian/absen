@@ -17159,20 +17159,20 @@ export namespace Prisma {
   export type GuruWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     kode?: string
-    nip?: string
-    nuptk?: string
     userId?: string
     AND?: GuruWhereInput | GuruWhereInput[]
     OR?: GuruWhereInput[]
     NOT?: GuruWhereInput | GuruWhereInput[]
     nama?: StringFilter<"Guru"> | string
+    nip?: StringNullableFilter<"Guru"> | string | null
+    nuptk?: StringNullableFilter<"Guru"> | string | null
     gender?: EnumGenderFilter<"Guru"> | $Enums.Gender
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     mengajarDiJadwal?: JadwalPelajaranListRelationFilter
     waliDiKelas?: XOR<KelasNullableScalarRelationFilter, KelasWhereInput> | null
     jadwalPiket?: JadwalPiketListRelationFilter
     absenHarian?: AbsenGuruHarianListRelationFilter
-  }, "id" | "kode" | "nip" | "nuptk" | "userId">
+  }, "id" | "kode" | "userId">
 
   export type GuruOrderByWithAggregationInput = {
     id?: SortOrder

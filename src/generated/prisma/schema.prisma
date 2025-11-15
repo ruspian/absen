@@ -65,8 +65,8 @@ model Guru {
   id               String            @id @default(cuid())
   nama             String
   kode             String            @unique
-  nip              String?           @unique
-  nuptk            String?           @unique
+  nip              String?
+  nuptk            String?
   gender           Gender            @default(LAKI_LAKI)
   // isPiket          Boolean           @default(false)
   userId           String?           @unique
