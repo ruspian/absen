@@ -238,6 +238,12 @@ exports.Prisma.AbsenGuruHarianScalarFieldEnum = {
   guruId: 'guruId'
 };
 
+exports.Prisma.PengaturanScalarFieldEnum = {
+  id: 'id',
+  jamMasukSekolah: 'jamMasukSekolah',
+  jamPulangSekolah: 'jamPulangSekolah'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -290,7 +296,8 @@ exports.Prisma.ModelName = {
   JadwalPelajaran: 'JadwalPelajaran',
   AbsenHarian: 'AbsenHarian',
   AbsenMapel: 'AbsenMapel',
-  AbsenGuruHarian: 'AbsenGuruHarian'
+  AbsenGuruHarian: 'AbsenGuruHarian',
+  Pengaturan: 'Pengaturan'
 };
 
 /**

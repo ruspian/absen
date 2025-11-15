@@ -179,6 +179,7 @@ enum StatusMapel {
   ALFA
 }
 
+// model AbsenGuruHarian
 model AbsenGuruHarian {
   id        String       @id @default(cuid())
   tanggal   DateTime     @db.Date
@@ -191,4 +192,11 @@ model AbsenGuruHarian {
   guruId String
 
   @@unique([guruId, tanggal])
+}
+
+// model pengaturan jam masuk dan pulang
+model Pengaturan {
+  id               String @id @default(cuid())
+  jamMasukSekolah  String @default("07:15")
+  jamPulangSekolah String @default("13:00")
 }

@@ -78,6 +78,11 @@ export type AbsenMapel = $Result.DefaultSelection<Prisma.$AbsenMapelPayload>
  * 
  */
 export type AbsenGuruHarian = $Result.DefaultSelection<Prisma.$AbsenGuruHarianPayload>
+/**
+ * Model Pengaturan
+ * 
+ */
+export type Pengaturan = $Result.DefaultSelection<Prisma.$PengaturanPayload>
 
 /**
  * Enums
@@ -384,6 +389,16 @@ export class PrismaClient<
     * ```
     */
   get absenGuruHarian(): Prisma.AbsenGuruHarianDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pengaturan`: Exposes CRUD operations for the **Pengaturan** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Pengaturans
+    * const pengaturans = await prisma.pengaturan.findMany()
+    * ```
+    */
+  get pengaturan(): Prisma.PengaturanDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -837,7 +852,8 @@ export namespace Prisma {
     JadwalPelajaran: 'JadwalPelajaran',
     AbsenHarian: 'AbsenHarian',
     AbsenMapel: 'AbsenMapel',
-    AbsenGuruHarian: 'AbsenGuruHarian'
+    AbsenGuruHarian: 'AbsenGuruHarian',
+    Pengaturan: 'Pengaturan'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -856,7 +872,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "guru" | "jadwalPiket" | "siswa" | "kelas" | "mataPelajaran" | "jadwalPelajaran" | "absenHarian" | "absenMapel" | "absenGuruHarian"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "guru" | "jadwalPiket" | "siswa" | "kelas" | "mataPelajaran" | "jadwalPelajaran" | "absenHarian" | "absenMapel" | "absenGuruHarian" | "pengaturan"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1822,6 +1838,80 @@ export namespace Prisma {
           }
         }
       }
+      Pengaturan: {
+        payload: Prisma.$PengaturanPayload<ExtArgs>
+        fields: Prisma.PengaturanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PengaturanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PengaturanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload>
+          }
+          findFirst: {
+            args: Prisma.PengaturanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PengaturanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload>
+          }
+          findMany: {
+            args: Prisma.PengaturanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload>[]
+          }
+          create: {
+            args: Prisma.PengaturanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload>
+          }
+          createMany: {
+            args: Prisma.PengaturanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PengaturanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload>[]
+          }
+          delete: {
+            args: Prisma.PengaturanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload>
+          }
+          update: {
+            args: Prisma.PengaturanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload>
+          }
+          deleteMany: {
+            args: Prisma.PengaturanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PengaturanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PengaturanUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload>[]
+          }
+          upsert: {
+            args: Prisma.PengaturanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengaturanPayload>
+          }
+          aggregate: {
+            args: Prisma.PengaturanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePengaturan>
+          }
+          groupBy: {
+            args: Prisma.PengaturanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PengaturanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PengaturanCountArgs<ExtArgs>
+            result: $Utils.Optional<PengaturanCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1931,6 +2021,7 @@ export namespace Prisma {
     absenHarian?: AbsenHarianOmit
     absenMapel?: AbsenMapelOmit
     absenGuruHarian?: AbsenGuruHarianOmit
+    pengaturan?: PengaturanOmit
   }
 
   /* Types for Logging */
@@ -16528,6 +16619,975 @@ export namespace Prisma {
 
 
   /**
+   * Model Pengaturan
+   */
+
+  export type AggregatePengaturan = {
+    _count: PengaturanCountAggregateOutputType | null
+    _min: PengaturanMinAggregateOutputType | null
+    _max: PengaturanMaxAggregateOutputType | null
+  }
+
+  export type PengaturanMinAggregateOutputType = {
+    id: string | null
+    jamMasukSekolah: string | null
+    jamPulangSekolah: string | null
+  }
+
+  export type PengaturanMaxAggregateOutputType = {
+    id: string | null
+    jamMasukSekolah: string | null
+    jamPulangSekolah: string | null
+  }
+
+  export type PengaturanCountAggregateOutputType = {
+    id: number
+    jamMasukSekolah: number
+    jamPulangSekolah: number
+    _all: number
+  }
+
+
+  export type PengaturanMinAggregateInputType = {
+    id?: true
+    jamMasukSekolah?: true
+    jamPulangSekolah?: true
+  }
+
+  export type PengaturanMaxAggregateInputType = {
+    id?: true
+    jamMasukSekolah?: true
+    jamPulangSekolah?: true
+  }
+
+  export type PengaturanCountAggregateInputType = {
+    id?: true
+    jamMasukSekolah?: true
+    jamPulangSekolah?: true
+    _all?: true
+  }
+
+  export type PengaturanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pengaturan to aggregate.
+     */
+    where?: PengaturanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pengaturans to fetch.
+     */
+    orderBy?: PengaturanOrderByWithRelationInput | PengaturanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PengaturanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pengaturans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pengaturans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Pengaturans
+    **/
+    _count?: true | PengaturanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PengaturanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PengaturanMaxAggregateInputType
+  }
+
+  export type GetPengaturanAggregateType<T extends PengaturanAggregateArgs> = {
+        [P in keyof T & keyof AggregatePengaturan]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePengaturan[P]>
+      : GetScalarType<T[P], AggregatePengaturan[P]>
+  }
+
+
+
+
+  export type PengaturanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PengaturanWhereInput
+    orderBy?: PengaturanOrderByWithAggregationInput | PengaturanOrderByWithAggregationInput[]
+    by: PengaturanScalarFieldEnum[] | PengaturanScalarFieldEnum
+    having?: PengaturanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PengaturanCountAggregateInputType | true
+    _min?: PengaturanMinAggregateInputType
+    _max?: PengaturanMaxAggregateInputType
+  }
+
+  export type PengaturanGroupByOutputType = {
+    id: string
+    jamMasukSekolah: string
+    jamPulangSekolah: string
+    _count: PengaturanCountAggregateOutputType | null
+    _min: PengaturanMinAggregateOutputType | null
+    _max: PengaturanMaxAggregateOutputType | null
+  }
+
+  type GetPengaturanGroupByPayload<T extends PengaturanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PengaturanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PengaturanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PengaturanGroupByOutputType[P]>
+            : GetScalarType<T[P], PengaturanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PengaturanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    jamMasukSekolah?: boolean
+    jamPulangSekolah?: boolean
+  }, ExtArgs["result"]["pengaturan"]>
+
+  export type PengaturanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    jamMasukSekolah?: boolean
+    jamPulangSekolah?: boolean
+  }, ExtArgs["result"]["pengaturan"]>
+
+  export type PengaturanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    jamMasukSekolah?: boolean
+    jamPulangSekolah?: boolean
+  }, ExtArgs["result"]["pengaturan"]>
+
+  export type PengaturanSelectScalar = {
+    id?: boolean
+    jamMasukSekolah?: boolean
+    jamPulangSekolah?: boolean
+  }
+
+  export type PengaturanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "jamMasukSekolah" | "jamPulangSekolah", ExtArgs["result"]["pengaturan"]>
+
+  export type $PengaturanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Pengaturan"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      jamMasukSekolah: string
+      jamPulangSekolah: string
+    }, ExtArgs["result"]["pengaturan"]>
+    composites: {}
+  }
+
+  type PengaturanGetPayload<S extends boolean | null | undefined | PengaturanDefaultArgs> = $Result.GetResult<Prisma.$PengaturanPayload, S>
+
+  type PengaturanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PengaturanFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PengaturanCountAggregateInputType | true
+    }
+
+  export interface PengaturanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Pengaturan'], meta: { name: 'Pengaturan' } }
+    /**
+     * Find zero or one Pengaturan that matches the filter.
+     * @param {PengaturanFindUniqueArgs} args - Arguments to find a Pengaturan
+     * @example
+     * // Get one Pengaturan
+     * const pengaturan = await prisma.pengaturan.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PengaturanFindUniqueArgs>(args: SelectSubset<T, PengaturanFindUniqueArgs<ExtArgs>>): Prisma__PengaturanClient<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Pengaturan that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PengaturanFindUniqueOrThrowArgs} args - Arguments to find a Pengaturan
+     * @example
+     * // Get one Pengaturan
+     * const pengaturan = await prisma.pengaturan.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PengaturanFindUniqueOrThrowArgs>(args: SelectSubset<T, PengaturanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PengaturanClient<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Pengaturan that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengaturanFindFirstArgs} args - Arguments to find a Pengaturan
+     * @example
+     * // Get one Pengaturan
+     * const pengaturan = await prisma.pengaturan.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PengaturanFindFirstArgs>(args?: SelectSubset<T, PengaturanFindFirstArgs<ExtArgs>>): Prisma__PengaturanClient<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Pengaturan that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengaturanFindFirstOrThrowArgs} args - Arguments to find a Pengaturan
+     * @example
+     * // Get one Pengaturan
+     * const pengaturan = await prisma.pengaturan.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PengaturanFindFirstOrThrowArgs>(args?: SelectSubset<T, PengaturanFindFirstOrThrowArgs<ExtArgs>>): Prisma__PengaturanClient<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Pengaturans that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengaturanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Pengaturans
+     * const pengaturans = await prisma.pengaturan.findMany()
+     * 
+     * // Get first 10 Pengaturans
+     * const pengaturans = await prisma.pengaturan.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pengaturanWithIdOnly = await prisma.pengaturan.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PengaturanFindManyArgs>(args?: SelectSubset<T, PengaturanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Pengaturan.
+     * @param {PengaturanCreateArgs} args - Arguments to create a Pengaturan.
+     * @example
+     * // Create one Pengaturan
+     * const Pengaturan = await prisma.pengaturan.create({
+     *   data: {
+     *     // ... data to create a Pengaturan
+     *   }
+     * })
+     * 
+     */
+    create<T extends PengaturanCreateArgs>(args: SelectSubset<T, PengaturanCreateArgs<ExtArgs>>): Prisma__PengaturanClient<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Pengaturans.
+     * @param {PengaturanCreateManyArgs} args - Arguments to create many Pengaturans.
+     * @example
+     * // Create many Pengaturans
+     * const pengaturan = await prisma.pengaturan.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PengaturanCreateManyArgs>(args?: SelectSubset<T, PengaturanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Pengaturans and returns the data saved in the database.
+     * @param {PengaturanCreateManyAndReturnArgs} args - Arguments to create many Pengaturans.
+     * @example
+     * // Create many Pengaturans
+     * const pengaturan = await prisma.pengaturan.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Pengaturans and only return the `id`
+     * const pengaturanWithIdOnly = await prisma.pengaturan.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PengaturanCreateManyAndReturnArgs>(args?: SelectSubset<T, PengaturanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Pengaturan.
+     * @param {PengaturanDeleteArgs} args - Arguments to delete one Pengaturan.
+     * @example
+     * // Delete one Pengaturan
+     * const Pengaturan = await prisma.pengaturan.delete({
+     *   where: {
+     *     // ... filter to delete one Pengaturan
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PengaturanDeleteArgs>(args: SelectSubset<T, PengaturanDeleteArgs<ExtArgs>>): Prisma__PengaturanClient<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Pengaturan.
+     * @param {PengaturanUpdateArgs} args - Arguments to update one Pengaturan.
+     * @example
+     * // Update one Pengaturan
+     * const pengaturan = await prisma.pengaturan.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PengaturanUpdateArgs>(args: SelectSubset<T, PengaturanUpdateArgs<ExtArgs>>): Prisma__PengaturanClient<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Pengaturans.
+     * @param {PengaturanDeleteManyArgs} args - Arguments to filter Pengaturans to delete.
+     * @example
+     * // Delete a few Pengaturans
+     * const { count } = await prisma.pengaturan.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PengaturanDeleteManyArgs>(args?: SelectSubset<T, PengaturanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Pengaturans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengaturanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Pengaturans
+     * const pengaturan = await prisma.pengaturan.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PengaturanUpdateManyArgs>(args: SelectSubset<T, PengaturanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Pengaturans and returns the data updated in the database.
+     * @param {PengaturanUpdateManyAndReturnArgs} args - Arguments to update many Pengaturans.
+     * @example
+     * // Update many Pengaturans
+     * const pengaturan = await prisma.pengaturan.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Pengaturans and only return the `id`
+     * const pengaturanWithIdOnly = await prisma.pengaturan.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PengaturanUpdateManyAndReturnArgs>(args: SelectSubset<T, PengaturanUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Pengaturan.
+     * @param {PengaturanUpsertArgs} args - Arguments to update or create a Pengaturan.
+     * @example
+     * // Update or create a Pengaturan
+     * const pengaturan = await prisma.pengaturan.upsert({
+     *   create: {
+     *     // ... data to create a Pengaturan
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Pengaturan we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PengaturanUpsertArgs>(args: SelectSubset<T, PengaturanUpsertArgs<ExtArgs>>): Prisma__PengaturanClient<$Result.GetResult<Prisma.$PengaturanPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Pengaturans.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengaturanCountArgs} args - Arguments to filter Pengaturans to count.
+     * @example
+     * // Count the number of Pengaturans
+     * const count = await prisma.pengaturan.count({
+     *   where: {
+     *     // ... the filter for the Pengaturans we want to count
+     *   }
+     * })
+    **/
+    count<T extends PengaturanCountArgs>(
+      args?: Subset<T, PengaturanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PengaturanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Pengaturan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengaturanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PengaturanAggregateArgs>(args: Subset<T, PengaturanAggregateArgs>): Prisma.PrismaPromise<GetPengaturanAggregateType<T>>
+
+    /**
+     * Group by Pengaturan.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengaturanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PengaturanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PengaturanGroupByArgs['orderBy'] }
+        : { orderBy?: PengaturanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PengaturanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPengaturanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Pengaturan model
+   */
+  readonly fields: PengaturanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Pengaturan.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PengaturanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Pengaturan model
+   */
+  interface PengaturanFieldRefs {
+    readonly id: FieldRef<"Pengaturan", 'String'>
+    readonly jamMasukSekolah: FieldRef<"Pengaturan", 'String'>
+    readonly jamPulangSekolah: FieldRef<"Pengaturan", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Pengaturan findUnique
+   */
+  export type PengaturanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * Filter, which Pengaturan to fetch.
+     */
+    where: PengaturanWhereUniqueInput
+  }
+
+  /**
+   * Pengaturan findUniqueOrThrow
+   */
+  export type PengaturanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * Filter, which Pengaturan to fetch.
+     */
+    where: PengaturanWhereUniqueInput
+  }
+
+  /**
+   * Pengaturan findFirst
+   */
+  export type PengaturanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * Filter, which Pengaturan to fetch.
+     */
+    where?: PengaturanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pengaturans to fetch.
+     */
+    orderBy?: PengaturanOrderByWithRelationInput | PengaturanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pengaturans.
+     */
+    cursor?: PengaturanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pengaturans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pengaturans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pengaturans.
+     */
+    distinct?: PengaturanScalarFieldEnum | PengaturanScalarFieldEnum[]
+  }
+
+  /**
+   * Pengaturan findFirstOrThrow
+   */
+  export type PengaturanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * Filter, which Pengaturan to fetch.
+     */
+    where?: PengaturanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pengaturans to fetch.
+     */
+    orderBy?: PengaturanOrderByWithRelationInput | PengaturanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pengaturans.
+     */
+    cursor?: PengaturanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pengaturans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pengaturans.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pengaturans.
+     */
+    distinct?: PengaturanScalarFieldEnum | PengaturanScalarFieldEnum[]
+  }
+
+  /**
+   * Pengaturan findMany
+   */
+  export type PengaturanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * Filter, which Pengaturans to fetch.
+     */
+    where?: PengaturanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pengaturans to fetch.
+     */
+    orderBy?: PengaturanOrderByWithRelationInput | PengaturanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Pengaturans.
+     */
+    cursor?: PengaturanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pengaturans from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pengaturans.
+     */
+    skip?: number
+    distinct?: PengaturanScalarFieldEnum | PengaturanScalarFieldEnum[]
+  }
+
+  /**
+   * Pengaturan create
+   */
+  export type PengaturanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Pengaturan.
+     */
+    data?: XOR<PengaturanCreateInput, PengaturanUncheckedCreateInput>
+  }
+
+  /**
+   * Pengaturan createMany
+   */
+  export type PengaturanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Pengaturans.
+     */
+    data: PengaturanCreateManyInput | PengaturanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Pengaturan createManyAndReturn
+   */
+  export type PengaturanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * The data used to create many Pengaturans.
+     */
+    data: PengaturanCreateManyInput | PengaturanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Pengaturan update
+   */
+  export type PengaturanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Pengaturan.
+     */
+    data: XOR<PengaturanUpdateInput, PengaturanUncheckedUpdateInput>
+    /**
+     * Choose, which Pengaturan to update.
+     */
+    where: PengaturanWhereUniqueInput
+  }
+
+  /**
+   * Pengaturan updateMany
+   */
+  export type PengaturanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Pengaturans.
+     */
+    data: XOR<PengaturanUpdateManyMutationInput, PengaturanUncheckedUpdateManyInput>
+    /**
+     * Filter which Pengaturans to update
+     */
+    where?: PengaturanWhereInput
+    /**
+     * Limit how many Pengaturans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pengaturan updateManyAndReturn
+   */
+  export type PengaturanUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * The data used to update Pengaturans.
+     */
+    data: XOR<PengaturanUpdateManyMutationInput, PengaturanUncheckedUpdateManyInput>
+    /**
+     * Filter which Pengaturans to update
+     */
+    where?: PengaturanWhereInput
+    /**
+     * Limit how many Pengaturans to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pengaturan upsert
+   */
+  export type PengaturanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Pengaturan to update in case it exists.
+     */
+    where: PengaturanWhereUniqueInput
+    /**
+     * In case the Pengaturan found by the `where` argument doesn't exist, create a new Pengaturan with this data.
+     */
+    create: XOR<PengaturanCreateInput, PengaturanUncheckedCreateInput>
+    /**
+     * In case the Pengaturan was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PengaturanUpdateInput, PengaturanUncheckedUpdateInput>
+  }
+
+  /**
+   * Pengaturan delete
+   */
+  export type PengaturanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+    /**
+     * Filter which Pengaturan to delete.
+     */
+    where: PengaturanWhereUniqueInput
+  }
+
+  /**
+   * Pengaturan deleteMany
+   */
+  export type PengaturanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pengaturans to delete
+     */
+    where?: PengaturanWhereInput
+    /**
+     * Limit how many Pengaturans to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Pengaturan without action
+   */
+  export type PengaturanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pengaturan
+     */
+    select?: PengaturanSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Pengaturan
+     */
+    omit?: PengaturanOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -16695,6 +17755,15 @@ export namespace Prisma {
   };
 
   export type AbsenGuruHarianScalarFieldEnum = (typeof AbsenGuruHarianScalarFieldEnum)[keyof typeof AbsenGuruHarianScalarFieldEnum]
+
+
+  export const PengaturanScalarFieldEnum: {
+    id: 'id',
+    jamMasukSekolah: 'jamMasukSekolah',
+    jamPulangSekolah: 'jamPulangSekolah'
+  };
+
+  export type PengaturanScalarFieldEnum = (typeof PengaturanScalarFieldEnum)[keyof typeof PengaturanScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17668,6 +18737,48 @@ export namespace Prisma {
     guruId?: StringWithAggregatesFilter<"AbsenGuruHarian"> | string
   }
 
+  export type PengaturanWhereInput = {
+    AND?: PengaturanWhereInput | PengaturanWhereInput[]
+    OR?: PengaturanWhereInput[]
+    NOT?: PengaturanWhereInput | PengaturanWhereInput[]
+    id?: StringFilter<"Pengaturan"> | string
+    jamMasukSekolah?: StringFilter<"Pengaturan"> | string
+    jamPulangSekolah?: StringFilter<"Pengaturan"> | string
+  }
+
+  export type PengaturanOrderByWithRelationInput = {
+    id?: SortOrder
+    jamMasukSekolah?: SortOrder
+    jamPulangSekolah?: SortOrder
+  }
+
+  export type PengaturanWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: PengaturanWhereInput | PengaturanWhereInput[]
+    OR?: PengaturanWhereInput[]
+    NOT?: PengaturanWhereInput | PengaturanWhereInput[]
+    jamMasukSekolah?: StringFilter<"Pengaturan"> | string
+    jamPulangSekolah?: StringFilter<"Pengaturan"> | string
+  }, "id">
+
+  export type PengaturanOrderByWithAggregationInput = {
+    id?: SortOrder
+    jamMasukSekolah?: SortOrder
+    jamPulangSekolah?: SortOrder
+    _count?: PengaturanCountOrderByAggregateInput
+    _max?: PengaturanMaxOrderByAggregateInput
+    _min?: PengaturanMinOrderByAggregateInput
+  }
+
+  export type PengaturanScalarWhereWithAggregatesInput = {
+    AND?: PengaturanScalarWhereWithAggregatesInput | PengaturanScalarWhereWithAggregatesInput[]
+    OR?: PengaturanScalarWhereWithAggregatesInput[]
+    NOT?: PengaturanScalarWhereWithAggregatesInput | PengaturanScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Pengaturan"> | string
+    jamMasukSekolah?: StringWithAggregatesFilter<"Pengaturan"> | string
+    jamPulangSekolah?: StringWithAggregatesFilter<"Pengaturan"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -18526,6 +19637,48 @@ export namespace Prisma {
     guruId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PengaturanCreateInput = {
+    id?: string
+    jamMasukSekolah?: string
+    jamPulangSekolah?: string
+  }
+
+  export type PengaturanUncheckedCreateInput = {
+    id?: string
+    jamMasukSekolah?: string
+    jamPulangSekolah?: string
+  }
+
+  export type PengaturanUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jamMasukSekolah?: StringFieldUpdateOperationsInput | string
+    jamPulangSekolah?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PengaturanUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jamMasukSekolah?: StringFieldUpdateOperationsInput | string
+    jamPulangSekolah?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PengaturanCreateManyInput = {
+    id?: string
+    jamMasukSekolah?: string
+    jamPulangSekolah?: string
+  }
+
+  export type PengaturanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jamMasukSekolah?: StringFieldUpdateOperationsInput | string
+    jamPulangSekolah?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PengaturanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    jamMasukSekolah?: StringFieldUpdateOperationsInput | string
+    jamPulangSekolah?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19255,6 +20408,24 @@ export namespace Prisma {
     jamPulang?: SortOrder
     status?: SortOrder
     guruId?: SortOrder
+  }
+
+  export type PengaturanCountOrderByAggregateInput = {
+    id?: SortOrder
+    jamMasukSekolah?: SortOrder
+    jamPulangSekolah?: SortOrder
+  }
+
+  export type PengaturanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    jamMasukSekolah?: SortOrder
+    jamPulangSekolah?: SortOrder
+  }
+
+  export type PengaturanMinOrderByAggregateInput = {
+    id?: SortOrder
+    jamMasukSekolah?: SortOrder
+    jamPulangSekolah?: SortOrder
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
