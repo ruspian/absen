@@ -7,19 +7,25 @@ import { prisma } from "@/lib/prisma";
 import React from "react";
 
 const TambahAkunPage = async () => {
-  // 1. Ambil data guru yang belum punya 'userId'
-  const guruBelumPunyaAkun = await prisma.guru.findMany({
-    where: {
-      userId: null, // Cuma ambil guru yang belum ke-link
-    },
-    select: {
-      id: true,
-      nama: true,
-    },
-    orderBy: {
-      nama: "asc",
-    },
-  });
+  // ambil data siswa dan guru yang belum punya akun
+  const [guruBelumPunyaAkun, siswaBelumPunyaAkun] = await prisma.$transaction([
+    prisma.guru.findMany({
+      where: { userId: null },
+      select: { id: true, nama: true },
+      orderBy: { nama: "asc" },
+    }),
+    prisma.siswa.findMany({
+      where: { userId: null },
+      select: { id: true, nama: true, kelas: { select: { nama: true } } },
+      orderBy: { kelas: { nama: "asc" }, nama: "asc" }, // Urut berdasarkan kelas, lalu nama
+    }),
+  ]);
+
+  // Format data siswa untuk mempermudah pencarian
+  const formattedAvailableSiswa = siswaBelumPunyaAkun.map((s) => ({
+    id: s.id,
+    nama: `${s.nama} (${s.kelas.nama})`,
+  }));
 
   return (
     <div>
@@ -34,7 +40,10 @@ const TambahAkunPage = async () => {
         </div>
 
         {/* Kirim daftar guru ke form */}
-        <FormTambahAkun dataGuru={guruBelumPunyaAkun} />
+        <FormTambahAkun
+          dataGuru={guruBelumPunyaAkun}
+          dataSiswa={formattedAvailableSiswa}
+        />
       </div>
     </div>
   );

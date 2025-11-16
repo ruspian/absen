@@ -249,6 +249,7 @@ exports.Prisma.PengaturanScalarFieldEnum = {
 exports.Prisma.PengajuanIzinScalarFieldEnum = {
   id: 'id',
   tanggal: 'tanggal',
+  tipe: 'tipe',
   status: 'status',
   alasan: 'alasan',
   buktiUrl: 'buktiUrl',

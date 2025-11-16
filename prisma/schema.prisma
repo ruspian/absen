@@ -214,6 +214,7 @@ model Pengaturan {
 model PengajuanIzin {
   id        String   @id @default(cuid())
   tanggal   DateTime @db.Date 
+  tipe      StatusHarian
   status    StatusPengajuan @default(PENDING) 
   alasan    String   @db.Text
   buktiUrl  String?  

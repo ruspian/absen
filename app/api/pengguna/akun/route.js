@@ -17,7 +17,7 @@ export const POST = async (req) => {
 
     // Ambil data
     const body = await req.json();
-    const { name, email, password, role, guruId } = body;
+    const { name, email, password, role, guruId, siswaId } = body;
 
     if (!name || !email || !password || !role) {
       return NextResponse.json(
@@ -42,36 +42,45 @@ export const POST = async (req) => {
       return NextResponse.json(newAdmin, { status: 201 });
     }
 
-    // Kalo rolenya guru, kita wajib pake transaksi
+    // kalo rolenya guru dan punya guruId
     if (role === "GURU" && guruId) {
       const [newUser] = await prisma.$transaction(async (tx) => {
-        // Bikin User baru
+        const user = await tx.user.create({
+          data: { name, email, password: hashedPassword, role: "GURU" },
+        });
+        await tx.guru.update({
+          where: { id: guruId },
+          data: { userId: user.id }, // Sambungin
+        });
+        return [user];
+      });
+      return NextResponse.json(newUser, { status: 201 });
+    }
+
+    // kalo rolenya user dan punya siswaId
+    if (role === "USER" && siswaId) {
+      const [newUser] = await prisma.$transaction(async (tx) => {
         const user = await tx.user.create({
           data: {
             name,
             email,
             password: hashedPassword,
-            role: "GURU",
+            role: "USER",
+            siswaId: siswaId,
           },
         });
-
-        // Update Guru, tambahkan userId
-        await tx.guru.update({
-          where: { id: guruId },
-          data: {
-            userId: user.id,
-          },
+        await tx.siswa.update({
+          where: { id: siswaId },
+          data: { userId: user.id },
         });
-
         return [user];
       });
-
       return NextResponse.json(newUser, { status: 201 });
     }
 
     // Kalo role guru tapi guruId gak ada
     return NextResponse.json(
-      { message: "Role Guru harus di-link ke Profil Guru" },
+      { message: "Akun belum terhubung dengan guru/siswa" },
       { status: 400 }
     );
   } catch (error) {

@@ -17854,6 +17854,7 @@ export namespace Prisma {
   export type PengajuanIzinMinAggregateOutputType = {
     id: string | null
     tanggal: Date | null
+    tipe: $Enums.StatusHarian | null
     status: $Enums.StatusPengajuan | null
     alasan: string | null
     buktiUrl: string | null
@@ -17867,6 +17868,7 @@ export namespace Prisma {
   export type PengajuanIzinMaxAggregateOutputType = {
     id: string | null
     tanggal: Date | null
+    tipe: $Enums.StatusHarian | null
     status: $Enums.StatusPengajuan | null
     alasan: string | null
     buktiUrl: string | null
@@ -17880,6 +17882,7 @@ export namespace Prisma {
   export type PengajuanIzinCountAggregateOutputType = {
     id: number
     tanggal: number
+    tipe: number
     status: number
     alasan: number
     buktiUrl: number
@@ -17895,6 +17898,7 @@ export namespace Prisma {
   export type PengajuanIzinMinAggregateInputType = {
     id?: true
     tanggal?: true
+    tipe?: true
     status?: true
     alasan?: true
     buktiUrl?: true
@@ -17908,6 +17912,7 @@ export namespace Prisma {
   export type PengajuanIzinMaxAggregateInputType = {
     id?: true
     tanggal?: true
+    tipe?: true
     status?: true
     alasan?: true
     buktiUrl?: true
@@ -17921,6 +17926,7 @@ export namespace Prisma {
   export type PengajuanIzinCountAggregateInputType = {
     id?: true
     tanggal?: true
+    tipe?: true
     status?: true
     alasan?: true
     buktiUrl?: true
@@ -18007,6 +18013,7 @@ export namespace Prisma {
   export type PengajuanIzinGroupByOutputType = {
     id: string
     tanggal: Date
+    tipe: $Enums.StatusHarian
     status: $Enums.StatusPengajuan
     alasan: string
     buktiUrl: string | null
@@ -18037,6 +18044,7 @@ export namespace Prisma {
   export type PengajuanIzinSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tanggal?: boolean
+    tipe?: boolean
     status?: boolean
     alasan?: boolean
     buktiUrl?: boolean
@@ -18052,6 +18060,7 @@ export namespace Prisma {
   export type PengajuanIzinSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tanggal?: boolean
+    tipe?: boolean
     status?: boolean
     alasan?: boolean
     buktiUrl?: boolean
@@ -18067,6 +18076,7 @@ export namespace Prisma {
   export type PengajuanIzinSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tanggal?: boolean
+    tipe?: boolean
     status?: boolean
     alasan?: boolean
     buktiUrl?: boolean
@@ -18082,6 +18092,7 @@ export namespace Prisma {
   export type PengajuanIzinSelectScalar = {
     id?: boolean
     tanggal?: boolean
+    tipe?: boolean
     status?: boolean
     alasan?: boolean
     buktiUrl?: boolean
@@ -18092,7 +18103,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type PengajuanIzinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tanggal" | "status" | "alasan" | "buktiUrl" | "siswaId" | "diProsesOlehId" | "komentarAdmin" | "createdAt" | "updatedAt", ExtArgs["result"]["pengajuanIzin"]>
+  export type PengajuanIzinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tanggal" | "tipe" | "status" | "alasan" | "buktiUrl" | "siswaId" | "diProsesOlehId" | "komentarAdmin" | "createdAt" | "updatedAt", ExtArgs["result"]["pengajuanIzin"]>
   export type PengajuanIzinInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     siswa?: boolean | SiswaDefaultArgs<ExtArgs>
     diProsesOleh?: boolean | PengajuanIzin$diProsesOlehArgs<ExtArgs>
@@ -18115,6 +18126,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tanggal: Date
+      tipe: $Enums.StatusHarian
       status: $Enums.StatusPengajuan
       alasan: string
       buktiUrl: string | null
@@ -18550,6 +18562,7 @@ export namespace Prisma {
   interface PengajuanIzinFieldRefs {
     readonly id: FieldRef<"PengajuanIzin", 'String'>
     readonly tanggal: FieldRef<"PengajuanIzin", 'DateTime'>
+    readonly tipe: FieldRef<"PengajuanIzin", 'StatusHarian'>
     readonly status: FieldRef<"PengajuanIzin", 'StatusPengajuan'>
     readonly alasan: FieldRef<"PengajuanIzin", 'String'>
     readonly buktiUrl: FieldRef<"PengajuanIzin", 'String'>
@@ -19175,6 +19188,7 @@ export namespace Prisma {
   export const PengajuanIzinScalarFieldEnum: {
     id: 'id',
     tanggal: 'tanggal',
+    tipe: 'tipe',
     status: 'status',
     alasan: 'alasan',
     buktiUrl: 'buktiUrl',
@@ -20243,6 +20257,7 @@ export namespace Prisma {
     NOT?: PengajuanIzinWhereInput | PengajuanIzinWhereInput[]
     id?: StringFilter<"PengajuanIzin"> | string
     tanggal?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    tipe?: EnumStatusHarianFilter<"PengajuanIzin"> | $Enums.StatusHarian
     status?: EnumStatusPengajuanFilter<"PengajuanIzin"> | $Enums.StatusPengajuan
     alasan?: StringFilter<"PengajuanIzin"> | string
     buktiUrl?: StringNullableFilter<"PengajuanIzin"> | string | null
@@ -20258,6 +20273,7 @@ export namespace Prisma {
   export type PengajuanIzinOrderByWithRelationInput = {
     id?: SortOrder
     tanggal?: SortOrder
+    tipe?: SortOrder
     status?: SortOrder
     alasan?: SortOrder
     buktiUrl?: SortOrderInput | SortOrder
@@ -20277,6 +20293,7 @@ export namespace Prisma {
     OR?: PengajuanIzinWhereInput[]
     NOT?: PengajuanIzinWhereInput | PengajuanIzinWhereInput[]
     tanggal?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    tipe?: EnumStatusHarianFilter<"PengajuanIzin"> | $Enums.StatusHarian
     status?: EnumStatusPengajuanFilter<"PengajuanIzin"> | $Enums.StatusPengajuan
     alasan?: StringFilter<"PengajuanIzin"> | string
     buktiUrl?: StringNullableFilter<"PengajuanIzin"> | string | null
@@ -20292,6 +20309,7 @@ export namespace Prisma {
   export type PengajuanIzinOrderByWithAggregationInput = {
     id?: SortOrder
     tanggal?: SortOrder
+    tipe?: SortOrder
     status?: SortOrder
     alasan?: SortOrder
     buktiUrl?: SortOrderInput | SortOrder
@@ -20311,6 +20329,7 @@ export namespace Prisma {
     NOT?: PengajuanIzinScalarWhereWithAggregatesInput | PengajuanIzinScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PengajuanIzin"> | string
     tanggal?: DateTimeWithAggregatesFilter<"PengajuanIzin"> | Date | string
+    tipe?: EnumStatusHarianWithAggregatesFilter<"PengajuanIzin"> | $Enums.StatusHarian
     status?: EnumStatusPengajuanWithAggregatesFilter<"PengajuanIzin"> | $Enums.StatusPengajuan
     alasan?: StringWithAggregatesFilter<"PengajuanIzin"> | string
     buktiUrl?: StringNullableWithAggregatesFilter<"PengajuanIzin"> | string | null
@@ -21249,6 +21268,7 @@ export namespace Prisma {
   export type PengajuanIzinCreateInput = {
     id?: string
     tanggal: Date | string
+    tipe: $Enums.StatusHarian
     status?: $Enums.StatusPengajuan
     alasan: string
     buktiUrl?: string | null
@@ -21262,6 +21282,7 @@ export namespace Prisma {
   export type PengajuanIzinUncheckedCreateInput = {
     id?: string
     tanggal: Date | string
+    tipe: $Enums.StatusHarian
     status?: $Enums.StatusPengajuan
     alasan: string
     buktiUrl?: string | null
@@ -21275,6 +21296,7 @@ export namespace Prisma {
   export type PengajuanIzinUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21288,6 +21310,7 @@ export namespace Prisma {
   export type PengajuanIzinUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21301,6 +21324,7 @@ export namespace Prisma {
   export type PengajuanIzinCreateManyInput = {
     id?: string
     tanggal: Date | string
+    tipe: $Enums.StatusHarian
     status?: $Enums.StatusPengajuan
     alasan: string
     buktiUrl?: string | null
@@ -21314,6 +21338,7 @@ export namespace Prisma {
   export type PengajuanIzinUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21325,6 +21350,7 @@ export namespace Prisma {
   export type PengajuanIzinUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22120,6 +22146,7 @@ export namespace Prisma {
   export type PengajuanIzinCountOrderByAggregateInput = {
     id?: SortOrder
     tanggal?: SortOrder
+    tipe?: SortOrder
     status?: SortOrder
     alasan?: SortOrder
     buktiUrl?: SortOrder
@@ -22133,6 +22160,7 @@ export namespace Prisma {
   export type PengajuanIzinMaxOrderByAggregateInput = {
     id?: SortOrder
     tanggal?: SortOrder
+    tipe?: SortOrder
     status?: SortOrder
     alasan?: SortOrder
     buktiUrl?: SortOrder
@@ -22146,6 +22174,7 @@ export namespace Prisma {
   export type PengajuanIzinMinOrderByAggregateInput = {
     id?: SortOrder
     tanggal?: SortOrder
+    tipe?: SortOrder
     status?: SortOrder
     alasan?: SortOrder
     buktiUrl?: SortOrder
@@ -23362,6 +23391,7 @@ export namespace Prisma {
   export type PengajuanIzinCreateWithoutDiProsesOlehInput = {
     id?: string
     tanggal: Date | string
+    tipe: $Enums.StatusHarian
     status?: $Enums.StatusPengajuan
     alasan: string
     buktiUrl?: string | null
@@ -23374,6 +23404,7 @@ export namespace Prisma {
   export type PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput = {
     id?: string
     tanggal: Date | string
+    tipe: $Enums.StatusHarian
     status?: $Enums.StatusPengajuan
     alasan: string
     buktiUrl?: string | null
@@ -23545,6 +23576,7 @@ export namespace Prisma {
     NOT?: PengajuanIzinScalarWhereInput | PengajuanIzinScalarWhereInput[]
     id?: StringFilter<"PengajuanIzin"> | string
     tanggal?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    tipe?: EnumStatusHarianFilter<"PengajuanIzin"> | $Enums.StatusHarian
     status?: EnumStatusPengajuanFilter<"PengajuanIzin"> | $Enums.StatusPengajuan
     alasan?: StringFilter<"PengajuanIzin"> | string
     buktiUrl?: StringNullableFilter<"PengajuanIzin"> | string | null
@@ -24303,6 +24335,7 @@ export namespace Prisma {
   export type PengajuanIzinCreateWithoutSiswaInput = {
     id?: string
     tanggal: Date | string
+    tipe: $Enums.StatusHarian
     status?: $Enums.StatusPengajuan
     alasan: string
     buktiUrl?: string | null
@@ -24315,6 +24348,7 @@ export namespace Prisma {
   export type PengajuanIzinUncheckedCreateWithoutSiswaInput = {
     id?: string
     tanggal: Date | string
+    tipe: $Enums.StatusHarian
     status?: $Enums.StatusPengajuan
     alasan: string
     buktiUrl?: string | null
@@ -25302,6 +25336,7 @@ export namespace Prisma {
   export type PengajuanIzinCreateManyDiProsesOlehInput = {
     id?: string
     tanggal: Date | string
+    tipe: $Enums.StatusHarian
     status?: $Enums.StatusPengajuan
     alasan: string
     buktiUrl?: string | null
@@ -25336,6 +25371,7 @@ export namespace Prisma {
   export type PengajuanIzinUpdateWithoutDiProsesOlehInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25348,6 +25384,7 @@ export namespace Prisma {
   export type PengajuanIzinUncheckedUpdateWithoutDiProsesOlehInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25360,6 +25397,7 @@ export namespace Prisma {
   export type PengajuanIzinUncheckedUpdateManyWithoutDiProsesOlehInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25544,6 +25582,7 @@ export namespace Prisma {
   export type PengajuanIzinCreateManySiswaInput = {
     id?: string
     tanggal: Date | string
+    tipe: $Enums.StatusHarian
     status?: $Enums.StatusPengajuan
     alasan: string
     buktiUrl?: string | null
@@ -25604,6 +25643,7 @@ export namespace Prisma {
   export type PengajuanIzinUpdateWithoutSiswaInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25616,6 +25656,7 @@ export namespace Prisma {
   export type PengajuanIzinUncheckedUpdateWithoutSiswaInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -25628,6 +25669,7 @@ export namespace Prisma {
   export type PengajuanIzinUncheckedUpdateManyWithoutSiswaInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    tipe?: EnumStatusHarianFieldUpdateOperationsInput | $Enums.StatusHarian
     status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
     alasan?: StringFieldUpdateOperationsInput | string
     buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null

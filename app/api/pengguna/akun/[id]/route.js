@@ -16,21 +16,23 @@ export const PATCH = async (req, { params }) => {
 
     //  Ambil data
     const body = await req.json();
-    const { name, email, password, role, guruId, isPiket } = body;
+    const { name, email, password, role, guruId, isPiket, siswaId } = body;
 
     const updatedUser = await prisma.$transaction(async (tx) => {
       // Ambil data user saat ini
       const currentUser = await tx.user.findUnique({
         where: { id: userIdToEdit },
-        include: { guruProfil: true },
+        include: { guruProfil: true, siswaProfil: true },
       });
       const oldGuruId = currentUser.guruProfil?.id;
+      const oldSiswaId = currentUser.siswaProfil?.id;
 
       // Siapin data user baru
       const userData = {
         name,
         email,
         role,
+        siswaId: role === "USER" ? siswaId : null,
       };
 
       // Cek kalo password diisi, baru di-hash
@@ -44,34 +46,65 @@ export const PATCH = async (req, { params }) => {
         data: userData,
       });
 
+      // unlink akun lama
       // ganti role
       if (role === "GURU" && guruId) {
-        // Kalo dia jadi guru
-
-        // Cek kalo link gurunya ganti
+        if (oldSiswaId) {
+          // Unlink siswa lama
+          await tx.siswa.update({
+            where: { id: oldSiswaId },
+            data: { userId: null },
+          });
+        }
         if (oldGuruId && oldGuruId !== guruId) {
           // Unlink guru lama
           await tx.guru.update({
             where: { id: oldGuruId },
-            data: { userId: null, isPiket: false },
+            data: { userId: null },
           });
         }
-
-        // Link guru baru & set status piket
+        // Link guru baru
         await tx.guru.update({
           where: { id: guruId },
-          data: {
-            userId: user.id, // Sambungin
-            isPiket: isPiket, // Set status piket
-          },
+          data: { userId: user.id },
         });
-      } else if (role === "ADMIN") {
-        // Kalo dia jadi admin dan sebelumnya guru
+      }
+      // 2. Kalo role ganti jadi USER
+      else if (role === "USER" && siswaId) {
         if (oldGuruId) {
           // Unlink guru lama
           await tx.guru.update({
             where: { id: oldGuruId },
-            data: { userId: null, isPiket: false },
+            data: { userId: null },
+          });
+        }
+        if (oldSiswaId && oldSiswaId !== siswaId) {
+          // Unlink siswa lama
+          await tx.siswa.update({
+            where: { id: oldSiswaId },
+            data: { userId: null },
+          });
+        }
+        // Link siswa baru
+        await tx.siswa.update({
+          where: { id: siswaId },
+          data: { userId: user.id },
+        });
+      }
+      // 3. Kalo role ganti jadi ADMIN
+      else if (role === "ADMIN") {
+        if (oldGuruId) {
+          // Unlink guru lama
+          await tx.guru.update({
+            where: { id: oldGuruId },
+            data: { userId: null },
+          });
+        }
+        if (oldSiswaId) {
+          // Unlink siswa lama
+          await tx.siswa.update({
+            where: { id: oldSiswaId },
+            data: { userId: null },
           });
         }
       }
@@ -120,18 +153,22 @@ export const DELETE = async (req, { params }) => {
       );
     }
 
-    // 3. Hapus Akun Guru Tapi kita harus 'unlink' 'Guru' manual
-
+    //  Hapus Akun Guru Tapi kita harus 'unlink' 'Guru' manual
     await prisma.$transaction(async (tx) => {
-      // set akun guru jadi null / unlink guru
+      // Unlink Guru
       await tx.guru.updateMany({
-        where: { userId: userIdToDelete },
+        where: { userId: userIdToEdit },
+        data: { userId: null },
+      });
+      //  Unlink Siswa
+      await tx.siswa.updateMany({
+        where: { userId: userIdToEdit },
         data: { userId: null },
       });
 
       // Hapus User
       await tx.user.delete({
-        where: { id: userIdToDelete },
+        where: { id: userIdToEdit },
       });
     });
 

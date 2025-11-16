@@ -27,29 +27,31 @@ const EditAkunPage = async ({ searchParams }) => {
           id: true,
         },
       },
+      siswaProfil: { select: { id: true } },
     },
   });
+
+  const [availableGurus, availableSiswa] = await prisma.$transaction([
+    prisma.guru.findMany({
+      where: { OR: [{ userId: null }, { userId: id }] },
+      select: { id: true, nama: true },
+      orderBy: { nama: "asc" },
+    }),
+    prisma.siswa.findMany({
+      where: { OR: [{ userId: null }, { userId: id }] },
+      select: { id: true, nama: true, kelas: { select: { nama: true } } },
+      orderBy: { kelas: { nama: "asc" }, nama: "asc" },
+    }),
+  ]);
+
+  const formattedAvailableSiswa = availableSiswa.map((s) => ({
+    id: s.id,
+    nama: `${s.nama} (${s.kelas.nama})`,
+  }));
 
   if (!userToEdit) {
     return <div className="p-8">Akun tidak ditemukan.</div>;
   }
-
-  // Ambil daftar guru yang tersedia untuk di-link
-  const availableGurus = await prisma.guru.findMany({
-    where: {
-      OR: [
-        { userId: null }, //  Yang belum punya akun
-        { userId: id }, // 2. atau yang udah nempel sama akun INI
-      ],
-    },
-    select: {
-      id: true,
-      nama: true,
-    },
-    orderBy: {
-      nama: "asc",
-    },
-  });
 
   return (
     <div>
@@ -63,8 +65,9 @@ const EditAkunPage = async ({ searchParams }) => {
         </div>
 
         <FormEditAkun
-          initialData={userToEdit} // Data user yang mau diedit
-          dataGuru={availableGurus} // Daftar guru buat dropdown
+          initialData={userToEdit}
+          dataGuru={availableGurus}
+          dataSiswa={formattedAvailableSiswa}
         />
       </div>
     </div>
