@@ -83,6 +83,11 @@ export type AbsenGuruHarian = $Result.DefaultSelection<Prisma.$AbsenGuruHarianPa
  * 
  */
 export type Pengaturan = $Result.DefaultSelection<Prisma.$PengaturanPayload>
+/**
+ * Model PengajuanIzin
+ * 
+ */
+export type PengajuanIzin = $Result.DefaultSelection<Prisma.$PengajuanIzinPayload>
 
 /**
  * Enums
@@ -124,6 +129,15 @@ export const StatusMapel: {
 
 export type StatusMapel = (typeof StatusMapel)[keyof typeof StatusMapel]
 
+
+export const StatusPengajuan: {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
+export type StatusPengajuan = (typeof StatusPengajuan)[keyof typeof StatusPengajuan]
+
 }
 
 export type Role = $Enums.Role
@@ -141,6 +155,10 @@ export const StatusHarian: typeof $Enums.StatusHarian
 export type StatusMapel = $Enums.StatusMapel
 
 export const StatusMapel: typeof $Enums.StatusMapel
+
+export type StatusPengajuan = $Enums.StatusPengajuan
+
+export const StatusPengajuan: typeof $Enums.StatusPengajuan
 
 /**
  * ##  Prisma Client ʲˢ
@@ -399,6 +417,16 @@ export class PrismaClient<
     * ```
     */
   get pengaturan(): Prisma.PengaturanDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.pengajuanIzin`: Exposes CRUD operations for the **PengajuanIzin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PengajuanIzins
+    * const pengajuanIzins = await prisma.pengajuanIzin.findMany()
+    * ```
+    */
+  get pengajuanIzin(): Prisma.PengajuanIzinDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -853,7 +881,8 @@ export namespace Prisma {
     AbsenHarian: 'AbsenHarian',
     AbsenMapel: 'AbsenMapel',
     AbsenGuruHarian: 'AbsenGuruHarian',
-    Pengaturan: 'Pengaturan'
+    Pengaturan: 'Pengaturan',
+    PengajuanIzin: 'PengajuanIzin'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -872,7 +901,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "guru" | "jadwalPiket" | "siswa" | "kelas" | "mataPelajaran" | "jadwalPelajaran" | "absenHarian" | "absenMapel" | "absenGuruHarian" | "pengaturan"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "guru" | "jadwalPiket" | "siswa" | "kelas" | "mataPelajaran" | "jadwalPelajaran" | "absenHarian" | "absenMapel" | "absenGuruHarian" | "pengaturan" | "pengajuanIzin"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1912,6 +1941,80 @@ export namespace Prisma {
           }
         }
       }
+      PengajuanIzin: {
+        payload: Prisma.$PengajuanIzinPayload<ExtArgs>
+        fields: Prisma.PengajuanIzinFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PengajuanIzinFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PengajuanIzinFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload>
+          }
+          findFirst: {
+            args: Prisma.PengajuanIzinFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PengajuanIzinFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload>
+          }
+          findMany: {
+            args: Prisma.PengajuanIzinFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload>[]
+          }
+          create: {
+            args: Prisma.PengajuanIzinCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload>
+          }
+          createMany: {
+            args: Prisma.PengajuanIzinCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PengajuanIzinCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload>[]
+          }
+          delete: {
+            args: Prisma.PengajuanIzinDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload>
+          }
+          update: {
+            args: Prisma.PengajuanIzinUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload>
+          }
+          deleteMany: {
+            args: Prisma.PengajuanIzinDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PengajuanIzinUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.PengajuanIzinUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload>[]
+          }
+          upsert: {
+            args: Prisma.PengajuanIzinUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PengajuanIzinPayload>
+          }
+          aggregate: {
+            args: Prisma.PengajuanIzinAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePengajuanIzin>
+          }
+          groupBy: {
+            args: Prisma.PengajuanIzinGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PengajuanIzinGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PengajuanIzinCountArgs<ExtArgs>
+            result: $Utils.Optional<PengajuanIzinCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2022,6 +2125,7 @@ export namespace Prisma {
     absenMapel?: AbsenMapelOmit
     absenGuruHarian?: AbsenGuruHarianOmit
     pengaturan?: PengaturanOmit
+    pengajuanIzin?: PengajuanIzinOmit
   }
 
   /* Types for Logging */
@@ -2102,11 +2206,13 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
+    pengajuanDiproses: number
     accounts: number
     sessions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pengajuanDiproses?: boolean | UserCountOutputTypeCountPengajuanDiprosesArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   }
@@ -2120,6 +2226,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountPengajuanDiprosesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PengajuanIzinWhereInput
   }
 
   /**
@@ -2193,11 +2306,13 @@ export namespace Prisma {
   export type SiswaCountOutputType = {
     absenHarian: number
     absenMapel: number
+    pengajuanIzin: number
   }
 
   export type SiswaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     absenHarian?: boolean | SiswaCountOutputTypeCountAbsenHarianArgs
     absenMapel?: boolean | SiswaCountOutputTypeCountAbsenMapelArgs
+    pengajuanIzin?: boolean | SiswaCountOutputTypeCountPengajuanIzinArgs
   }
 
   // Custom InputTypes
@@ -2223,6 +2338,13 @@ export namespace Prisma {
    */
   export type SiswaCountOutputTypeCountAbsenMapelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AbsenMapelWhereInput
+  }
+
+  /**
+   * SiswaCountOutputType without action
+   */
+  export type SiswaCountOutputTypeCountPengajuanIzinArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PengajuanIzinWhereInput
   }
 
 
@@ -2353,6 +2475,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     lastLogin: Date | null
+    siswaId: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2366,6 +2489,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     lastLogin: Date | null
+    siswaId: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2379,6 +2503,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     lastLogin: number
+    siswaId: number
     _all: number
   }
 
@@ -2394,6 +2519,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     lastLogin?: true
+    siswaId?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2407,6 +2533,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     lastLogin?: true
+    siswaId?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2420,6 +2547,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     lastLogin?: true
+    siswaId?: true
     _all?: true
   }
 
@@ -2506,6 +2634,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     lastLogin: Date | null
+    siswaId: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2536,6 +2665,9 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     lastLogin?: boolean
+    siswaId?: boolean
+    siswaProfil?: boolean | User$siswaProfilArgs<ExtArgs>
+    pengajuanDiproses?: boolean | User$pengajuanDiprosesArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     guruProfil?: boolean | User$guruProfilArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -2553,6 +2685,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     lastLogin?: boolean
+    siswaId?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2566,6 +2699,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     lastLogin?: boolean
+    siswaId?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2579,10 +2713,13 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     lastLogin?: boolean
+    siswaId?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "role" | "createdAt" | "updatedAt" | "lastLogin", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "role" | "createdAt" | "updatedAt" | "lastLogin" | "siswaId", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    siswaProfil?: boolean | User$siswaProfilArgs<ExtArgs>
+    pengajuanDiproses?: boolean | User$pengajuanDiprosesArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
     guruProfil?: boolean | User$guruProfilArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
@@ -2594,6 +2731,8 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
+      siswaProfil: Prisma.$SiswaPayload<ExtArgs> | null
+      pengajuanDiproses: Prisma.$PengajuanIzinPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       guruProfil: Prisma.$GuruPayload<ExtArgs> | null
       sessions: Prisma.$SessionPayload<ExtArgs>[]
@@ -2609,6 +2748,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       lastLogin: Date | null
+      siswaId: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3003,6 +3143,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    siswaProfil<T extends User$siswaProfilArgs<ExtArgs> = {}>(args?: Subset<T, User$siswaProfilArgs<ExtArgs>>): Prisma__SiswaClient<$Result.GetResult<Prisma.$SiswaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    pengajuanDiproses<T extends User$pengajuanDiprosesArgs<ExtArgs> = {}>(args?: Subset<T, User$pengajuanDiprosesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     guruProfil<T extends User$guruProfilArgs<ExtArgs> = {}>(args?: Subset<T, User$guruProfilArgs<ExtArgs>>): Prisma__GuruClient<$Result.GetResult<Prisma.$GuruPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3045,6 +3187,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly lastLogin: FieldRef<"User", 'DateTime'>
+    readonly siswaId: FieldRef<"User", 'String'>
   }
     
 
@@ -3430,6 +3573,49 @@ export namespace Prisma {
      * Limit how many Users to delete.
      */
     limit?: number
+  }
+
+  /**
+   * User.siswaProfil
+   */
+  export type User$siswaProfilArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Siswa
+     */
+    select?: SiswaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Siswa
+     */
+    omit?: SiswaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SiswaInclude<ExtArgs> | null
+    where?: SiswaWhereInput
+  }
+
+  /**
+   * User.pengajuanDiproses
+   */
+  export type User$pengajuanDiprosesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    where?: PengajuanIzinWhereInput
+    orderBy?: PengajuanIzinOrderByWithRelationInput | PengajuanIzinOrderByWithRelationInput[]
+    cursor?: PengajuanIzinWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PengajuanIzinScalarFieldEnum | PengajuanIzinScalarFieldEnum[]
   }
 
   /**
@@ -9002,6 +9188,7 @@ export namespace Prisma {
     kode: string | null
     gender: $Enums.Gender | null
     kelasId: string | null
+    userId: string | null
   }
 
   export type SiswaMaxAggregateOutputType = {
@@ -9011,6 +9198,7 @@ export namespace Prisma {
     kode: string | null
     gender: $Enums.Gender | null
     kelasId: string | null
+    userId: string | null
   }
 
   export type SiswaCountAggregateOutputType = {
@@ -9020,6 +9208,7 @@ export namespace Prisma {
     kode: number
     gender: number
     kelasId: number
+    userId: number
     _all: number
   }
 
@@ -9031,6 +9220,7 @@ export namespace Prisma {
     kode?: true
     gender?: true
     kelasId?: true
+    userId?: true
   }
 
   export type SiswaMaxAggregateInputType = {
@@ -9040,6 +9230,7 @@ export namespace Prisma {
     kode?: true
     gender?: true
     kelasId?: true
+    userId?: true
   }
 
   export type SiswaCountAggregateInputType = {
@@ -9049,6 +9240,7 @@ export namespace Prisma {
     kode?: true
     gender?: true
     kelasId?: true
+    userId?: true
     _all?: true
   }
 
@@ -9127,10 +9319,11 @@ export namespace Prisma {
   export type SiswaGroupByOutputType = {
     id: string
     nama: string
-    nisn: string
+    nisn: string | null
     kode: string
     gender: $Enums.Gender
     kelasId: string
+    userId: string | null
     _count: SiswaCountAggregateOutputType | null
     _min: SiswaMinAggregateOutputType | null
     _max: SiswaMaxAggregateOutputType | null
@@ -9157,9 +9350,12 @@ export namespace Prisma {
     kode?: boolean
     gender?: boolean
     kelasId?: boolean
+    userId?: boolean
     absenHarian?: boolean | Siswa$absenHarianArgs<ExtArgs>
     absenMapel?: boolean | Siswa$absenMapelArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    user?: boolean | Siswa$userArgs<ExtArgs>
+    pengajuanIzin?: boolean | Siswa$pengajuanIzinArgs<ExtArgs>
     _count?: boolean | SiswaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["siswa"]>
 
@@ -9170,7 +9366,9 @@ export namespace Prisma {
     kode?: boolean
     gender?: boolean
     kelasId?: boolean
+    userId?: boolean
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    user?: boolean | Siswa$userArgs<ExtArgs>
   }, ExtArgs["result"]["siswa"]>
 
   export type SiswaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9180,7 +9378,9 @@ export namespace Prisma {
     kode?: boolean
     gender?: boolean
     kelasId?: boolean
+    userId?: boolean
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    user?: boolean | Siswa$userArgs<ExtArgs>
   }, ExtArgs["result"]["siswa"]>
 
   export type SiswaSelectScalar = {
@@ -9190,20 +9390,25 @@ export namespace Prisma {
     kode?: boolean
     gender?: boolean
     kelasId?: boolean
+    userId?: boolean
   }
 
-  export type SiswaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "nisn" | "kode" | "gender" | "kelasId", ExtArgs["result"]["siswa"]>
+  export type SiswaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nama" | "nisn" | "kode" | "gender" | "kelasId" | "userId", ExtArgs["result"]["siswa"]>
   export type SiswaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     absenHarian?: boolean | Siswa$absenHarianArgs<ExtArgs>
     absenMapel?: boolean | Siswa$absenMapelArgs<ExtArgs>
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    user?: boolean | Siswa$userArgs<ExtArgs>
+    pengajuanIzin?: boolean | Siswa$pengajuanIzinArgs<ExtArgs>
     _count?: boolean | SiswaCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SiswaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    user?: boolean | Siswa$userArgs<ExtArgs>
   }
   export type SiswaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     kelas?: boolean | KelasDefaultArgs<ExtArgs>
+    user?: boolean | Siswa$userArgs<ExtArgs>
   }
 
   export type $SiswaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9212,14 +9417,17 @@ export namespace Prisma {
       absenHarian: Prisma.$AbsenHarianPayload<ExtArgs>[]
       absenMapel: Prisma.$AbsenMapelPayload<ExtArgs>[]
       kelas: Prisma.$KelasPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs> | null
+      pengajuanIzin: Prisma.$PengajuanIzinPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       nama: string
-      nisn: string
+      nisn: string | null
       kode: string
       gender: $Enums.Gender
       kelasId: string
+      userId: string | null
     }, ExtArgs["result"]["siswa"]>
     composites: {}
   }
@@ -9617,6 +9825,8 @@ export namespace Prisma {
     absenHarian<T extends Siswa$absenHarianArgs<ExtArgs> = {}>(args?: Subset<T, Siswa$absenHarianArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsenHarianPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     absenMapel<T extends Siswa$absenMapelArgs<ExtArgs> = {}>(args?: Subset<T, Siswa$absenMapelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AbsenMapelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     kelas<T extends KelasDefaultArgs<ExtArgs> = {}>(args?: Subset<T, KelasDefaultArgs<ExtArgs>>): Prisma__KelasClient<$Result.GetResult<Prisma.$KelasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends Siswa$userArgs<ExtArgs> = {}>(args?: Subset<T, Siswa$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    pengajuanIzin<T extends Siswa$pengajuanIzinArgs<ExtArgs> = {}>(args?: Subset<T, Siswa$pengajuanIzinArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9652,6 +9862,7 @@ export namespace Prisma {
     readonly kode: FieldRef<"Siswa", 'String'>
     readonly gender: FieldRef<"Siswa", 'Gender'>
     readonly kelasId: FieldRef<"Siswa", 'String'>
+    readonly userId: FieldRef<"Siswa", 'String'>
   }
     
 
@@ -10093,6 +10304,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AbsenMapelScalarFieldEnum | AbsenMapelScalarFieldEnum[]
+  }
+
+  /**
+   * Siswa.user
+   */
+  export type Siswa$userArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Siswa.pengajuanIzin
+   */
+  export type Siswa$pengajuanIzinArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    where?: PengajuanIzinWhereInput
+    orderBy?: PengajuanIzinOrderByWithRelationInput | PengajuanIzinOrderByWithRelationInput[]
+    cursor?: PengajuanIzinWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PengajuanIzinScalarFieldEnum | PengajuanIzinScalarFieldEnum[]
   }
 
   /**
@@ -17588,6 +17842,1156 @@ export namespace Prisma {
 
 
   /**
+   * Model PengajuanIzin
+   */
+
+  export type AggregatePengajuanIzin = {
+    _count: PengajuanIzinCountAggregateOutputType | null
+    _min: PengajuanIzinMinAggregateOutputType | null
+    _max: PengajuanIzinMaxAggregateOutputType | null
+  }
+
+  export type PengajuanIzinMinAggregateOutputType = {
+    id: string | null
+    tanggal: Date | null
+    status: $Enums.StatusPengajuan | null
+    alasan: string | null
+    buktiUrl: string | null
+    siswaId: string | null
+    diProsesOlehId: string | null
+    komentarAdmin: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PengajuanIzinMaxAggregateOutputType = {
+    id: string | null
+    tanggal: Date | null
+    status: $Enums.StatusPengajuan | null
+    alasan: string | null
+    buktiUrl: string | null
+    siswaId: string | null
+    diProsesOlehId: string | null
+    komentarAdmin: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type PengajuanIzinCountAggregateOutputType = {
+    id: number
+    tanggal: number
+    status: number
+    alasan: number
+    buktiUrl: number
+    siswaId: number
+    diProsesOlehId: number
+    komentarAdmin: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type PengajuanIzinMinAggregateInputType = {
+    id?: true
+    tanggal?: true
+    status?: true
+    alasan?: true
+    buktiUrl?: true
+    siswaId?: true
+    diProsesOlehId?: true
+    komentarAdmin?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PengajuanIzinMaxAggregateInputType = {
+    id?: true
+    tanggal?: true
+    status?: true
+    alasan?: true
+    buktiUrl?: true
+    siswaId?: true
+    diProsesOlehId?: true
+    komentarAdmin?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type PengajuanIzinCountAggregateInputType = {
+    id?: true
+    tanggal?: true
+    status?: true
+    alasan?: true
+    buktiUrl?: true
+    siswaId?: true
+    diProsesOlehId?: true
+    komentarAdmin?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type PengajuanIzinAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PengajuanIzin to aggregate.
+     */
+    where?: PengajuanIzinWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PengajuanIzins to fetch.
+     */
+    orderBy?: PengajuanIzinOrderByWithRelationInput | PengajuanIzinOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PengajuanIzinWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PengajuanIzins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PengajuanIzins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PengajuanIzins
+    **/
+    _count?: true | PengajuanIzinCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PengajuanIzinMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PengajuanIzinMaxAggregateInputType
+  }
+
+  export type GetPengajuanIzinAggregateType<T extends PengajuanIzinAggregateArgs> = {
+        [P in keyof T & keyof AggregatePengajuanIzin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePengajuanIzin[P]>
+      : GetScalarType<T[P], AggregatePengajuanIzin[P]>
+  }
+
+
+
+
+  export type PengajuanIzinGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PengajuanIzinWhereInput
+    orderBy?: PengajuanIzinOrderByWithAggregationInput | PengajuanIzinOrderByWithAggregationInput[]
+    by: PengajuanIzinScalarFieldEnum[] | PengajuanIzinScalarFieldEnum
+    having?: PengajuanIzinScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PengajuanIzinCountAggregateInputType | true
+    _min?: PengajuanIzinMinAggregateInputType
+    _max?: PengajuanIzinMaxAggregateInputType
+  }
+
+  export type PengajuanIzinGroupByOutputType = {
+    id: string
+    tanggal: Date
+    status: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl: string | null
+    siswaId: string
+    diProsesOlehId: string | null
+    komentarAdmin: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: PengajuanIzinCountAggregateOutputType | null
+    _min: PengajuanIzinMinAggregateOutputType | null
+    _max: PengajuanIzinMaxAggregateOutputType | null
+  }
+
+  type GetPengajuanIzinGroupByPayload<T extends PengajuanIzinGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PengajuanIzinGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PengajuanIzinGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PengajuanIzinGroupByOutputType[P]>
+            : GetScalarType<T[P], PengajuanIzinGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PengajuanIzinSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tanggal?: boolean
+    status?: boolean
+    alasan?: boolean
+    buktiUrl?: boolean
+    siswaId?: boolean
+    diProsesOlehId?: boolean
+    komentarAdmin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    siswa?: boolean | SiswaDefaultArgs<ExtArgs>
+    diProsesOleh?: boolean | PengajuanIzin$diProsesOlehArgs<ExtArgs>
+  }, ExtArgs["result"]["pengajuanIzin"]>
+
+  export type PengajuanIzinSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tanggal?: boolean
+    status?: boolean
+    alasan?: boolean
+    buktiUrl?: boolean
+    siswaId?: boolean
+    diProsesOlehId?: boolean
+    komentarAdmin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    siswa?: boolean | SiswaDefaultArgs<ExtArgs>
+    diProsesOleh?: boolean | PengajuanIzin$diProsesOlehArgs<ExtArgs>
+  }, ExtArgs["result"]["pengajuanIzin"]>
+
+  export type PengajuanIzinSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tanggal?: boolean
+    status?: boolean
+    alasan?: boolean
+    buktiUrl?: boolean
+    siswaId?: boolean
+    diProsesOlehId?: boolean
+    komentarAdmin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    siswa?: boolean | SiswaDefaultArgs<ExtArgs>
+    diProsesOleh?: boolean | PengajuanIzin$diProsesOlehArgs<ExtArgs>
+  }, ExtArgs["result"]["pengajuanIzin"]>
+
+  export type PengajuanIzinSelectScalar = {
+    id?: boolean
+    tanggal?: boolean
+    status?: boolean
+    alasan?: boolean
+    buktiUrl?: boolean
+    siswaId?: boolean
+    diProsesOlehId?: boolean
+    komentarAdmin?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type PengajuanIzinOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tanggal" | "status" | "alasan" | "buktiUrl" | "siswaId" | "diProsesOlehId" | "komentarAdmin" | "createdAt" | "updatedAt", ExtArgs["result"]["pengajuanIzin"]>
+  export type PengajuanIzinInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    siswa?: boolean | SiswaDefaultArgs<ExtArgs>
+    diProsesOleh?: boolean | PengajuanIzin$diProsesOlehArgs<ExtArgs>
+  }
+  export type PengajuanIzinIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    siswa?: boolean | SiswaDefaultArgs<ExtArgs>
+    diProsesOleh?: boolean | PengajuanIzin$diProsesOlehArgs<ExtArgs>
+  }
+  export type PengajuanIzinIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    siswa?: boolean | SiswaDefaultArgs<ExtArgs>
+    diProsesOleh?: boolean | PengajuanIzin$diProsesOlehArgs<ExtArgs>
+  }
+
+  export type $PengajuanIzinPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PengajuanIzin"
+    objects: {
+      siswa: Prisma.$SiswaPayload<ExtArgs>
+      diProsesOleh: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tanggal: Date
+      status: $Enums.StatusPengajuan
+      alasan: string
+      buktiUrl: string | null
+      siswaId: string
+      diProsesOlehId: string | null
+      komentarAdmin: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["pengajuanIzin"]>
+    composites: {}
+  }
+
+  type PengajuanIzinGetPayload<S extends boolean | null | undefined | PengajuanIzinDefaultArgs> = $Result.GetResult<Prisma.$PengajuanIzinPayload, S>
+
+  type PengajuanIzinCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PengajuanIzinFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PengajuanIzinCountAggregateInputType | true
+    }
+
+  export interface PengajuanIzinDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PengajuanIzin'], meta: { name: 'PengajuanIzin' } }
+    /**
+     * Find zero or one PengajuanIzin that matches the filter.
+     * @param {PengajuanIzinFindUniqueArgs} args - Arguments to find a PengajuanIzin
+     * @example
+     * // Get one PengajuanIzin
+     * const pengajuanIzin = await prisma.pengajuanIzin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PengajuanIzinFindUniqueArgs>(args: SelectSubset<T, PengajuanIzinFindUniqueArgs<ExtArgs>>): Prisma__PengajuanIzinClient<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one PengajuanIzin that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {PengajuanIzinFindUniqueOrThrowArgs} args - Arguments to find a PengajuanIzin
+     * @example
+     * // Get one PengajuanIzin
+     * const pengajuanIzin = await prisma.pengajuanIzin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PengajuanIzinFindUniqueOrThrowArgs>(args: SelectSubset<T, PengajuanIzinFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PengajuanIzinClient<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PengajuanIzin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengajuanIzinFindFirstArgs} args - Arguments to find a PengajuanIzin
+     * @example
+     * // Get one PengajuanIzin
+     * const pengajuanIzin = await prisma.pengajuanIzin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PengajuanIzinFindFirstArgs>(args?: SelectSubset<T, PengajuanIzinFindFirstArgs<ExtArgs>>): Prisma__PengajuanIzinClient<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first PengajuanIzin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengajuanIzinFindFirstOrThrowArgs} args - Arguments to find a PengajuanIzin
+     * @example
+     * // Get one PengajuanIzin
+     * const pengajuanIzin = await prisma.pengajuanIzin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PengajuanIzinFindFirstOrThrowArgs>(args?: SelectSubset<T, PengajuanIzinFindFirstOrThrowArgs<ExtArgs>>): Prisma__PengajuanIzinClient<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more PengajuanIzins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengajuanIzinFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PengajuanIzins
+     * const pengajuanIzins = await prisma.pengajuanIzin.findMany()
+     * 
+     * // Get first 10 PengajuanIzins
+     * const pengajuanIzins = await prisma.pengajuanIzin.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pengajuanIzinWithIdOnly = await prisma.pengajuanIzin.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PengajuanIzinFindManyArgs>(args?: SelectSubset<T, PengajuanIzinFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a PengajuanIzin.
+     * @param {PengajuanIzinCreateArgs} args - Arguments to create a PengajuanIzin.
+     * @example
+     * // Create one PengajuanIzin
+     * const PengajuanIzin = await prisma.pengajuanIzin.create({
+     *   data: {
+     *     // ... data to create a PengajuanIzin
+     *   }
+     * })
+     * 
+     */
+    create<T extends PengajuanIzinCreateArgs>(args: SelectSubset<T, PengajuanIzinCreateArgs<ExtArgs>>): Prisma__PengajuanIzinClient<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many PengajuanIzins.
+     * @param {PengajuanIzinCreateManyArgs} args - Arguments to create many PengajuanIzins.
+     * @example
+     * // Create many PengajuanIzins
+     * const pengajuanIzin = await prisma.pengajuanIzin.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PengajuanIzinCreateManyArgs>(args?: SelectSubset<T, PengajuanIzinCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PengajuanIzins and returns the data saved in the database.
+     * @param {PengajuanIzinCreateManyAndReturnArgs} args - Arguments to create many PengajuanIzins.
+     * @example
+     * // Create many PengajuanIzins
+     * const pengajuanIzin = await prisma.pengajuanIzin.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PengajuanIzins and only return the `id`
+     * const pengajuanIzinWithIdOnly = await prisma.pengajuanIzin.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PengajuanIzinCreateManyAndReturnArgs>(args?: SelectSubset<T, PengajuanIzinCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a PengajuanIzin.
+     * @param {PengajuanIzinDeleteArgs} args - Arguments to delete one PengajuanIzin.
+     * @example
+     * // Delete one PengajuanIzin
+     * const PengajuanIzin = await prisma.pengajuanIzin.delete({
+     *   where: {
+     *     // ... filter to delete one PengajuanIzin
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PengajuanIzinDeleteArgs>(args: SelectSubset<T, PengajuanIzinDeleteArgs<ExtArgs>>): Prisma__PengajuanIzinClient<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one PengajuanIzin.
+     * @param {PengajuanIzinUpdateArgs} args - Arguments to update one PengajuanIzin.
+     * @example
+     * // Update one PengajuanIzin
+     * const pengajuanIzin = await prisma.pengajuanIzin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PengajuanIzinUpdateArgs>(args: SelectSubset<T, PengajuanIzinUpdateArgs<ExtArgs>>): Prisma__PengajuanIzinClient<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more PengajuanIzins.
+     * @param {PengajuanIzinDeleteManyArgs} args - Arguments to filter PengajuanIzins to delete.
+     * @example
+     * // Delete a few PengajuanIzins
+     * const { count } = await prisma.pengajuanIzin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PengajuanIzinDeleteManyArgs>(args?: SelectSubset<T, PengajuanIzinDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PengajuanIzins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengajuanIzinUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PengajuanIzins
+     * const pengajuanIzin = await prisma.pengajuanIzin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PengajuanIzinUpdateManyArgs>(args: SelectSubset<T, PengajuanIzinUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PengajuanIzins and returns the data updated in the database.
+     * @param {PengajuanIzinUpdateManyAndReturnArgs} args - Arguments to update many PengajuanIzins.
+     * @example
+     * // Update many PengajuanIzins
+     * const pengajuanIzin = await prisma.pengajuanIzin.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more PengajuanIzins and only return the `id`
+     * const pengajuanIzinWithIdOnly = await prisma.pengajuanIzin.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends PengajuanIzinUpdateManyAndReturnArgs>(args: SelectSubset<T, PengajuanIzinUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one PengajuanIzin.
+     * @param {PengajuanIzinUpsertArgs} args - Arguments to update or create a PengajuanIzin.
+     * @example
+     * // Update or create a PengajuanIzin
+     * const pengajuanIzin = await prisma.pengajuanIzin.upsert({
+     *   create: {
+     *     // ... data to create a PengajuanIzin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PengajuanIzin we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PengajuanIzinUpsertArgs>(args: SelectSubset<T, PengajuanIzinUpsertArgs<ExtArgs>>): Prisma__PengajuanIzinClient<$Result.GetResult<Prisma.$PengajuanIzinPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of PengajuanIzins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengajuanIzinCountArgs} args - Arguments to filter PengajuanIzins to count.
+     * @example
+     * // Count the number of PengajuanIzins
+     * const count = await prisma.pengajuanIzin.count({
+     *   where: {
+     *     // ... the filter for the PengajuanIzins we want to count
+     *   }
+     * })
+    **/
+    count<T extends PengajuanIzinCountArgs>(
+      args?: Subset<T, PengajuanIzinCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PengajuanIzinCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PengajuanIzin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengajuanIzinAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PengajuanIzinAggregateArgs>(args: Subset<T, PengajuanIzinAggregateArgs>): Prisma.PrismaPromise<GetPengajuanIzinAggregateType<T>>
+
+    /**
+     * Group by PengajuanIzin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PengajuanIzinGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PengajuanIzinGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PengajuanIzinGroupByArgs['orderBy'] }
+        : { orderBy?: PengajuanIzinGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PengajuanIzinGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPengajuanIzinGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PengajuanIzin model
+   */
+  readonly fields: PengajuanIzinFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PengajuanIzin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PengajuanIzinClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    siswa<T extends SiswaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SiswaDefaultArgs<ExtArgs>>): Prisma__SiswaClient<$Result.GetResult<Prisma.$SiswaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    diProsesOleh<T extends PengajuanIzin$diProsesOlehArgs<ExtArgs> = {}>(args?: Subset<T, PengajuanIzin$diProsesOlehArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PengajuanIzin model
+   */
+  interface PengajuanIzinFieldRefs {
+    readonly id: FieldRef<"PengajuanIzin", 'String'>
+    readonly tanggal: FieldRef<"PengajuanIzin", 'DateTime'>
+    readonly status: FieldRef<"PengajuanIzin", 'StatusPengajuan'>
+    readonly alasan: FieldRef<"PengajuanIzin", 'String'>
+    readonly buktiUrl: FieldRef<"PengajuanIzin", 'String'>
+    readonly siswaId: FieldRef<"PengajuanIzin", 'String'>
+    readonly diProsesOlehId: FieldRef<"PengajuanIzin", 'String'>
+    readonly komentarAdmin: FieldRef<"PengajuanIzin", 'String'>
+    readonly createdAt: FieldRef<"PengajuanIzin", 'DateTime'>
+    readonly updatedAt: FieldRef<"PengajuanIzin", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PengajuanIzin findUnique
+   */
+  export type PengajuanIzinFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    /**
+     * Filter, which PengajuanIzin to fetch.
+     */
+    where: PengajuanIzinWhereUniqueInput
+  }
+
+  /**
+   * PengajuanIzin findUniqueOrThrow
+   */
+  export type PengajuanIzinFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    /**
+     * Filter, which PengajuanIzin to fetch.
+     */
+    where: PengajuanIzinWhereUniqueInput
+  }
+
+  /**
+   * PengajuanIzin findFirst
+   */
+  export type PengajuanIzinFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    /**
+     * Filter, which PengajuanIzin to fetch.
+     */
+    where?: PengajuanIzinWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PengajuanIzins to fetch.
+     */
+    orderBy?: PengajuanIzinOrderByWithRelationInput | PengajuanIzinOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PengajuanIzins.
+     */
+    cursor?: PengajuanIzinWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PengajuanIzins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PengajuanIzins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PengajuanIzins.
+     */
+    distinct?: PengajuanIzinScalarFieldEnum | PengajuanIzinScalarFieldEnum[]
+  }
+
+  /**
+   * PengajuanIzin findFirstOrThrow
+   */
+  export type PengajuanIzinFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    /**
+     * Filter, which PengajuanIzin to fetch.
+     */
+    where?: PengajuanIzinWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PengajuanIzins to fetch.
+     */
+    orderBy?: PengajuanIzinOrderByWithRelationInput | PengajuanIzinOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PengajuanIzins.
+     */
+    cursor?: PengajuanIzinWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PengajuanIzins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PengajuanIzins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PengajuanIzins.
+     */
+    distinct?: PengajuanIzinScalarFieldEnum | PengajuanIzinScalarFieldEnum[]
+  }
+
+  /**
+   * PengajuanIzin findMany
+   */
+  export type PengajuanIzinFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    /**
+     * Filter, which PengajuanIzins to fetch.
+     */
+    where?: PengajuanIzinWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PengajuanIzins to fetch.
+     */
+    orderBy?: PengajuanIzinOrderByWithRelationInput | PengajuanIzinOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PengajuanIzins.
+     */
+    cursor?: PengajuanIzinWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PengajuanIzins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PengajuanIzins.
+     */
+    skip?: number
+    distinct?: PengajuanIzinScalarFieldEnum | PengajuanIzinScalarFieldEnum[]
+  }
+
+  /**
+   * PengajuanIzin create
+   */
+  export type PengajuanIzinCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PengajuanIzin.
+     */
+    data: XOR<PengajuanIzinCreateInput, PengajuanIzinUncheckedCreateInput>
+  }
+
+  /**
+   * PengajuanIzin createMany
+   */
+  export type PengajuanIzinCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PengajuanIzins.
+     */
+    data: PengajuanIzinCreateManyInput | PengajuanIzinCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PengajuanIzin createManyAndReturn
+   */
+  export type PengajuanIzinCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * The data used to create many PengajuanIzins.
+     */
+    data: PengajuanIzinCreateManyInput | PengajuanIzinCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PengajuanIzin update
+   */
+  export type PengajuanIzinUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PengajuanIzin.
+     */
+    data: XOR<PengajuanIzinUpdateInput, PengajuanIzinUncheckedUpdateInput>
+    /**
+     * Choose, which PengajuanIzin to update.
+     */
+    where: PengajuanIzinWhereUniqueInput
+  }
+
+  /**
+   * PengajuanIzin updateMany
+   */
+  export type PengajuanIzinUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PengajuanIzins.
+     */
+    data: XOR<PengajuanIzinUpdateManyMutationInput, PengajuanIzinUncheckedUpdateManyInput>
+    /**
+     * Filter which PengajuanIzins to update
+     */
+    where?: PengajuanIzinWhereInput
+    /**
+     * Limit how many PengajuanIzins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * PengajuanIzin updateManyAndReturn
+   */
+  export type PengajuanIzinUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * The data used to update PengajuanIzins.
+     */
+    data: XOR<PengajuanIzinUpdateManyMutationInput, PengajuanIzinUncheckedUpdateManyInput>
+    /**
+     * Filter which PengajuanIzins to update
+     */
+    where?: PengajuanIzinWhereInput
+    /**
+     * Limit how many PengajuanIzins to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PengajuanIzin upsert
+   */
+  export type PengajuanIzinUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PengajuanIzin to update in case it exists.
+     */
+    where: PengajuanIzinWhereUniqueInput
+    /**
+     * In case the PengajuanIzin found by the `where` argument doesn't exist, create a new PengajuanIzin with this data.
+     */
+    create: XOR<PengajuanIzinCreateInput, PengajuanIzinUncheckedCreateInput>
+    /**
+     * In case the PengajuanIzin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PengajuanIzinUpdateInput, PengajuanIzinUncheckedUpdateInput>
+  }
+
+  /**
+   * PengajuanIzin delete
+   */
+  export type PengajuanIzinDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+    /**
+     * Filter which PengajuanIzin to delete.
+     */
+    where: PengajuanIzinWhereUniqueInput
+  }
+
+  /**
+   * PengajuanIzin deleteMany
+   */
+  export type PengajuanIzinDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PengajuanIzins to delete
+     */
+    where?: PengajuanIzinWhereInput
+    /**
+     * Limit how many PengajuanIzins to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * PengajuanIzin.diProsesOleh
+   */
+  export type PengajuanIzin$diProsesOlehArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * PengajuanIzin without action
+   */
+  export type PengajuanIzinDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PengajuanIzin
+     */
+    select?: PengajuanIzinSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PengajuanIzin
+     */
+    omit?: PengajuanIzinOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PengajuanIzinInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17611,7 +19015,8 @@ export namespace Prisma {
     role: 'role',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    lastLogin: 'lastLogin'
+    lastLogin: 'lastLogin',
+    siswaId: 'siswaId'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -17684,7 +19089,8 @@ export namespace Prisma {
     nisn: 'nisn',
     kode: 'kode',
     gender: 'gender',
-    kelasId: 'kelasId'
+    kelasId: 'kelasId',
+    userId: 'userId'
   };
 
   export type SiswaScalarFieldEnum = (typeof SiswaScalarFieldEnum)[keyof typeof SiswaScalarFieldEnum]
@@ -17764,6 +19170,22 @@ export namespace Prisma {
   };
 
   export type PengaturanScalarFieldEnum = (typeof PengaturanScalarFieldEnum)[keyof typeof PengaturanScalarFieldEnum]
+
+
+  export const PengajuanIzinScalarFieldEnum: {
+    id: 'id',
+    tanggal: 'tanggal',
+    status: 'status',
+    alasan: 'alasan',
+    buktiUrl: 'buktiUrl',
+    siswaId: 'siswaId',
+    diProsesOlehId: 'diProsesOlehId',
+    komentarAdmin: 'komentarAdmin',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type PengajuanIzinScalarFieldEnum = (typeof PengajuanIzinScalarFieldEnum)[keyof typeof PengajuanIzinScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -17894,6 +19316,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'StatusPengajuan'
+   */
+  export type EnumStatusPengajuanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusPengajuan'>
+    
+
+
+  /**
+   * Reference to a field of type 'StatusPengajuan[]'
+   */
+  export type ListEnumStatusPengajuanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusPengajuan[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -17924,6 +19360,9 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
+    siswaId?: StringNullableFilter<"User"> | string | null
+    siswaProfil?: XOR<SiswaNullableScalarRelationFilter, SiswaWhereInput> | null
+    pengajuanDiproses?: PengajuanIzinListRelationFilter
     accounts?: AccountListRelationFilter
     guruProfil?: XOR<GuruNullableScalarRelationFilter, GuruWhereInput> | null
     sessions?: SessionListRelationFilter
@@ -17940,6 +19379,9 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
+    siswaId?: SortOrderInput | SortOrder
+    siswaProfil?: SiswaOrderByWithRelationInput
+    pengajuanDiproses?: PengajuanIzinOrderByRelationAggregateInput
     accounts?: AccountOrderByRelationAggregateInput
     guruProfil?: GuruOrderByWithRelationInput
     sessions?: SessionOrderByRelationAggregateInput
@@ -17948,6 +19390,7 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    siswaId?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -17959,10 +19402,12 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableFilter<"User"> | Date | string | null
+    siswaProfil?: XOR<SiswaNullableScalarRelationFilter, SiswaWhereInput> | null
+    pengajuanDiproses?: PengajuanIzinListRelationFilter
     accounts?: AccountListRelationFilter
     guruProfil?: XOR<GuruNullableScalarRelationFilter, GuruWhereInput> | null
     sessions?: SessionListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "siswaId">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -17975,6 +19420,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLogin?: SortOrderInput | SortOrder
+    siswaId?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -17994,6 +19440,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     lastLogin?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    siswaId?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type AccountWhereInput = {
@@ -18321,49 +19768,59 @@ export namespace Prisma {
     NOT?: SiswaWhereInput | SiswaWhereInput[]
     id?: StringFilter<"Siswa"> | string
     nama?: StringFilter<"Siswa"> | string
-    nisn?: StringFilter<"Siswa"> | string
+    nisn?: StringNullableFilter<"Siswa"> | string | null
     kode?: StringFilter<"Siswa"> | string
     gender?: EnumGenderFilter<"Siswa"> | $Enums.Gender
     kelasId?: StringFilter<"Siswa"> | string
+    userId?: StringNullableFilter<"Siswa"> | string | null
     absenHarian?: AbsenHarianListRelationFilter
     absenMapel?: AbsenMapelListRelationFilter
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    pengajuanIzin?: PengajuanIzinListRelationFilter
   }
 
   export type SiswaOrderByWithRelationInput = {
     id?: SortOrder
     nama?: SortOrder
-    nisn?: SortOrder
+    nisn?: SortOrderInput | SortOrder
     kode?: SortOrder
     gender?: SortOrder
     kelasId?: SortOrder
+    userId?: SortOrderInput | SortOrder
     absenHarian?: AbsenHarianOrderByRelationAggregateInput
     absenMapel?: AbsenMapelOrderByRelationAggregateInput
     kelas?: KelasOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+    pengajuanIzin?: PengajuanIzinOrderByRelationAggregateInput
   }
 
   export type SiswaWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    nisn?: string
     kode?: string
+    userId?: string
     AND?: SiswaWhereInput | SiswaWhereInput[]
     OR?: SiswaWhereInput[]
     NOT?: SiswaWhereInput | SiswaWhereInput[]
     nama?: StringFilter<"Siswa"> | string
+    nisn?: StringNullableFilter<"Siswa"> | string | null
     gender?: EnumGenderFilter<"Siswa"> | $Enums.Gender
     kelasId?: StringFilter<"Siswa"> | string
     absenHarian?: AbsenHarianListRelationFilter
     absenMapel?: AbsenMapelListRelationFilter
     kelas?: XOR<KelasScalarRelationFilter, KelasWhereInput>
-  }, "id" | "nisn" | "kode">
+    user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    pengajuanIzin?: PengajuanIzinListRelationFilter
+  }, "id" | "kode" | "userId">
 
   export type SiswaOrderByWithAggregationInput = {
     id?: SortOrder
     nama?: SortOrder
-    nisn?: SortOrder
+    nisn?: SortOrderInput | SortOrder
     kode?: SortOrder
     gender?: SortOrder
     kelasId?: SortOrder
+    userId?: SortOrderInput | SortOrder
     _count?: SiswaCountOrderByAggregateInput
     _max?: SiswaMaxOrderByAggregateInput
     _min?: SiswaMinOrderByAggregateInput
@@ -18375,10 +19832,11 @@ export namespace Prisma {
     NOT?: SiswaScalarWhereWithAggregatesInput | SiswaScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Siswa"> | string
     nama?: StringWithAggregatesFilter<"Siswa"> | string
-    nisn?: StringWithAggregatesFilter<"Siswa"> | string
+    nisn?: StringNullableWithAggregatesFilter<"Siswa"> | string | null
     kode?: StringWithAggregatesFilter<"Siswa"> | string
     gender?: EnumGenderWithAggregatesFilter<"Siswa"> | $Enums.Gender
     kelasId?: StringWithAggregatesFilter<"Siswa"> | string
+    userId?: StringNullableWithAggregatesFilter<"Siswa"> | string | null
   }
 
   export type KelasWhereInput = {
@@ -18779,6 +20237,90 @@ export namespace Prisma {
     jamPulangSekolah?: StringWithAggregatesFilter<"Pengaturan"> | string
   }
 
+  export type PengajuanIzinWhereInput = {
+    AND?: PengajuanIzinWhereInput | PengajuanIzinWhereInput[]
+    OR?: PengajuanIzinWhereInput[]
+    NOT?: PengajuanIzinWhereInput | PengajuanIzinWhereInput[]
+    id?: StringFilter<"PengajuanIzin"> | string
+    tanggal?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    status?: EnumStatusPengajuanFilter<"PengajuanIzin"> | $Enums.StatusPengajuan
+    alasan?: StringFilter<"PengajuanIzin"> | string
+    buktiUrl?: StringNullableFilter<"PengajuanIzin"> | string | null
+    siswaId?: StringFilter<"PengajuanIzin"> | string
+    diProsesOlehId?: StringNullableFilter<"PengajuanIzin"> | string | null
+    komentarAdmin?: StringNullableFilter<"PengajuanIzin"> | string | null
+    createdAt?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    updatedAt?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    siswa?: XOR<SiswaScalarRelationFilter, SiswaWhereInput>
+    diProsesOleh?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type PengajuanIzinOrderByWithRelationInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    status?: SortOrder
+    alasan?: SortOrder
+    buktiUrl?: SortOrderInput | SortOrder
+    siswaId?: SortOrder
+    diProsesOlehId?: SortOrderInput | SortOrder
+    komentarAdmin?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    siswa?: SiswaOrderByWithRelationInput
+    diProsesOleh?: UserOrderByWithRelationInput
+  }
+
+  export type PengajuanIzinWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    siswaId_tanggal?: PengajuanIzinSiswaIdTanggalCompoundUniqueInput
+    AND?: PengajuanIzinWhereInput | PengajuanIzinWhereInput[]
+    OR?: PengajuanIzinWhereInput[]
+    NOT?: PengajuanIzinWhereInput | PengajuanIzinWhereInput[]
+    tanggal?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    status?: EnumStatusPengajuanFilter<"PengajuanIzin"> | $Enums.StatusPengajuan
+    alasan?: StringFilter<"PengajuanIzin"> | string
+    buktiUrl?: StringNullableFilter<"PengajuanIzin"> | string | null
+    siswaId?: StringFilter<"PengajuanIzin"> | string
+    diProsesOlehId?: StringNullableFilter<"PengajuanIzin"> | string | null
+    komentarAdmin?: StringNullableFilter<"PengajuanIzin"> | string | null
+    createdAt?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    updatedAt?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    siswa?: XOR<SiswaScalarRelationFilter, SiswaWhereInput>
+    diProsesOleh?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id" | "siswaId_tanggal">
+
+  export type PengajuanIzinOrderByWithAggregationInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    status?: SortOrder
+    alasan?: SortOrder
+    buktiUrl?: SortOrderInput | SortOrder
+    siswaId?: SortOrder
+    diProsesOlehId?: SortOrderInput | SortOrder
+    komentarAdmin?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: PengajuanIzinCountOrderByAggregateInput
+    _max?: PengajuanIzinMaxOrderByAggregateInput
+    _min?: PengajuanIzinMinOrderByAggregateInput
+  }
+
+  export type PengajuanIzinScalarWhereWithAggregatesInput = {
+    AND?: PengajuanIzinScalarWhereWithAggregatesInput | PengajuanIzinScalarWhereWithAggregatesInput[]
+    OR?: PengajuanIzinScalarWhereWithAggregatesInput[]
+    NOT?: PengajuanIzinScalarWhereWithAggregatesInput | PengajuanIzinScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PengajuanIzin"> | string
+    tanggal?: DateTimeWithAggregatesFilter<"PengajuanIzin"> | Date | string
+    status?: EnumStatusPengajuanWithAggregatesFilter<"PengajuanIzin"> | $Enums.StatusPengajuan
+    alasan?: StringWithAggregatesFilter<"PengajuanIzin"> | string
+    buktiUrl?: StringNullableWithAggregatesFilter<"PengajuanIzin"> | string | null
+    siswaId?: StringWithAggregatesFilter<"PengajuanIzin"> | string
+    diProsesOlehId?: StringNullableWithAggregatesFilter<"PengajuanIzin"> | string | null
+    komentarAdmin?: StringNullableWithAggregatesFilter<"PengajuanIzin"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PengajuanIzin"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PengajuanIzin"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name?: string | null
@@ -18790,6 +20332,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaCreateNestedOneWithoutUserInput
+    pengajuanDiproses?: PengajuanIzinCreateNestedManyWithoutDiProsesOlehInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     guruProfil?: GuruCreateNestedOneWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
@@ -18806,6 +20351,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaUncheckedCreateNestedOneWithoutUserInput
+    pengajuanDiproses?: PengajuanIzinUncheckedCreateNestedManyWithoutDiProsesOlehInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     guruProfil?: GuruUncheckedCreateNestedOneWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
@@ -18822,6 +20370,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUpdateOneWithoutUserNestedInput
+    pengajuanDiproses?: PengajuanIzinUpdateManyWithoutDiProsesOlehNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     guruProfil?: GuruUpdateOneWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
@@ -18838,6 +20389,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUncheckedUpdateOneWithoutUserNestedInput
+    pengajuanDiproses?: PengajuanIzinUncheckedUpdateManyWithoutDiProsesOlehNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     guruProfil?: GuruUncheckedUpdateOneWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
@@ -18854,6 +20408,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLogin?: Date | string | null
+    siswaId?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -18867,6 +20422,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -18880,6 +20436,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AccountCreateInput = {
@@ -19219,60 +20776,69 @@ export namespace Prisma {
   export type SiswaCreateInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
     absenHarian?: AbsenHarianCreateNestedManyWithoutSiswaInput
     absenMapel?: AbsenMapelCreateNestedManyWithoutSiswaInput
     kelas: KelasCreateNestedOneWithoutSiswaInput
+    user?: UserCreateNestedOneWithoutSiswaProfilInput
+    pengajuanIzin?: PengajuanIzinCreateNestedManyWithoutSiswaInput
   }
 
   export type SiswaUncheckedCreateInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
     kelasId: string
+    userId?: string | null
     absenHarian?: AbsenHarianUncheckedCreateNestedManyWithoutSiswaInput
     absenMapel?: AbsenMapelUncheckedCreateNestedManyWithoutSiswaInput
+    pengajuanIzin?: PengajuanIzinUncheckedCreateNestedManyWithoutSiswaInput
   }
 
   export type SiswaUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     absenHarian?: AbsenHarianUpdateManyWithoutSiswaNestedInput
     absenMapel?: AbsenMapelUpdateManyWithoutSiswaNestedInput
     kelas?: KelasUpdateOneRequiredWithoutSiswaNestedInput
+    user?: UserUpdateOneWithoutSiswaProfilNestedInput
+    pengajuanIzin?: PengajuanIzinUpdateManyWithoutSiswaNestedInput
   }
 
   export type SiswaUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     kelasId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     absenHarian?: AbsenHarianUncheckedUpdateManyWithoutSiswaNestedInput
     absenMapel?: AbsenMapelUncheckedUpdateManyWithoutSiswaNestedInput
+    pengajuanIzin?: PengajuanIzinUncheckedUpdateManyWithoutSiswaNestedInput
   }
 
   export type SiswaCreateManyInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
     kelasId: string
+    userId?: string | null
   }
 
   export type SiswaUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   }
@@ -19280,10 +20846,11 @@ export namespace Prisma {
   export type SiswaUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     kelasId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type KelasCreateInput = {
@@ -19679,6 +21246,95 @@ export namespace Prisma {
     jamPulangSekolah?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PengajuanIzinCreateInput = {
+    id?: string
+    tanggal: Date | string
+    status?: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl?: string | null
+    komentarAdmin?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    siswa: SiswaCreateNestedOneWithoutPengajuanIzinInput
+    diProsesOleh?: UserCreateNestedOneWithoutPengajuanDiprosesInput
+  }
+
+  export type PengajuanIzinUncheckedCreateInput = {
+    id?: string
+    tanggal: Date | string
+    status?: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl?: string | null
+    siswaId: string
+    diProsesOlehId?: string | null
+    komentarAdmin?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PengajuanIzinUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siswa?: SiswaUpdateOneRequiredWithoutPengajuanIzinNestedInput
+    diProsesOleh?: UserUpdateOneWithoutPengajuanDiprosesNestedInput
+  }
+
+  export type PengajuanIzinUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaId?: StringFieldUpdateOperationsInput | string
+    diProsesOlehId?: NullableStringFieldUpdateOperationsInput | string | null
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengajuanIzinCreateManyInput = {
+    id?: string
+    tanggal: Date | string
+    status?: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl?: string | null
+    siswaId: string
+    diProsesOlehId?: string | null
+    komentarAdmin?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PengajuanIzinUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengajuanIzinUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaId?: StringFieldUpdateOperationsInput | string
+    diProsesOlehId?: NullableStringFieldUpdateOperationsInput | string | null
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19738,6 +21394,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type SiswaNullableScalarRelationFilter = {
+    is?: SiswaWhereInput | null
+    isNot?: SiswaWhereInput | null
+  }
+
+  export type PengajuanIzinListRelationFilter = {
+    every?: PengajuanIzinWhereInput
+    some?: PengajuanIzinWhereInput
+    none?: PengajuanIzinWhereInput
+  }
+
   export type AccountListRelationFilter = {
     every?: AccountWhereInput
     some?: AccountWhereInput
@@ -19760,6 +21427,10 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
+  export type PengajuanIzinOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type AccountOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -19779,6 +21450,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLogin?: SortOrder
+    siswaId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -19792,6 +21464,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLogin?: SortOrder
+    siswaId?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -19805,6 +21478,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     lastLogin?: SortOrder
+    siswaId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -20168,6 +21842,7 @@ export namespace Prisma {
     kode?: SortOrder
     gender?: SortOrder
     kelasId?: SortOrder
+    userId?: SortOrder
   }
 
   export type SiswaMaxOrderByAggregateInput = {
@@ -20177,6 +21852,7 @@ export namespace Prisma {
     kode?: SortOrder
     gender?: SortOrder
     kelasId?: SortOrder
+    userId?: SortOrder
   }
 
   export type SiswaMinOrderByAggregateInput = {
@@ -20186,6 +21862,7 @@ export namespace Prisma {
     kode?: SortOrder
     gender?: SortOrder
     kelasId?: SortOrder
+    userId?: SortOrder
   }
 
   export type SiswaListRelationFilter = {
@@ -20428,6 +22105,80 @@ export namespace Prisma {
     jamPulangSekolah?: SortOrder
   }
 
+  export type EnumStatusPengajuanFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusPengajuan | EnumStatusPengajuanFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusPengajuan[] | ListEnumStatusPengajuanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusPengajuan[] | ListEnumStatusPengajuanFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusPengajuanFilter<$PrismaModel> | $Enums.StatusPengajuan
+  }
+
+  export type PengajuanIzinSiswaIdTanggalCompoundUniqueInput = {
+    siswaId: string
+    tanggal: Date | string
+  }
+
+  export type PengajuanIzinCountOrderByAggregateInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    status?: SortOrder
+    alasan?: SortOrder
+    buktiUrl?: SortOrder
+    siswaId?: SortOrder
+    diProsesOlehId?: SortOrder
+    komentarAdmin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PengajuanIzinMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    status?: SortOrder
+    alasan?: SortOrder
+    buktiUrl?: SortOrder
+    siswaId?: SortOrder
+    diProsesOlehId?: SortOrder
+    komentarAdmin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type PengajuanIzinMinOrderByAggregateInput = {
+    id?: SortOrder
+    tanggal?: SortOrder
+    status?: SortOrder
+    alasan?: SortOrder
+    buktiUrl?: SortOrder
+    siswaId?: SortOrder
+    diProsesOlehId?: SortOrder
+    komentarAdmin?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumStatusPengajuanWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusPengajuan | EnumStatusPengajuanFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusPengajuan[] | ListEnumStatusPengajuanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusPengajuan[] | ListEnumStatusPengajuanFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusPengajuanWithAggregatesFilter<$PrismaModel> | $Enums.StatusPengajuan
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusPengajuanFilter<$PrismaModel>
+    _max?: NestedEnumStatusPengajuanFilter<$PrismaModel>
+  }
+
+  export type SiswaCreateNestedOneWithoutUserInput = {
+    create?: XOR<SiswaCreateWithoutUserInput, SiswaUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SiswaCreateOrConnectWithoutUserInput
+    connect?: SiswaWhereUniqueInput
+  }
+
+  export type PengajuanIzinCreateNestedManyWithoutDiProsesOlehInput = {
+    create?: XOR<PengajuanIzinCreateWithoutDiProsesOlehInput, PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput> | PengajuanIzinCreateWithoutDiProsesOlehInput[] | PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput[]
+    connectOrCreate?: PengajuanIzinCreateOrConnectWithoutDiProsesOlehInput | PengajuanIzinCreateOrConnectWithoutDiProsesOlehInput[]
+    createMany?: PengajuanIzinCreateManyDiProsesOlehInputEnvelope
+    connect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+  }
+
   export type AccountCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20446,6 +22197,19 @@ export namespace Prisma {
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type SiswaUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<SiswaCreateWithoutUserInput, SiswaUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SiswaCreateOrConnectWithoutUserInput
+    connect?: SiswaWhereUniqueInput
+  }
+
+  export type PengajuanIzinUncheckedCreateNestedManyWithoutDiProsesOlehInput = {
+    create?: XOR<PengajuanIzinCreateWithoutDiProsesOlehInput, PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput> | PengajuanIzinCreateWithoutDiProsesOlehInput[] | PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput[]
+    connectOrCreate?: PengajuanIzinCreateOrConnectWithoutDiProsesOlehInput | PengajuanIzinCreateOrConnectWithoutDiProsesOlehInput[]
+    createMany?: PengajuanIzinCreateManyDiProsesOlehInputEnvelope
+    connect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
   }
 
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
@@ -20488,6 +22252,30 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type SiswaUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SiswaCreateWithoutUserInput, SiswaUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SiswaCreateOrConnectWithoutUserInput
+    upsert?: SiswaUpsertWithoutUserInput
+    disconnect?: SiswaWhereInput | boolean
+    delete?: SiswaWhereInput | boolean
+    connect?: SiswaWhereUniqueInput
+    update?: XOR<XOR<SiswaUpdateToOneWithWhereWithoutUserInput, SiswaUpdateWithoutUserInput>, SiswaUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PengajuanIzinUpdateManyWithoutDiProsesOlehNestedInput = {
+    create?: XOR<PengajuanIzinCreateWithoutDiProsesOlehInput, PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput> | PengajuanIzinCreateWithoutDiProsesOlehInput[] | PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput[]
+    connectOrCreate?: PengajuanIzinCreateOrConnectWithoutDiProsesOlehInput | PengajuanIzinCreateOrConnectWithoutDiProsesOlehInput[]
+    upsert?: PengajuanIzinUpsertWithWhereUniqueWithoutDiProsesOlehInput | PengajuanIzinUpsertWithWhereUniqueWithoutDiProsesOlehInput[]
+    createMany?: PengajuanIzinCreateManyDiProsesOlehInputEnvelope
+    set?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    disconnect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    delete?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    connect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    update?: PengajuanIzinUpdateWithWhereUniqueWithoutDiProsesOlehInput | PengajuanIzinUpdateWithWhereUniqueWithoutDiProsesOlehInput[]
+    updateMany?: PengajuanIzinUpdateManyWithWhereWithoutDiProsesOlehInput | PengajuanIzinUpdateManyWithWhereWithoutDiProsesOlehInput[]
+    deleteMany?: PengajuanIzinScalarWhereInput | PengajuanIzinScalarWhereInput[]
+  }
+
   export type AccountUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -20524,6 +22312,30 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type SiswaUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<SiswaCreateWithoutUserInput, SiswaUncheckedCreateWithoutUserInput>
+    connectOrCreate?: SiswaCreateOrConnectWithoutUserInput
+    upsert?: SiswaUpsertWithoutUserInput
+    disconnect?: SiswaWhereInput | boolean
+    delete?: SiswaWhereInput | boolean
+    connect?: SiswaWhereUniqueInput
+    update?: XOR<XOR<SiswaUpdateToOneWithWhereWithoutUserInput, SiswaUpdateWithoutUserInput>, SiswaUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PengajuanIzinUncheckedUpdateManyWithoutDiProsesOlehNestedInput = {
+    create?: XOR<PengajuanIzinCreateWithoutDiProsesOlehInput, PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput> | PengajuanIzinCreateWithoutDiProsesOlehInput[] | PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput[]
+    connectOrCreate?: PengajuanIzinCreateOrConnectWithoutDiProsesOlehInput | PengajuanIzinCreateOrConnectWithoutDiProsesOlehInput[]
+    upsert?: PengajuanIzinUpsertWithWhereUniqueWithoutDiProsesOlehInput | PengajuanIzinUpsertWithWhereUniqueWithoutDiProsesOlehInput[]
+    createMany?: PengajuanIzinCreateManyDiProsesOlehInputEnvelope
+    set?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    disconnect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    delete?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    connect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    update?: PengajuanIzinUpdateWithWhereUniqueWithoutDiProsesOlehInput | PengajuanIzinUpdateWithWhereUniqueWithoutDiProsesOlehInput[]
+    updateMany?: PengajuanIzinUpdateManyWithWhereWithoutDiProsesOlehInput | PengajuanIzinUpdateManyWithWhereWithoutDiProsesOlehInput[]
+    deleteMany?: PengajuanIzinScalarWhereInput | PengajuanIzinScalarWhereInput[]
   }
 
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
@@ -20812,6 +22624,19 @@ export namespace Prisma {
     connect?: KelasWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutSiswaProfilInput = {
+    create?: XOR<UserCreateWithoutSiswaProfilInput, UserUncheckedCreateWithoutSiswaProfilInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSiswaProfilInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PengajuanIzinCreateNestedManyWithoutSiswaInput = {
+    create?: XOR<PengajuanIzinCreateWithoutSiswaInput, PengajuanIzinUncheckedCreateWithoutSiswaInput> | PengajuanIzinCreateWithoutSiswaInput[] | PengajuanIzinUncheckedCreateWithoutSiswaInput[]
+    connectOrCreate?: PengajuanIzinCreateOrConnectWithoutSiswaInput | PengajuanIzinCreateOrConnectWithoutSiswaInput[]
+    createMany?: PengajuanIzinCreateManySiswaInputEnvelope
+    connect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+  }
+
   export type AbsenHarianUncheckedCreateNestedManyWithoutSiswaInput = {
     create?: XOR<AbsenHarianCreateWithoutSiswaInput, AbsenHarianUncheckedCreateWithoutSiswaInput> | AbsenHarianCreateWithoutSiswaInput[] | AbsenHarianUncheckedCreateWithoutSiswaInput[]
     connectOrCreate?: AbsenHarianCreateOrConnectWithoutSiswaInput | AbsenHarianCreateOrConnectWithoutSiswaInput[]
@@ -20824,6 +22649,13 @@ export namespace Prisma {
     connectOrCreate?: AbsenMapelCreateOrConnectWithoutSiswaInput | AbsenMapelCreateOrConnectWithoutSiswaInput[]
     createMany?: AbsenMapelCreateManySiswaInputEnvelope
     connect?: AbsenMapelWhereUniqueInput | AbsenMapelWhereUniqueInput[]
+  }
+
+  export type PengajuanIzinUncheckedCreateNestedManyWithoutSiswaInput = {
+    create?: XOR<PengajuanIzinCreateWithoutSiswaInput, PengajuanIzinUncheckedCreateWithoutSiswaInput> | PengajuanIzinCreateWithoutSiswaInput[] | PengajuanIzinUncheckedCreateWithoutSiswaInput[]
+    connectOrCreate?: PengajuanIzinCreateOrConnectWithoutSiswaInput | PengajuanIzinCreateOrConnectWithoutSiswaInput[]
+    createMany?: PengajuanIzinCreateManySiswaInputEnvelope
+    connect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
   }
 
   export type AbsenHarianUpdateManyWithoutSiswaNestedInput = {
@@ -20862,6 +22694,30 @@ export namespace Prisma {
     update?: XOR<XOR<KelasUpdateToOneWithWhereWithoutSiswaInput, KelasUpdateWithoutSiswaInput>, KelasUncheckedUpdateWithoutSiswaInput>
   }
 
+  export type UserUpdateOneWithoutSiswaProfilNestedInput = {
+    create?: XOR<UserCreateWithoutSiswaProfilInput, UserUncheckedCreateWithoutSiswaProfilInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSiswaProfilInput
+    upsert?: UserUpsertWithoutSiswaProfilInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSiswaProfilInput, UserUpdateWithoutSiswaProfilInput>, UserUncheckedUpdateWithoutSiswaProfilInput>
+  }
+
+  export type PengajuanIzinUpdateManyWithoutSiswaNestedInput = {
+    create?: XOR<PengajuanIzinCreateWithoutSiswaInput, PengajuanIzinUncheckedCreateWithoutSiswaInput> | PengajuanIzinCreateWithoutSiswaInput[] | PengajuanIzinUncheckedCreateWithoutSiswaInput[]
+    connectOrCreate?: PengajuanIzinCreateOrConnectWithoutSiswaInput | PengajuanIzinCreateOrConnectWithoutSiswaInput[]
+    upsert?: PengajuanIzinUpsertWithWhereUniqueWithoutSiswaInput | PengajuanIzinUpsertWithWhereUniqueWithoutSiswaInput[]
+    createMany?: PengajuanIzinCreateManySiswaInputEnvelope
+    set?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    disconnect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    delete?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    connect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    update?: PengajuanIzinUpdateWithWhereUniqueWithoutSiswaInput | PengajuanIzinUpdateWithWhereUniqueWithoutSiswaInput[]
+    updateMany?: PengajuanIzinUpdateManyWithWhereWithoutSiswaInput | PengajuanIzinUpdateManyWithWhereWithoutSiswaInput[]
+    deleteMany?: PengajuanIzinScalarWhereInput | PengajuanIzinScalarWhereInput[]
+  }
+
   export type AbsenHarianUncheckedUpdateManyWithoutSiswaNestedInput = {
     create?: XOR<AbsenHarianCreateWithoutSiswaInput, AbsenHarianUncheckedCreateWithoutSiswaInput> | AbsenHarianCreateWithoutSiswaInput[] | AbsenHarianUncheckedCreateWithoutSiswaInput[]
     connectOrCreate?: AbsenHarianCreateOrConnectWithoutSiswaInput | AbsenHarianCreateOrConnectWithoutSiswaInput[]
@@ -20888,6 +22744,20 @@ export namespace Prisma {
     update?: AbsenMapelUpdateWithWhereUniqueWithoutSiswaInput | AbsenMapelUpdateWithWhereUniqueWithoutSiswaInput[]
     updateMany?: AbsenMapelUpdateManyWithWhereWithoutSiswaInput | AbsenMapelUpdateManyWithWhereWithoutSiswaInput[]
     deleteMany?: AbsenMapelScalarWhereInput | AbsenMapelScalarWhereInput[]
+  }
+
+  export type PengajuanIzinUncheckedUpdateManyWithoutSiswaNestedInput = {
+    create?: XOR<PengajuanIzinCreateWithoutSiswaInput, PengajuanIzinUncheckedCreateWithoutSiswaInput> | PengajuanIzinCreateWithoutSiswaInput[] | PengajuanIzinUncheckedCreateWithoutSiswaInput[]
+    connectOrCreate?: PengajuanIzinCreateOrConnectWithoutSiswaInput | PengajuanIzinCreateOrConnectWithoutSiswaInput[]
+    upsert?: PengajuanIzinUpsertWithWhereUniqueWithoutSiswaInput | PengajuanIzinUpsertWithWhereUniqueWithoutSiswaInput[]
+    createMany?: PengajuanIzinCreateManySiswaInputEnvelope
+    set?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    disconnect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    delete?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    connect?: PengajuanIzinWhereUniqueInput | PengajuanIzinWhereUniqueInput[]
+    update?: PengajuanIzinUpdateWithWhereUniqueWithoutSiswaInput | PengajuanIzinUpdateWithWhereUniqueWithoutSiswaInput[]
+    updateMany?: PengajuanIzinUpdateManyWithWhereWithoutSiswaInput | PengajuanIzinUpdateManyWithWhereWithoutSiswaInput[]
+    deleteMany?: PengajuanIzinScalarWhereInput | PengajuanIzinScalarWhereInput[]
   }
 
   export type JadwalPelajaranCreateNestedManyWithoutKelasInput = {
@@ -21180,6 +23050,40 @@ export namespace Prisma {
     update?: XOR<XOR<GuruUpdateToOneWithWhereWithoutAbsenHarianInput, GuruUpdateWithoutAbsenHarianInput>, GuruUncheckedUpdateWithoutAbsenHarianInput>
   }
 
+  export type SiswaCreateNestedOneWithoutPengajuanIzinInput = {
+    create?: XOR<SiswaCreateWithoutPengajuanIzinInput, SiswaUncheckedCreateWithoutPengajuanIzinInput>
+    connectOrCreate?: SiswaCreateOrConnectWithoutPengajuanIzinInput
+    connect?: SiswaWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutPengajuanDiprosesInput = {
+    create?: XOR<UserCreateWithoutPengajuanDiprosesInput, UserUncheckedCreateWithoutPengajuanDiprosesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPengajuanDiprosesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumStatusPengajuanFieldUpdateOperationsInput = {
+    set?: $Enums.StatusPengajuan
+  }
+
+  export type SiswaUpdateOneRequiredWithoutPengajuanIzinNestedInput = {
+    create?: XOR<SiswaCreateWithoutPengajuanIzinInput, SiswaUncheckedCreateWithoutPengajuanIzinInput>
+    connectOrCreate?: SiswaCreateOrConnectWithoutPengajuanIzinInput
+    upsert?: SiswaUpsertWithoutPengajuanIzinInput
+    connect?: SiswaWhereUniqueInput
+    update?: XOR<XOR<SiswaUpdateToOneWithWhereWithoutPengajuanIzinInput, SiswaUpdateWithoutPengajuanIzinInput>, SiswaUncheckedUpdateWithoutPengajuanIzinInput>
+  }
+
+  export type UserUpdateOneWithoutPengajuanDiprosesNestedInput = {
+    create?: XOR<UserCreateWithoutPengajuanDiprosesInput, UserUncheckedCreateWithoutPengajuanDiprosesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPengajuanDiprosesInput
+    upsert?: UserUpsertWithoutPengajuanDiprosesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPengajuanDiprosesInput, UserUpdateWithoutPengajuanDiprosesInput>, UserUncheckedUpdateWithoutPengajuanDiprosesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -21409,6 +23313,86 @@ export namespace Prisma {
     _max?: NestedEnumStatusMapelFilter<$PrismaModel>
   }
 
+  export type NestedEnumStatusPengajuanFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusPengajuan | EnumStatusPengajuanFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusPengajuan[] | ListEnumStatusPengajuanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusPengajuan[] | ListEnumStatusPengajuanFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusPengajuanFilter<$PrismaModel> | $Enums.StatusPengajuan
+  }
+
+  export type NestedEnumStatusPengajuanWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.StatusPengajuan | EnumStatusPengajuanFieldRefInput<$PrismaModel>
+    in?: $Enums.StatusPengajuan[] | ListEnumStatusPengajuanFieldRefInput<$PrismaModel>
+    notIn?: $Enums.StatusPengajuan[] | ListEnumStatusPengajuanFieldRefInput<$PrismaModel>
+    not?: NestedEnumStatusPengajuanWithAggregatesFilter<$PrismaModel> | $Enums.StatusPengajuan
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStatusPengajuanFilter<$PrismaModel>
+    _max?: NestedEnumStatusPengajuanFilter<$PrismaModel>
+  }
+
+  export type SiswaCreateWithoutUserInput = {
+    id?: string
+    nama: string
+    nisn?: string | null
+    kode: string
+    gender?: $Enums.Gender
+    absenHarian?: AbsenHarianCreateNestedManyWithoutSiswaInput
+    absenMapel?: AbsenMapelCreateNestedManyWithoutSiswaInput
+    kelas: KelasCreateNestedOneWithoutSiswaInput
+    pengajuanIzin?: PengajuanIzinCreateNestedManyWithoutSiswaInput
+  }
+
+  export type SiswaUncheckedCreateWithoutUserInput = {
+    id?: string
+    nama: string
+    nisn?: string | null
+    kode: string
+    gender?: $Enums.Gender
+    kelasId: string
+    absenHarian?: AbsenHarianUncheckedCreateNestedManyWithoutSiswaInput
+    absenMapel?: AbsenMapelUncheckedCreateNestedManyWithoutSiswaInput
+    pengajuanIzin?: PengajuanIzinUncheckedCreateNestedManyWithoutSiswaInput
+  }
+
+  export type SiswaCreateOrConnectWithoutUserInput = {
+    where: SiswaWhereUniqueInput
+    create: XOR<SiswaCreateWithoutUserInput, SiswaUncheckedCreateWithoutUserInput>
+  }
+
+  export type PengajuanIzinCreateWithoutDiProsesOlehInput = {
+    id?: string
+    tanggal: Date | string
+    status?: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl?: string | null
+    komentarAdmin?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    siswa: SiswaCreateNestedOneWithoutPengajuanIzinInput
+  }
+
+  export type PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput = {
+    id?: string
+    tanggal: Date | string
+    status?: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl?: string | null
+    siswaId: string
+    komentarAdmin?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PengajuanIzinCreateOrConnectWithoutDiProsesOlehInput = {
+    where: PengajuanIzinWhereUniqueInput
+    create: XOR<PengajuanIzinCreateWithoutDiProsesOlehInput, PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput>
+  }
+
+  export type PengajuanIzinCreateManyDiProsesOlehInputEnvelope = {
+    data: PengajuanIzinCreateManyDiProsesOlehInput | PengajuanIzinCreateManyDiProsesOlehInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountCreateWithoutUserInput = {
     type: string
     provider: string
@@ -21502,6 +23486,73 @@ export namespace Prisma {
   export type SessionCreateManyUserInputEnvelope = {
     data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
     skipDuplicates?: boolean
+  }
+
+  export type SiswaUpsertWithoutUserInput = {
+    update: XOR<SiswaUpdateWithoutUserInput, SiswaUncheckedUpdateWithoutUserInput>
+    create: XOR<SiswaCreateWithoutUserInput, SiswaUncheckedCreateWithoutUserInput>
+    where?: SiswaWhereInput
+  }
+
+  export type SiswaUpdateToOneWithWhereWithoutUserInput = {
+    where?: SiswaWhereInput
+    data: XOR<SiswaUpdateWithoutUserInput, SiswaUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SiswaUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
+    kode?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    absenHarian?: AbsenHarianUpdateManyWithoutSiswaNestedInput
+    absenMapel?: AbsenMapelUpdateManyWithoutSiswaNestedInput
+    kelas?: KelasUpdateOneRequiredWithoutSiswaNestedInput
+    pengajuanIzin?: PengajuanIzinUpdateManyWithoutSiswaNestedInput
+  }
+
+  export type SiswaUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
+    kode?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    kelasId?: StringFieldUpdateOperationsInput | string
+    absenHarian?: AbsenHarianUncheckedUpdateManyWithoutSiswaNestedInput
+    absenMapel?: AbsenMapelUncheckedUpdateManyWithoutSiswaNestedInput
+    pengajuanIzin?: PengajuanIzinUncheckedUpdateManyWithoutSiswaNestedInput
+  }
+
+  export type PengajuanIzinUpsertWithWhereUniqueWithoutDiProsesOlehInput = {
+    where: PengajuanIzinWhereUniqueInput
+    update: XOR<PengajuanIzinUpdateWithoutDiProsesOlehInput, PengajuanIzinUncheckedUpdateWithoutDiProsesOlehInput>
+    create: XOR<PengajuanIzinCreateWithoutDiProsesOlehInput, PengajuanIzinUncheckedCreateWithoutDiProsesOlehInput>
+  }
+
+  export type PengajuanIzinUpdateWithWhereUniqueWithoutDiProsesOlehInput = {
+    where: PengajuanIzinWhereUniqueInput
+    data: XOR<PengajuanIzinUpdateWithoutDiProsesOlehInput, PengajuanIzinUncheckedUpdateWithoutDiProsesOlehInput>
+  }
+
+  export type PengajuanIzinUpdateManyWithWhereWithoutDiProsesOlehInput = {
+    where: PengajuanIzinScalarWhereInput
+    data: XOR<PengajuanIzinUpdateManyMutationInput, PengajuanIzinUncheckedUpdateManyWithoutDiProsesOlehInput>
+  }
+
+  export type PengajuanIzinScalarWhereInput = {
+    AND?: PengajuanIzinScalarWhereInput | PengajuanIzinScalarWhereInput[]
+    OR?: PengajuanIzinScalarWhereInput[]
+    NOT?: PengajuanIzinScalarWhereInput | PengajuanIzinScalarWhereInput[]
+    id?: StringFilter<"PengajuanIzin"> | string
+    tanggal?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    status?: EnumStatusPengajuanFilter<"PengajuanIzin"> | $Enums.StatusPengajuan
+    alasan?: StringFilter<"PengajuanIzin"> | string
+    buktiUrl?: StringNullableFilter<"PengajuanIzin"> | string | null
+    siswaId?: StringFilter<"PengajuanIzin"> | string
+    diProsesOlehId?: StringNullableFilter<"PengajuanIzin"> | string | null
+    komentarAdmin?: StringNullableFilter<"PengajuanIzin"> | string | null
+    createdAt?: DateTimeFilter<"PengajuanIzin"> | Date | string
+    updatedAt?: DateTimeFilter<"PengajuanIzin"> | Date | string
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -21614,6 +23665,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaCreateNestedOneWithoutUserInput
+    pengajuanDiproses?: PengajuanIzinCreateNestedManyWithoutDiProsesOlehInput
     guruProfil?: GuruCreateNestedOneWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
@@ -21629,6 +23683,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaUncheckedCreateNestedOneWithoutUserInput
+    pengajuanDiproses?: PengajuanIzinUncheckedCreateNestedManyWithoutDiProsesOlehInput
     guruProfil?: GuruUncheckedCreateNestedOneWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -21660,6 +23717,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUpdateOneWithoutUserNestedInput
+    pengajuanDiproses?: PengajuanIzinUpdateManyWithoutDiProsesOlehNestedInput
     guruProfil?: GuruUpdateOneWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
@@ -21675,6 +23735,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUncheckedUpdateOneWithoutUserNestedInput
+    pengajuanDiproses?: PengajuanIzinUncheckedUpdateManyWithoutDiProsesOlehNestedInput
     guruProfil?: GuruUncheckedUpdateOneWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -21690,6 +23753,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaCreateNestedOneWithoutUserInput
+    pengajuanDiproses?: PengajuanIzinCreateNestedManyWithoutDiProsesOlehInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     guruProfil?: GuruCreateNestedOneWithoutUserInput
   }
@@ -21705,6 +23771,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaUncheckedCreateNestedOneWithoutUserInput
+    pengajuanDiproses?: PengajuanIzinUncheckedCreateNestedManyWithoutDiProsesOlehInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     guruProfil?: GuruUncheckedCreateNestedOneWithoutUserInput
   }
@@ -21736,6 +23805,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUpdateOneWithoutUserNestedInput
+    pengajuanDiproses?: PengajuanIzinUpdateManyWithoutDiProsesOlehNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     guruProfil?: GuruUpdateOneWithoutUserNestedInput
   }
@@ -21751,6 +23823,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUncheckedUpdateOneWithoutUserNestedInput
+    pengajuanDiproses?: PengajuanIzinUncheckedUpdateManyWithoutDiProsesOlehNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     guruProfil?: GuruUncheckedUpdateOneWithoutUserNestedInput
   }
@@ -21766,6 +23841,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaCreateNestedOneWithoutUserInput
+    pengajuanDiproses?: PengajuanIzinCreateNestedManyWithoutDiProsesOlehInput
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
@@ -21781,6 +23859,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaUncheckedCreateNestedOneWithoutUserInput
+    pengajuanDiproses?: PengajuanIzinUncheckedCreateNestedManyWithoutDiProsesOlehInput
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -21907,6 +23988,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUpdateOneWithoutUserNestedInput
+    pengajuanDiproses?: PengajuanIzinUpdateManyWithoutDiProsesOlehNestedInput
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
@@ -21922,6 +24006,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUncheckedUpdateOneWithoutUserNestedInput
+    pengajuanDiproses?: PengajuanIzinUncheckedUpdateManyWithoutDiProsesOlehNestedInput
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -22172,6 +24259,81 @@ export namespace Prisma {
     create: XOR<KelasCreateWithoutSiswaInput, KelasUncheckedCreateWithoutSiswaInput>
   }
 
+  export type UserCreateWithoutSiswaProfilInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    password: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    siswaId?: string | null
+    pengajuanDiproses?: PengajuanIzinCreateNestedManyWithoutDiProsesOlehInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    guruProfil?: GuruCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSiswaProfilInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    password: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    siswaId?: string | null
+    pengajuanDiproses?: PengajuanIzinUncheckedCreateNestedManyWithoutDiProsesOlehInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    guruProfil?: GuruUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSiswaProfilInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSiswaProfilInput, UserUncheckedCreateWithoutSiswaProfilInput>
+  }
+
+  export type PengajuanIzinCreateWithoutSiswaInput = {
+    id?: string
+    tanggal: Date | string
+    status?: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl?: string | null
+    komentarAdmin?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    diProsesOleh?: UserCreateNestedOneWithoutPengajuanDiprosesInput
+  }
+
+  export type PengajuanIzinUncheckedCreateWithoutSiswaInput = {
+    id?: string
+    tanggal: Date | string
+    status?: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl?: string | null
+    diProsesOlehId?: string | null
+    komentarAdmin?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PengajuanIzinCreateOrConnectWithoutSiswaInput = {
+    where: PengajuanIzinWhereUniqueInput
+    create: XOR<PengajuanIzinCreateWithoutSiswaInput, PengajuanIzinUncheckedCreateWithoutSiswaInput>
+  }
+
+  export type PengajuanIzinCreateManySiswaInputEnvelope = {
+    data: PengajuanIzinCreateManySiswaInput | PengajuanIzinCreateManySiswaInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AbsenHarianUpsertWithWhereUniqueWithoutSiswaInput = {
     where: AbsenHarianWhereUniqueInput
     update: XOR<AbsenHarianUpdateWithoutSiswaInput, AbsenHarianUncheckedUpdateWithoutSiswaInput>
@@ -22253,6 +24415,69 @@ export namespace Prisma {
     jadwal?: JadwalPelajaranUncheckedUpdateManyWithoutKelasNestedInput
   }
 
+  export type UserUpsertWithoutSiswaProfilInput = {
+    update: XOR<UserUpdateWithoutSiswaProfilInput, UserUncheckedUpdateWithoutSiswaProfilInput>
+    create: XOR<UserCreateWithoutSiswaProfilInput, UserUncheckedCreateWithoutSiswaProfilInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSiswaProfilInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSiswaProfilInput, UserUncheckedUpdateWithoutSiswaProfilInput>
+  }
+
+  export type UserUpdateWithoutSiswaProfilInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    pengajuanDiproses?: PengajuanIzinUpdateManyWithoutDiProsesOlehNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    guruProfil?: GuruUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSiswaProfilInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    pengajuanDiproses?: PengajuanIzinUncheckedUpdateManyWithoutDiProsesOlehNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    guruProfil?: GuruUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PengajuanIzinUpsertWithWhereUniqueWithoutSiswaInput = {
+    where: PengajuanIzinWhereUniqueInput
+    update: XOR<PengajuanIzinUpdateWithoutSiswaInput, PengajuanIzinUncheckedUpdateWithoutSiswaInput>
+    create: XOR<PengajuanIzinCreateWithoutSiswaInput, PengajuanIzinUncheckedCreateWithoutSiswaInput>
+  }
+
+  export type PengajuanIzinUpdateWithWhereUniqueWithoutSiswaInput = {
+    where: PengajuanIzinWhereUniqueInput
+    data: XOR<PengajuanIzinUpdateWithoutSiswaInput, PengajuanIzinUncheckedUpdateWithoutSiswaInput>
+  }
+
+  export type PengajuanIzinUpdateManyWithWhereWithoutSiswaInput = {
+    where: PengajuanIzinScalarWhereInput
+    data: XOR<PengajuanIzinUpdateManyMutationInput, PengajuanIzinUncheckedUpdateManyWithoutSiswaInput>
+  }
+
   export type JadwalPelajaranCreateWithoutKelasInput = {
     id?: string
     hari: string
@@ -22317,21 +24542,25 @@ export namespace Prisma {
   export type SiswaCreateWithoutKelasInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
     absenHarian?: AbsenHarianCreateNestedManyWithoutSiswaInput
     absenMapel?: AbsenMapelCreateNestedManyWithoutSiswaInput
+    user?: UserCreateNestedOneWithoutSiswaProfilInput
+    pengajuanIzin?: PengajuanIzinCreateNestedManyWithoutSiswaInput
   }
 
   export type SiswaUncheckedCreateWithoutKelasInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
+    userId?: string | null
     absenHarian?: AbsenHarianUncheckedCreateNestedManyWithoutSiswaInput
     absenMapel?: AbsenMapelUncheckedCreateNestedManyWithoutSiswaInput
+    pengajuanIzin?: PengajuanIzinUncheckedCreateNestedManyWithoutSiswaInput
   }
 
   export type SiswaCreateOrConnectWithoutKelasInput = {
@@ -22419,10 +24648,11 @@ export namespace Prisma {
     NOT?: SiswaScalarWhereInput | SiswaScalarWhereInput[]
     id?: StringFilter<"Siswa"> | string
     nama?: StringFilter<"Siswa"> | string
-    nisn?: StringFilter<"Siswa"> | string
+    nisn?: StringNullableFilter<"Siswa"> | string | null
     kode?: StringFilter<"Siswa"> | string
     gender?: EnumGenderFilter<"Siswa"> | $Enums.Gender
     kelasId?: StringFilter<"Siswa"> | string
+    userId?: StringNullableFilter<"Siswa"> | string | null
   }
 
   export type JadwalPelajaranCreateWithoutMapelInput = {
@@ -22668,21 +24898,25 @@ export namespace Prisma {
   export type SiswaCreateWithoutAbsenHarianInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
     absenMapel?: AbsenMapelCreateNestedManyWithoutSiswaInput
     kelas: KelasCreateNestedOneWithoutSiswaInput
+    user?: UserCreateNestedOneWithoutSiswaProfilInput
+    pengajuanIzin?: PengajuanIzinCreateNestedManyWithoutSiswaInput
   }
 
   export type SiswaUncheckedCreateWithoutAbsenHarianInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
     kelasId: string
+    userId?: string | null
     absenMapel?: AbsenMapelUncheckedCreateNestedManyWithoutSiswaInput
+    pengajuanIzin?: PengajuanIzinUncheckedCreateNestedManyWithoutSiswaInput
   }
 
   export type SiswaCreateOrConnectWithoutAbsenHarianInput = {
@@ -22704,21 +24938,25 @@ export namespace Prisma {
   export type SiswaUpdateWithoutAbsenHarianInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     absenMapel?: AbsenMapelUpdateManyWithoutSiswaNestedInput
     kelas?: KelasUpdateOneRequiredWithoutSiswaNestedInput
+    user?: UserUpdateOneWithoutSiswaProfilNestedInput
+    pengajuanIzin?: PengajuanIzinUpdateManyWithoutSiswaNestedInput
   }
 
   export type SiswaUncheckedUpdateWithoutAbsenHarianInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     kelasId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     absenMapel?: AbsenMapelUncheckedUpdateManyWithoutSiswaNestedInput
+    pengajuanIzin?: PengajuanIzinUncheckedUpdateManyWithoutSiswaNestedInput
   }
 
   export type JadwalPelajaranCreateWithoutAbsenMapelInput = {
@@ -22749,21 +24987,25 @@ export namespace Prisma {
   export type SiswaCreateWithoutAbsenMapelInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
     absenHarian?: AbsenHarianCreateNestedManyWithoutSiswaInput
     kelas: KelasCreateNestedOneWithoutSiswaInput
+    user?: UserCreateNestedOneWithoutSiswaProfilInput
+    pengajuanIzin?: PengajuanIzinCreateNestedManyWithoutSiswaInput
   }
 
   export type SiswaUncheckedCreateWithoutAbsenMapelInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
     kelasId: string
+    userId?: string | null
     absenHarian?: AbsenHarianUncheckedCreateNestedManyWithoutSiswaInput
+    pengajuanIzin?: PengajuanIzinUncheckedCreateNestedManyWithoutSiswaInput
   }
 
   export type SiswaCreateOrConnectWithoutAbsenMapelInput = {
@@ -22816,21 +25058,25 @@ export namespace Prisma {
   export type SiswaUpdateWithoutAbsenMapelInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     absenHarian?: AbsenHarianUpdateManyWithoutSiswaNestedInput
     kelas?: KelasUpdateOneRequiredWithoutSiswaNestedInput
+    user?: UserUpdateOneWithoutSiswaProfilNestedInput
+    pengajuanIzin?: PengajuanIzinUpdateManyWithoutSiswaNestedInput
   }
 
   export type SiswaUncheckedUpdateWithoutAbsenMapelInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     kelasId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     absenHarian?: AbsenHarianUncheckedUpdateManyWithoutSiswaNestedInput
+    pengajuanIzin?: PengajuanIzinUncheckedUpdateManyWithoutSiswaNestedInput
   }
 
   export type GuruCreateWithoutAbsenHarianInput = {
@@ -22901,6 +25147,170 @@ export namespace Prisma {
     jadwalPiket?: JadwalPiketUncheckedUpdateManyWithoutGuruNestedInput
   }
 
+  export type SiswaCreateWithoutPengajuanIzinInput = {
+    id?: string
+    nama: string
+    nisn?: string | null
+    kode: string
+    gender?: $Enums.Gender
+    absenHarian?: AbsenHarianCreateNestedManyWithoutSiswaInput
+    absenMapel?: AbsenMapelCreateNestedManyWithoutSiswaInput
+    kelas: KelasCreateNestedOneWithoutSiswaInput
+    user?: UserCreateNestedOneWithoutSiswaProfilInput
+  }
+
+  export type SiswaUncheckedCreateWithoutPengajuanIzinInput = {
+    id?: string
+    nama: string
+    nisn?: string | null
+    kode: string
+    gender?: $Enums.Gender
+    kelasId: string
+    userId?: string | null
+    absenHarian?: AbsenHarianUncheckedCreateNestedManyWithoutSiswaInput
+    absenMapel?: AbsenMapelUncheckedCreateNestedManyWithoutSiswaInput
+  }
+
+  export type SiswaCreateOrConnectWithoutPengajuanIzinInput = {
+    where: SiswaWhereUniqueInput
+    create: XOR<SiswaCreateWithoutPengajuanIzinInput, SiswaUncheckedCreateWithoutPengajuanIzinInput>
+  }
+
+  export type UserCreateWithoutPengajuanDiprosesInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    password: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaCreateNestedOneWithoutUserInput
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    guruProfil?: GuruCreateNestedOneWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutPengajuanDiprosesInput = {
+    id?: string
+    name?: string | null
+    email: string
+    emailVerified?: Date | string | null
+    image?: string | null
+    password: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lastLogin?: Date | string | null
+    siswaId?: string | null
+    siswaProfil?: SiswaUncheckedCreateNestedOneWithoutUserInput
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    guruProfil?: GuruUncheckedCreateNestedOneWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutPengajuanDiprosesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutPengajuanDiprosesInput, UserUncheckedCreateWithoutPengajuanDiprosesInput>
+  }
+
+  export type SiswaUpsertWithoutPengajuanIzinInput = {
+    update: XOR<SiswaUpdateWithoutPengajuanIzinInput, SiswaUncheckedUpdateWithoutPengajuanIzinInput>
+    create: XOR<SiswaCreateWithoutPengajuanIzinInput, SiswaUncheckedCreateWithoutPengajuanIzinInput>
+    where?: SiswaWhereInput
+  }
+
+  export type SiswaUpdateToOneWithWhereWithoutPengajuanIzinInput = {
+    where?: SiswaWhereInput
+    data: XOR<SiswaUpdateWithoutPengajuanIzinInput, SiswaUncheckedUpdateWithoutPengajuanIzinInput>
+  }
+
+  export type SiswaUpdateWithoutPengajuanIzinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
+    kode?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    absenHarian?: AbsenHarianUpdateManyWithoutSiswaNestedInput
+    absenMapel?: AbsenMapelUpdateManyWithoutSiswaNestedInput
+    kelas?: KelasUpdateOneRequiredWithoutSiswaNestedInput
+    user?: UserUpdateOneWithoutSiswaProfilNestedInput
+  }
+
+  export type SiswaUncheckedUpdateWithoutPengajuanIzinInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    nama?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
+    kode?: StringFieldUpdateOperationsInput | string
+    gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    kelasId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    absenHarian?: AbsenHarianUncheckedUpdateManyWithoutSiswaNestedInput
+    absenMapel?: AbsenMapelUncheckedUpdateManyWithoutSiswaNestedInput
+  }
+
+  export type UserUpsertWithoutPengajuanDiprosesInput = {
+    update: XOR<UserUpdateWithoutPengajuanDiprosesInput, UserUncheckedUpdateWithoutPengajuanDiprosesInput>
+    create: XOR<UserCreateWithoutPengajuanDiprosesInput, UserUncheckedCreateWithoutPengajuanDiprosesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutPengajuanDiprosesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutPengajuanDiprosesInput, UserUncheckedUpdateWithoutPengajuanDiprosesInput>
+  }
+
+  export type UserUpdateWithoutPengajuanDiprosesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUpdateOneWithoutUserNestedInput
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    guruProfil?: GuruUpdateOneWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutPengajuanDiprosesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lastLogin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    siswaId?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaProfil?: SiswaUncheckedUpdateOneWithoutUserNestedInput
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    guruProfil?: GuruUncheckedUpdateOneWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PengajuanIzinCreateManyDiProsesOlehInput = {
+    id?: string
+    tanggal: Date | string
+    status?: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl?: string | null
+    siswaId: string
+    komentarAdmin?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AccountCreateManyUserInput = {
     type: string
     provider: string
@@ -22921,6 +25331,42 @@ export namespace Prisma {
     expires: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type PengajuanIzinUpdateWithoutDiProsesOlehInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    siswa?: SiswaUpdateOneRequiredWithoutPengajuanIzinNestedInput
+  }
+
+  export type PengajuanIzinUncheckedUpdateWithoutDiProsesOlehInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaId?: StringFieldUpdateOperationsInput | string
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengajuanIzinUncheckedUpdateManyWithoutDiProsesOlehInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    siswaId?: StringFieldUpdateOperationsInput | string
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -23095,6 +25541,18 @@ export namespace Prisma {
     jadwalId: string
   }
 
+  export type PengajuanIzinCreateManySiswaInput = {
+    id?: string
+    tanggal: Date | string
+    status?: $Enums.StatusPengajuan
+    alasan: string
+    buktiUrl?: string | null
+    diProsesOlehId?: string | null
+    komentarAdmin?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type AbsenHarianUpdateWithoutSiswaInput = {
     id?: StringFieldUpdateOperationsInput | string
     tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23143,6 +25601,42 @@ export namespace Prisma {
     jadwalId?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PengajuanIzinUpdateWithoutSiswaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    diProsesOleh?: UserUpdateOneWithoutPengajuanDiprosesNestedInput
+  }
+
+  export type PengajuanIzinUncheckedUpdateWithoutSiswaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    diProsesOlehId?: NullableStringFieldUpdateOperationsInput | string | null
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PengajuanIzinUncheckedUpdateManyWithoutSiswaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: EnumStatusPengajuanFieldUpdateOperationsInput | $Enums.StatusPengajuan
+    alasan?: StringFieldUpdateOperationsInput | string
+    buktiUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    diProsesOlehId?: NullableStringFieldUpdateOperationsInput | string | null
+    komentarAdmin?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type JadwalPelajaranCreateManyKelasInput = {
     id?: string
     hari: string
@@ -23155,9 +25649,10 @@ export namespace Prisma {
   export type SiswaCreateManyKelasInput = {
     id?: string
     nama: string
-    nisn: string
+    nisn?: string | null
     kode: string
     gender?: $Enums.Gender
+    userId?: string | null
   }
 
   export type JadwalPelajaranUpdateWithoutKelasInput = {
@@ -23192,29 +25687,34 @@ export namespace Prisma {
   export type SiswaUpdateWithoutKelasInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     absenHarian?: AbsenHarianUpdateManyWithoutSiswaNestedInput
     absenMapel?: AbsenMapelUpdateManyWithoutSiswaNestedInput
+    user?: UserUpdateOneWithoutSiswaProfilNestedInput
+    pengajuanIzin?: PengajuanIzinUpdateManyWithoutSiswaNestedInput
   }
 
   export type SiswaUncheckedUpdateWithoutKelasInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     absenHarian?: AbsenHarianUncheckedUpdateManyWithoutSiswaNestedInput
     absenMapel?: AbsenMapelUncheckedUpdateManyWithoutSiswaNestedInput
+    pengajuanIzin?: PengajuanIzinUncheckedUpdateManyWithoutSiswaNestedInput
   }
 
   export type SiswaUncheckedUpdateManyWithoutKelasInput = {
     id?: StringFieldUpdateOperationsInput | string
     nama?: StringFieldUpdateOperationsInput | string
-    nisn?: StringFieldUpdateOperationsInput | string
+    nisn?: NullableStringFieldUpdateOperationsInput | string | null
     kode?: StringFieldUpdateOperationsInput | string
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type JadwalPelajaranCreateManyMapelInput = {

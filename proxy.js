@@ -116,11 +116,23 @@ export default auth((req) => {
 
   // Kalo USER
   if (role === "USER") {
-    // Cuma boleh ke '/dashboard'
-    if (pathname === "/dashboard") {
-      return NextResponse.next();
+    const allowedRoutes = [
+      "/dashboard",
+      "/api/dashboard/siswa",
+      "/pengajuan/izin",
+      "/api/izin/ajukan",
+      "/api/cloudinary",
+    ];
+
+    const isRouteAllowed = allowedRoutes.some((route) =>
+      pathname.startsWith(route)
+    );
+
+    if (isRouteAllowed) {
+      return NextResponse.next(); // Boleh masuk
     }
-    // Kalo nyoba ke tempat lain termasuk API, tendang
+
+    // Kalo nyoba ke tempat lain, tendang
     return NextResponse.redirect(new URL("/dashboard", nextUrl));
   }
 

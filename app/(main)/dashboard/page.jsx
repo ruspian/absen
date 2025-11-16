@@ -44,7 +44,7 @@ const DashboardPage = () => {
     <div>
       <Breadcrumb />
 
-      <div className="flex items-center justify-end gap-2 ">
+      <div className="flex items-center justify-end gap-2 mt-4">
         <h1 className=" border rounded-sm px-4 py-2 text-xs ml-2">
           {getRoleName()}
         </h1>

@@ -14,6 +14,7 @@ import {
   CiFileOn,
   CiSettings,
   CiLogout,
+  CiMail,
 } from "react-icons/ci";
 import { IoSchoolSharp } from "react-icons/io5";
 
@@ -217,6 +218,15 @@ export const SidebarLink = ({ className, ...props }) => {
       },
     ];
 
+    const siswaMenu = [
+      { label: "Dashboard", href: "/dashboard", icon: <CiGrid31 size={30} /> },
+      {
+        label: "Pengajuan",
+        icon: <CiMail size={30} />,
+        subLinks: [{ label: "Izin", href: "/pengajuan/izin" }],
+      },
+    ];
+
     if (!session) {
       return []; // Menu kosong jika belum login
     }
@@ -231,7 +241,7 @@ export const SidebarLink = ({ className, ...props }) => {
     } else if (userRole === "GURU" && !isPiket) {
       return guruBiasaMenu;
     } else {
-      return [];
+      return siswaMenu;
     }
   }, [session]);
 

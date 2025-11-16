@@ -131,7 +131,8 @@ exports.Prisma.UserScalarFieldEnum = {
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  lastLogin: 'lastLogin'
+  lastLogin: 'lastLogin',
+  siswaId: 'siswaId'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -186,7 +187,8 @@ exports.Prisma.SiswaScalarFieldEnum = {
   nisn: 'nisn',
   kode: 'kode',
   gender: 'gender',
-  kelasId: 'kelasId'
+  kelasId: 'kelasId',
+  userId: 'userId'
 };
 
 exports.Prisma.KelasScalarFieldEnum = {
@@ -244,6 +246,19 @@ exports.Prisma.PengaturanScalarFieldEnum = {
   jamPulangSekolah: 'jamPulangSekolah'
 };
 
+exports.Prisma.PengajuanIzinScalarFieldEnum = {
+  id: 'id',
+  tanggal: 'tanggal',
+  status: 'status',
+  alasan: 'alasan',
+  buktiUrl: 'buktiUrl',
+  siswaId: 'siswaId',
+  diProsesOlehId: 'diProsesOlehId',
+  komentarAdmin: 'komentarAdmin',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -283,6 +298,12 @@ exports.StatusMapel = exports.$Enums.StatusMapel = {
   ALFA: 'ALFA'
 };
 
+exports.StatusPengajuan = exports.$Enums.StatusPengajuan = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Account: 'Account',
@@ -297,7 +318,8 @@ exports.Prisma.ModelName = {
   AbsenHarian: 'AbsenHarian',
   AbsenMapel: 'AbsenMapel',
   AbsenGuruHarian: 'AbsenGuruHarian',
-  Pengaturan: 'Pengaturan'
+  Pengaturan: 'Pengaturan',
+  PengajuanIzin: 'PengajuanIzin'
 };
 
 /**

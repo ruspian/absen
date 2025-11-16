@@ -20,9 +20,14 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   lastLogin     DateTime?
-  accounts      Account[]
-  guruProfil    Guru?     @relation("UserGuru")
-  sessions      Session[]
+
+  siswaProfil Siswa?  @relation("UserSiswa")
+  siswaId     String? @unique
+
+  pengajuanDiproses PengajuanIzin[] @relation("AdminPersetujuan")
+  accounts          Account[]
+  guruProfil        Guru?           @relation("UserGuru")
+  sessions          Session[]
 }
 
 model Account {
@@ -90,13 +95,18 @@ model JadwalPiket {
 model Siswa {
   id          String        @id @default(cuid())
   nama        String
-  nisn        String        @unique
+  nisn        String?
   kode        String        @unique
   gender      Gender        @default(LAKI_LAKI)
   kelasId     String
   absenHarian AbsenHarian[]
   absenMapel  AbsenMapel[]
   kelas       Kelas         @relation(fields: [kelasId], references: [id])
+
+  userId String? @unique
+  user   User?   @relation("UserSiswa", fields: [userId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  pengajuanIzin PengajuanIzin[] @relation("SiswaIzin")
 }
 
 model Kelas {
@@ -199,4 +209,35 @@ model Pengaturan {
   id               String @id @default(cuid())
   jamMasukSekolah  String @default("07:15")
   jamPulangSekolah String @default("13:00")
+}
+
+model PengajuanIzin {
+  id       String          @id @default(cuid())
+  tanggal  DateTime        @db.Date
+  status   StatusPengajuan @default(PENDING)
+  alasan   String          @db.Text
+  buktiUrl String?
+
+  // Relasi ke Siswa
+  siswaId String
+  siswa   Siswa  @relation("SiswaIzin", fields: [siswaId], references: [id], onDelete: Cascade)
+
+  // Relasi ke Admin/Guru yg memproses
+  diProsesOlehId String?
+  diProsesOleh   User?   @relation("AdminPersetujuan", fields: [diProsesOlehId], references: [id])
+  komentarAdmin  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Bikin unik biar gak double submit di hari yg sama
+  @@unique([siswaId, tanggal])
+  @@index([siswaId])
+  @@index([diProsesOlehId])
+}
+
+enum StatusPengajuan {
+  PENDING
+  APPROVED
+  REJECTED
 }
