@@ -166,9 +166,12 @@ export const SidebarLink = ({ className, ...props }) => {
         ],
       },
       {
-        label: "Pengguna",
+        label: "Pengaturan",
         icon: <CiSettings size={30} />,
-        subLinks: [{ label: "Akun Pengguna", href: "/pengguna/akun" }],
+        subLinks: [
+          { label: "Akun Pengguna", href: "/pengaturan/akun" },
+          { label: "Jam Absen", href: "/pengaturan/jam" },
+        ],
       },
       {
         label: "Laporan",

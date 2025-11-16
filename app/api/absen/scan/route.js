@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
-import { format } from "date-fns";
-import { id as localeID } from "date-fns/locale";
 import { getToday, getTodayNameWITA } from "@/lib/formatTime";
 
 const TIMEZONE = "Asia/Makassar"; // WITA
@@ -16,7 +14,7 @@ const getUTCTime = (date) => {
   return timeOnly;
 };
 
-const BATAS_MENIT_MINIMAL = 180; // 3 jam
+// const BATAS_MENIT_MINIMAL = 180; // 3 jam
 
 export const POST = async (req) => {
   try {
@@ -66,7 +64,12 @@ export const POST = async (req) => {
 
     const today = getToday();
     const jamSekarang = new Date();
-    const jamMasukUTC = getUTCTime(jamSekarang);
+    const jamScanUTC = getUTCTime(jamSekarang);
+
+    const pengaturan = await prisma.pengaturan.findFirst();
+    if (!pengaturan) {
+      throw new Error("Pengaturan jam sekolah belum di-set di database.");
+    }
 
     if (tipe === "siswa") {
       // cek siswa berdasarkan kode
@@ -87,13 +90,28 @@ export const POST = async (req) => {
         });
 
         if (!absenAda) {
+          const jamMasukSettingWITA = pengaturan.jamMasukSekolah;
+
+          // Ambil jam scan (WITA)
+          const jamSekarangWITA = new Date().toLocaleTimeString("en-GB", {
+            timeZone: TIMEZONE,
+            hour: "2-digit",
+            minute: "2-digit",
+          }); // Format "07:20"
+
+          let pesanResponse = `Masuk: ${siswa.nama}`;
+
+          if (jamSekarangWITA > jamMasukSettingWITA) {
+            pesanResponse = `TERLAMBAT: ${siswa.nama}, Masuk: Pukul ${jamSekarangWITA} Wita.`;
+          }
+
           // kalo absennya belum ada, buat absen baru
           const absenBaru = await prisma.absenHarian.create({
             data: {
               siswaId: siswa.id,
               tanggal: today,
               status: "HADIR",
-              jamMasuk: jamMasukUTC,
+              jamMasuk: jamScanUTC,
             },
           });
 
@@ -109,26 +127,21 @@ export const POST = async (req) => {
 
           return NextResponse.json({
             data: dataSiswaResponse,
-            message: `Masuk: ${siswa.nama}`,
+            message: pesanResponse,
           });
         } else if (absenAda && !absenAda.jamPulang) {
-          // Ambil 'jamMasuk'
-          const jamMasuk_DB = new Date(absenAda.jamMasuk);
+          //  Ambil jam pulang sekolah (misal "13:00")
+          const [jPulang, mPulang] = pengaturan.jamPulangSekolah
+            .split(":")
+            .map(Number);
 
-          // buat 'jamMasuk' pake tanggal HARI INI
-          const jamMasuk_HariIni = new Date(jamSekarang);
+          // Bikin "13:00" WITA jadi Date object (1970 UTC)
+          //    "13:00" WITA = "05:00" UTC
+          const jamPulangSekolahUTC = new Date(
+            Date.UTC(1970, 0, 1, jPulang - 8, mPulang)
+          );
 
-          // Pindahin jam/menit/detik dari data DB ke tanggal hari ini
-          jamMasuk_HariIni.setUTCHours(jamMasuk_DB.getUTCHours());
-          jamMasuk_HariIni.setUTCMinutes(jamMasuk_DB.getUTCMinutes());
-          jamMasuk_HariIni.setUTCSeconds(jamMasuk_DB.getUTCSeconds());
-
-          // bandingkan jamMasuk_HariIni dengan jamSekarang
-          const selisihMenit =
-            (jamSekarang.getTime() - jamMasuk_HariIni.getTime()) / 60000;
-
-          //   cek jika scan lagi terlalu cepat
-          if (selisihMenit < BATAS_MENIT_MINIMAL) {
+          if (jamScanUTC.getTime() < jamPulangSekolahUTC.getTime()) {
             const dataSiswaResponse = {
               id: siswa.id,
               nama: siswa.nama,
@@ -137,11 +150,10 @@ export const POST = async (req) => {
               kelas: siswa.kelas.nama,
               absen: absenAda,
             };
-
             return NextResponse.json(
               {
                 data: dataSiswaResponse,
-                message: `${siswa.nama} sudah absen MASUK. Belum bisa absen pulang.`,
+                message: `${siswa.nama} sudah absen MASUK. Belum jam pulang (${pengaturan.jamPulangSekolah} WITA).`,
               },
               { status: 400 } // 400 Bad Request
             );
@@ -150,7 +162,7 @@ export const POST = async (req) => {
           // kalo siswa udah absen masuk tapi belum absen pulang, update jam pulang
           const absenUpdate = await prisma.absenHarian.update({
             where: { id: absenAda.id },
-            data: { jamPulang: jamMasukUTC },
+            data: { jamPulang: jamScanUTC },
           });
 
           // siapkan data response siswa
@@ -206,12 +218,27 @@ export const POST = async (req) => {
         });
 
         if (!absenAda) {
+          const jamMasukSettingWITA = pengaturan.jamMasukSekolah;
+
+          // Ambil jam scan (WITA)
+          const jamSekarangWITA = new Date().toLocaleTimeString("en-GB", {
+            timeZone: TIMEZONE,
+            hour: "2-digit",
+            minute: "2-digit",
+          }); // Format "07:20"
+
+          let pesanResponse = `Masuk: ${guru.nama}`;
+
+          if (jamSekarangWITA > jamMasukSettingWITA) {
+            pesanResponse = `TERLAMBAT: ${guru.nama}, Masuk: Pukul ${jamSekarangWITA} Wita.`;
+          }
+
           const absenBaru = await prisma.absenGuruHarian.create({
             data: {
               guruId: guru.id,
               tanggal: today,
               status: "HADIR",
-              jamMasuk: jamMasukUTC,
+              jamMasuk: jamScanUTC,
             },
           });
 
@@ -227,26 +254,18 @@ export const POST = async (req) => {
 
           return NextResponse.json({
             data: dataGuruResponse,
-            message: `Masuk: ${guru.nama} (Guru)`,
+            message: pesanResponse,
           });
         } else if (absenAda && !absenAda.jamPulang) {
-          // Ambil 'jamMasuk'
-          const jamMasuk_DB = new Date(absenAda.jamMasuk);
-
-          // buat 'jamMasuk' pake tanggal HARI INI
-          const jamMasuk_HariIni = new Date(jamSekarang);
-
-          // Pindahin jam/menit/detik dari data DB ke tanggal hari ini
-          jamMasuk_HariIni.setUTCHours(jamMasuk_DB.getUTCHours());
-          jamMasuk_HariIni.setUTCMinutes(jamMasuk_DB.getUTCMinutes());
-          jamMasuk_HariIni.setUTCSeconds(jamMasuk_DB.getUTCSeconds());
-
-          // bandingkan jamMasuk_HariIni dengan jamSekarang
-          const selisihMenit =
-            (jamSekarang.getTime() - jamMasuk_HariIni.getTime()) / 60000;
+          const [jPulang, mPulang] = pengaturan.jamPulangSekolah
+            .split(":")
+            .map(Number);
+          const jamPulangSekolahUTC = new Date(
+            Date.UTC(1970, 0, 1, jPulang - 8, mPulang)
+          );
 
           //   cek jika scan lagi terlalu cepat
-          if (selisihMenit < BATAS_MENIT_MINIMAL) {
+          if (jamScanUTC.getTime() < jamPulangSekolahUTC.getTime()) {
             const dataGuruResponse = {
               id: guru.id,
               nama: guru.nama,
@@ -255,18 +274,17 @@ export const POST = async (req) => {
               nuptk: guru.nuptk,
               absen: absenAda,
             };
-
             return NextResponse.json(
               {
                 data: dataGuruResponse,
-                message: `${guru.nama} sudah absen MASUK. Belum bisa absen pulang.`,
+                message: `${guru.nama} sudah absen MASUK. Belum jam pulang (${pengaturan.jamPulangSekolah} WITA).`,
               },
               { status: 400 } // 400 Bad Request
             );
           }
           const absenUpdate = await prisma.absenGuruHarian.update({
             where: { id: absenAda.id },
-            data: { jamPulang: jamMasukUTC },
+            data: { jamPulang: jamScanUTC },
           });
 
           // siapkan data response siswa
