@@ -2,30 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { Prisma } from "@prisma/client";
-
-const TIMEZONE = "Asia/Makassar"; // WITA
-
-// ubah string tanggal "2025-11-20T..." jadi 00:00 WITA
-const getWitaDate = (dateString) => {
-  //  Buat tanggal baru pake timezone WITA
-  const witaDate = new Date(
-    new Date(dateString).toLocaleString("en-US", { timeZone: TIMEZONE })
-  );
-
-  //  Set ke jam 00:00
-  witaDate.setHours(0, 0, 0, 0);
-
-  // Konversi ke UTC (misal: 2025-11-19T16:00:00Z)
-  // simpan hanya tanggal
-  return new Date(
-    Date.UTC(
-      witaDate.getFullYear(),
-      witaDate.getMonth(),
-      witaDate.getDate(),
-      -8 // -8 jam (WITA ke UTC)
-    )
-  );
-};
+import { getToday } from "@/lib/formatTime";
 
 export const POST = async (req) => {
   try {
@@ -51,7 +28,10 @@ export const POST = async (req) => {
     }
 
     // Konversi 'tanggal' ke format WITA 00:00
-    const tanggalIzin = getWitaDate(tanggal);
+    const tanggalIzin = getToday(tanggal);
+    console.log("tanggal", tanggal);
+
+    console.log("tanggalIzin", tanggalIzin);
 
     // Buat pengajuan baru
     const pengajuan = await prisma.pengajuanIzin.create({

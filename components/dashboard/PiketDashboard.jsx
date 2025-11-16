@@ -10,6 +10,7 @@ import { useToaster } from "@/providers/ToasterProvider";
 import TabelJadwalGuruHariIni from "../tabel/TabelJadwalGuruHariIni";
 import { getTodayNameWITA, getWaktuSekarang } from "@/lib/formatTime";
 import AksesDitolak from "../AksesDitolak";
+import { useRouter } from "next/navigation";
 
 const PiketDashboard = ({ session }) => {
   const [stats, setStats] = useState(null);
@@ -20,25 +21,37 @@ const PiketDashboard = ({ session }) => {
   const { user } = session;
 
   const toaster = useToaster();
+  const router = useRouter();
   const jamSekarang = getWaktuSekarang();
 
   // Fetch data statistik piket
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [dataPiket, jadwalGuru] = await Promise.all([
-          getDashboardGuruPiket(),
-          getGuruById(user.guruId),
+        const [piketResponse, jadwalResponse] = await Promise.all([
+          fetch("/api/dashboard/piket"),
+          fetch("/api/jadwal"),
         ]);
 
-        const hariIni = getTodayNameWITA();
-        const jadwalHariIni = jadwalGuru.mengajarDiJadwal?.find(
-          (jadwal) => jadwal.hari === hariIni
-        );
-
-        setDataJadwalHariIni([jadwalHariIni]);
+        if (!piketResponse.ok) {
+          const errData = await piketResponse.json();
+          throw new Error(
+            `Statistik: ${errData.message || "Gagal mengambil data"}`
+          );
+        }
+        const dataPiket = await piketResponse.json();
         setStats(dataPiket);
+
+        if (!jadwalResponse.ok) {
+          const errData = await jadwalResponse.json();
+          setDataJadwalHariIni([]); // Set jadi array kosong
+        } else {
+          const dataJadwal = await jadwalResponse.json();
+          setDataJadwalHariIni(dataJadwal);
+        }
       } catch (err) {
+        console.log("Error", err);
+
         setError(err.message);
         toaster.current.show({
           title: "Error",
@@ -52,7 +65,7 @@ const PiketDashboard = ({ session }) => {
       }
     };
     fetchStats();
-  }, [toaster, user.guruId]);
+  }, [toaster, user]);
 
   // jika Loading
   if (isLoading) {
@@ -116,6 +129,7 @@ const PiketDashboard = ({ session }) => {
         <TabelJadwalGuruHariIni
           data={dataJadwalHariIni}
           jamSekarang={jamSekarang}
+          router={router}
         />
       </div>
     </div>

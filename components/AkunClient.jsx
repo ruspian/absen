@@ -104,7 +104,7 @@ const AkunClient = ({ data }) => {
       {/* Input Search */}
       <div className="flex justify-between gap-4 mt-4">
         <Button
-          onClick={() => router.push(`/pengguna/akun/tambah`)}
+          onClick={() => router.push(`/pengaturan/akun/tambah`)}
           className="cursor-pointer"
         >
           <Plus className="mr-2 h-4 w-4" />
@@ -149,7 +149,7 @@ const AkunClient = ({ data }) => {
                       <DropdownMenuContent align="end">
                         <DropdownMenuItem
                           onClick={() =>
-                            router.push(`/pengguna/akun/edit?id=${item.id}`)
+                            router.push(`/pengaturan/akun/edit?id=${item.id}`)
                           }
                           className="cursor-pointer flex items-center gap-2"
                         >

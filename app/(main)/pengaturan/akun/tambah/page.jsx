@@ -12,12 +12,10 @@ const TambahAkunPage = async () => {
     prisma.guru.findMany({
       where: { userId: null },
       select: { id: true, nama: true },
-      orderBy: { nama: "asc" },
     }),
     prisma.siswa.findMany({
       where: { userId: null },
       select: { id: true, nama: true, kelas: { select: { nama: true } } },
-      orderBy: { kelas: { nama: "asc" }, nama: "asc" }, // Urut berdasarkan kelas, lalu nama
     }),
   ]);
 

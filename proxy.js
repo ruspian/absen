@@ -34,16 +34,22 @@ export default auth((req) => {
 
   // Rute Khusus Guru Piket atau admin
   const piketRoutes = [
+    "/dashboard",
+    "/pengajuan/approval",
     "/absensi",
     "/api/absen/scan",
     "/api/absen/manual",
     "/api/dashboard/piket",
+    "/api/mapel",
+    "/api/jadwal",
+    "/api/izin/approval",
+    "/api/laporan/bulanan-kelas",
   ];
 
   // Rute Umum Guru atau guru piket
   const guruRoutes = [
     "/mengajar/jadwal",
-    "/mengajar/absen-mapel",
+    "/mengajar/absensi",
     "/laporan",
     "/absen/mapel",
 
@@ -52,6 +58,7 @@ export default auth((req) => {
     "/api/laporan/bulanan-kelas",
     "/api/laporan/bulanan-guru",
     "/api/laporan/bulanan",
+    "/api/laporan/bulanan-kelas",
   ];
 
   // Cek Rute Publik

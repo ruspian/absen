@@ -14,13 +14,14 @@ import { Label } from "@/components/ui/label";
 import { useToaster } from "@/providers/ToasterProvider";
 import { useRouter } from "next/navigation";
 
-const FormTambahAkun = ({ dataGuru }) => {
+const FormTambahAkun = ({ dataGuru, dataSiswa }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    role: "GURU",
+    role: "USER",
     guruId: "",
+    siswaId: "",
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -33,10 +34,14 @@ const FormTambahAkun = ({ dataGuru }) => {
     if (!formData.name) newErrors.name = "Nama harus diisi";
     if (!formData.email) newErrors.email = "Email harus diisi";
     if (!formData.password) newErrors.password = "Password harus diisi";
+
     if (formData.role === "GURU" && !formData.guruId) {
-      // Kalo role-nya GURU, guruId wajib diisi
       newErrors.guruId = "Pilih profil guru untuk di-link";
     }
+    if (formData.role === "USER" && !formData.siswaId) {
+      newErrors.siswaId = "Pilih profil siswa untuk di-link";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -65,6 +70,7 @@ const FormTambahAkun = ({ dataGuru }) => {
         password: formData.password,
         role: formData.role,
         guruId: formData.role === "GURU" ? formData.guruId : undefined,
+        siswaId: formData.role === "USER" ? formData.siswaId : undefined,
       };
 
       const response = await fetch(
@@ -91,7 +97,7 @@ const FormTambahAkun = ({ dataGuru }) => {
         position: "top-center",
         duration: 5000,
       });
-      router.push("/pengguna/akun");
+      router.push("/pengaturan/akun");
       router.refresh();
     } catch (error) {
       toaster.current.show({
@@ -163,13 +169,25 @@ const FormTambahAkun = ({ dataGuru }) => {
           <Label htmlFor="role">Role Akun</Label>
           <Select
             value={formData.role}
-            onValueChange={(value) => handleInputChange("role", value)}
+            onValueChange={(value) => {
+              handleInputChange("role", value);
+
+              if (value === "GURU") {
+                handleInputChange("siswaId", "");
+              } else if (value === "USER") {
+                handleInputChange("guruId", "");
+              } else {
+                handleInputChange("siswaId", "");
+                handleInputChange("guruId", "");
+              }
+            }}
             disabled={isLoading}
           >
             <SelectTrigger>
               <SelectValue placeholder="Pilih Role" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="USER">USER</SelectItem>
               <SelectItem value="GURU">GURU</SelectItem>
               <SelectItem value="ADMIN">ADMIN</SelectItem>
             </SelectContent>
@@ -207,6 +225,40 @@ const FormTambahAkun = ({ dataGuru }) => {
             </Select>
             {errors.guruId && (
               <p className="text-sm text-red-600">{errors.guruId}</p>
+            )}
+          </div>
+        )}
+
+        {formData.role === "USER" && (
+          <div className="flex flex-col gap-2 p-4 border border-dashed rounded-md">
+            <Label htmlFor="siswaId">Link ke Profil Siswa</Label>
+            <p className="text-xs text-muted-foreground">
+              Pilih profil siswa yang sesuai untuk akun login ini.
+            </p>
+            <Select
+              value={formData.siswaId}
+              onValueChange={(value) => handleInputChange("siswaId", value)}
+              disabled={isLoading || dataSiswa.length === 0}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Pilih Profil Siswa" />
+              </SelectTrigger>
+              <SelectContent>
+                {dataSiswa.length > 0 ? (
+                  dataSiswa.map((siswa) => (
+                    <SelectItem key={siswa.id} value={siswa.id}>
+                      {siswa.nama} {/* (dataSiswa udah diformat di page.jsx) */}
+                    </SelectItem>
+                  ))
+                ) : (
+                  <SelectItem value="none" disabled>
+                    Semua siswa sudah punya akun.
+                  </SelectItem>
+                )}
+              </SelectContent>
+            </Select>
+            {errors.siswaId && (
+              <p className="text-sm text-red-600">{errors.siswaId}</p>
             )}
           </div>
         )}

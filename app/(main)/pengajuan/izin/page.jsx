@@ -53,7 +53,7 @@ const PengajuanIzinPage = () => {
     });
   };
 
-  // Fungsi Submit (manggil API kita sendiri)
+  // Fungsi Submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!tanggal || !alasan || !buktiUrl) {

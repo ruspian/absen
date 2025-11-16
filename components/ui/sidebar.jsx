@@ -188,6 +188,11 @@ export const SidebarLink = ({ className, ...props }) => {
     const guruPiketMenu = [
       { label: "Dashboard", href: "/dashboard", icon: <CiGrid31 size={30} /> },
       {
+        label: "Pengajuan Siswa",
+        href: "/pengajuan/approval",
+        icon: <CiMail size={30} />,
+      },
+      {
         label: "Tugas Piket",
         icon: <CiPen size={30} />,
         subLinks: [
