@@ -71,6 +71,8 @@ export const POST = async (req) => {
       throw new Error("Pengaturan jam sekolah belum di-set di database.");
     }
 
+    const jamMasukSettingWITA = pengaturan.jamMasukSekolah;
+
     if (tipe === "siswa") {
       // cek siswa berdasarkan kode
       const siswa = await prisma.siswa.findUnique({
@@ -90,8 +92,6 @@ export const POST = async (req) => {
         });
 
         if (!absenAda) {
-          const jamMasukSettingWITA = pengaturan.jamMasukSekolah;
-
           // Ambil jam scan (WITA)
           const jamSekarangWITA = new Date().toLocaleTimeString("en-GB", {
             timeZone: TIMEZONE,
@@ -218,8 +218,6 @@ export const POST = async (req) => {
         });
 
         if (!absenAda) {
-          const jamMasukSettingWITA = pengaturan.jamMasukSekolah;
-
           // Ambil jam scan (WITA)
           const jamSekarangWITA = new Date().toLocaleTimeString("en-GB", {
             timeZone: TIMEZONE,

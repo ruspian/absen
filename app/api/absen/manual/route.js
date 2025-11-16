@@ -59,25 +59,74 @@ export const POST = async (req) => {
     }
 
     if (siswaId) {
-      // jika ini siswa
-      const absenSiswa = await prisma.absenHarian.upsert({
-        where: {
-          siswaId_tanggal: {
+      const absenSiswa = await prisma.$transaction(async (tx) => {
+        //  Upsert AbsenHarian  => update and insert
+        const absenHarian = await tx.absenHarian.upsert({
+          where: {
+            siswaId_tanggal: { siswaId: siswaId, tanggal: today },
+          },
+          update: {
+            status: status,
+            jamMasuk: status === "HADIR" ? new Date() : null,
+            jamPulang: null,
+          },
+          create: {
             siswaId: siswaId,
             tanggal: today,
+            status: status,
+            jamMasuk: status === "HADIR" ? new Date() : null,
           },
-        },
-        update: {
-          status: status,
-          jamMasuk: status === "HADIR" ? new Date() : null,
-          jamPulang: null,
-        },
-        create: {
-          siswaId: siswaId,
-          tanggal: today,
-          status: status,
-          jamMasuk: status === "HADIR" ? new Date() : null,
-        },
+        });
+
+        // Singkoron kan dengan data AbsenMapel
+        // Kalo statusnya SAKIT, IZIN, atau ALFA
+        if (status === "SAKIT" || status === "IZIN" || status === "ALFA") {
+          // Ambil 'kelasId' siswa
+          const siswa = await tx.siswa.findUnique({
+            where: { id: siswaId },
+            select: { kelasId: true },
+          });
+
+          if (siswa && siswa.kelasId) {
+            // Ambil jadwal siswa HARI INI
+            const jadwalSiswaHariIni = await tx.jadwalPelajaran.findMany({
+              where: {
+                kelasId: siswa.kelasId,
+                hari: hariIni,
+              },
+            });
+
+            // Bikin data buat 'AbsenMapel'
+            const dataAbsenMapel = jadwalSiswaHariIni.map((jadwal) => ({
+              siswaId: siswaId,
+              jadwalId: jadwal.id,
+              tanggal: today,
+              status: status, // <== statusnya SAKIT, IZIN, atau ALFA
+              hari: jadwal.hari,
+              jamMulai: jadwal.jamMulai,
+              jamSelesai: jadwal.jamSelesai,
+            }));
+
+            // Pake 'upsert' buat nimpah data mapel yg mungkin udah ada
+            if (dataAbsenMapel.length > 0) {
+              for (const data of dataAbsenMapel) {
+                await tx.absenMapel.upsert({
+                  where: {
+                    siswaId_jadwalId_tanggal: {
+                      siswaId: data.siswaId,
+                      jadwalId: data.jadwalId,
+                      tanggal: data.tanggal,
+                    },
+                  },
+                  update: { status: data.status },
+                  create: data,
+                });
+              }
+            }
+          }
+        }
+
+        return absenHarian;
       });
 
       return NextResponse.json(
